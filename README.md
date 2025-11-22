@@ -70,7 +70,7 @@ Carga diária: **3h de estudo**
 
 <figure>
   <figcaption>Conversões</figcaption>
-  <img src="./images/conv1.png" width="300">
+  <img src="./images/conv1.png" width="500">
 </figure>
 ---
 
