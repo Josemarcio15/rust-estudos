@@ -1,14 +1,11 @@
 fn main() {
-    let funcao = get_nome();
-    let funcao2 = imprimir();
 
-    print!("meu nome é {}{}", funcao, funcao2);
+    let x = 10;
+    x = 20; // ERRO
+
+    let mut y = 10;
+    y = 20; //PERMITIDO
 }
 
-fn get_nome() -> String {
-    String::from("marcio")
-}
 
-fn imprimir() -> {
-    print!("Hola")
-}
+
