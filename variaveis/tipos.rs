@@ -1,11 +1,8 @@
 fn main() {
 
-    let x = 10;
-    x = 20; // ERRO
-
-    let mut y = 10;
-    y = 20; //PERMITIDO
+    let a = 10;
+    let a = a + 2;
+    let a = "texto";
 }
-
 
 

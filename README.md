@@ -61,6 +61,11 @@ Carga diária: **3h de estudo**
   <figcaption>MUTABILIDADE</figcaption>
   <img src="./images/mut1.png" width="300">
 </figure>
+
+<figure>
+  <figcaption>SOMBAS (SHADOW)</figcaption>
+  <img src="./images/somb1.png" width="300">
+</figure>
 - Conversões
 
 ---
