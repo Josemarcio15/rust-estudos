@@ -26,7 +26,8 @@ Carga diária: **3h de estudo**
 
 ## **24/11 — Sistema de Tipos**
 **Conteúdo:**
-- Tipos escalares ![variaveis](./images/var1.png)
+# Tipos escalares 
+![variaveis](./images/var1.png)
 
 
 - Tipos compostos
