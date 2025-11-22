@@ -49,11 +49,11 @@ Carga diária: **3h de estudo**
 ### Tipos compostos
 <figure>
   <figcaption>ARRAY</figcaption>
-  <img src="./images/comp1.png" width="200">
+  <img src="./images/comp1.png" width="500">
 </figure>
 <figure>
   <figcaption>TUPLA</figcaption>
-  <img src="./images/comp2.png" width="200">
+  <img src="./images/comp2.png" width="500">
 </figure>
 
 - Sombras e mutabilidade
