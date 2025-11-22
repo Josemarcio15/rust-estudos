@@ -32,9 +32,23 @@ Carga diária: **3h de estudo**
 ![variaveis](./images/var3.png)
 ![variaveis](./images/var4.png)
 <figure>
-  <figcaption>Título da Imagem</figcaption>
+  <figcaption>INT</figcaption>
   <img src="./images/var1.png" width="200">
 </figure>
+<figure>
+  <figcaption>FLOAT</figcaption>
+  <img src="./images/var2.png" width="200">
+</figure>
+<figure>
+  <figcaption>BOOL</figcaption>
+  <img src="./images/var3.png" width="200">
+</figure>
+<figure>
+  <figcaption>CHAR</figcaption>
+  <img src="./images/var4.png" width="200">
+</figure>
+
+
 
 - Tipos compostos
 - Sombras e mutabilidade
