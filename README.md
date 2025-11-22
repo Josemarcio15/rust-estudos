@@ -32,8 +32,8 @@ Carga diária: **3h de estudo**
 ![variaveis](./images/var3.png)
 ![variaveis](./images/var4.png)
 <figure>
-  <img src="./images/var1.png" width="200">
   <figcaption>Título da Imagem</figcaption>
+  <img src="./images/var1.png" width="200">
 </figure>
 
 - Tipos compostos
