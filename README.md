@@ -31,7 +31,10 @@ Carga diária: **3h de estudo**
 ![variaveis](./images/var2.png)
 ![variaveis](./images/var3.png)
 ![variaveis](./images/var4.png)
-
+<figure>
+  <img src="./images/var1.png" width="300">
+  <figcaption>Título da Imagem</figcaption>
+</figure>
 
 - Tipos compostos
 - Sombras e mutabilidade
