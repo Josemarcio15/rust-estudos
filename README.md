@@ -29,19 +29,19 @@ Carga diária: **3h de estudo**
 ### Tipos escalares:
 <figure>
   <figcaption>INT</figcaption>
-  <img src="./images/var1.png" width="200">
+  <img src="./images/var1.png" width="300">
 </figure>
 <figure>
   <figcaption>FLOAT</figcaption>
-  <img src="./images/var2.png" width="200">
+  <img src="./images/var2.png" width="300">
 </figure>
 <figure>
   <figcaption>BOOL</figcaption>
-  <img src="./images/var3.png" width="200">
+  <img src="./images/var3.png" width="300">
 </figure>
 <figure>
   <figcaption>CHAR</figcaption>
-  <img src="./images/var4.png" width="200">
+  <img src="./images/var4.png" width="300">
 </figure>
 
 
