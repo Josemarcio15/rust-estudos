@@ -27,10 +27,6 @@ Carga diária: **3h de estudo**
 ## **24/11 — Sistema de Tipos**
 **Conteúdo:**
 ### Tipos escalares:
-![variaveis](./images/var1.png)
-![variaveis](./images/var2.png)
-![variaveis](./images/var3.png)
-![variaveis](./images/var4.png)
 <figure>
   <figcaption>INT</figcaption>
   <img src="./images/var1.png" width="200">
