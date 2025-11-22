@@ -59,12 +59,12 @@ Carga diária: **3h de estudo**
 ### Sombras e mutabilidade
 <figure>
   <figcaption>MUTABILIDADE</figcaption>
-  <img src="./images/mut1.png" width="300">
+  <img src="./images/mut1.png" width="500">
 </figure>
 
 <figure>
   <figcaption>SOMBAS (SHADOW)</figcaption>
-  <img src="./images/somb1.png" width="300">
+  <img src="./images/somb1.png" width="500">
 </figure>
 ### Conversões
 
