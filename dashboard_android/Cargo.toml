@@ -1,0 +1,16 @@
+[package]
+edition = "2024"
+name = "dashboard_android"
+version = "0.1.0"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+slint = {version = "^1.14", features = ["backend-android-activity-06"]}
+
+[package.metadata.slint]
+file = "src/ui/app.slint"
+
+[build-dependencies]
+slint-build = "^1.14"

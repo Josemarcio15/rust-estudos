@@ -1,0 +1,40 @@
+import {
+    Button,
+    VerticalBox,
+    HorizontalLayout,
+    Rectangle,
+} from "std-widgets.slint";
+import { Financeiro } from "financeiro.slint";
+import { Cadastro } from "cadastro.slint";
+
+export component AppWindow inherits Window {
+    min-width: 1600px;
+    min-height: 900px;
+
+    in property <string> tela-ativa: "financeiro";
+
+    HorizontalLayout {
+        VerticalBox {
+            Button {
+                text: "Cadastro";
+                clicked => {
+                    tela-ativa = "cadastro";
+                }
+            }
+
+            Button {
+                text: "Financeiro";
+                clicked => {
+                    tela-ativa = "financeiro";
+                }
+            }
+        }
+
+        Rectangle {
+            background: gray;
+
+            if (tela-ativa == "financeiro"): Financeiro { }
+            if (tela-ativa == "cadastro"):   Cadastro { }
+        }
+    }
+}

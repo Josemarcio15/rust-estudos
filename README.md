@@ -75,7 +75,6 @@ Carga diária: **3h de estudo**
 ---
 
 ## **25/11 — Ownership**
-**Conteúdo:**
 - Conceito de ownership
 - Movimentos de valores
 - Escopo e liberação automática
