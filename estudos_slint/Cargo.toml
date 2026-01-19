@@ -1,0 +1,10 @@
+[package]
+edition = "2024"
+name = "estudos_slint"
+version = "0.1.0"
+
+[dependencies]
+slint = {version = "^1.14"}
+
+[build-dependencies]
+slint-build = "^1.14"
