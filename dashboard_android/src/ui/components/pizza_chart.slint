@@ -1,0 +1,73 @@
+component PieSlice inherits Path {
+    in property <float> start;     // 0.0 .. 1.0
+    in property <float> progress;  // 0.0 .. 1.0
+    in property <brush> color;
+
+    fill: color;
+
+    viewbox-width: 100;
+    viewbox-height: 100;
+
+    // centro
+    MoveTo {
+        x: 50;
+        y: 50;
+    }
+
+    // linha até o início da fatia
+    LineTo {
+        x: 50 - 50 * sin(-start * 360deg);
+        y: 50 - 50 * cos(-start * 360deg);
+    }
+
+    // arco externo
+    ArcTo {
+        radius-x: 50;
+        radius-y: 50;
+        x: 50 - 50 * sin(-(start + progress) * 360deg);
+        y: 50 - 50 * cos(-(start + progress) * 360deg);
+        sweep: true;
+        large-arc: progress > 0.5;
+    }
+
+    // fecha a fatia
+    LineTo {
+        x: 50;
+        y: 50;
+    }
+}
+
+export component PizzaChart {
+    width: 200px;
+    height: 200px;
+
+    in property <int> total;
+    in property <int> em_dia;
+    in property <int> em_debito;
+    in property <int> sem_plano;
+
+    property <float> p_dia: total > 0 ? em_dia * 1.0 / total : 0.0;
+    property <float> p_debito: total > 0 ? em_debito * 1.0 / total : 0.0;
+    property <float> p_sem_plano: total > 0 ? sem_plano * 1.0 / total : 0.0;
+
+    // 🟢 Em dia
+    PieSlice {
+        start: 0;
+        progress: p_dia;
+        color: #2ecc71;
+    }
+
+    // 🔴 Em débito
+    PieSlice {
+        start: p_dia;
+        progress: p_debito;
+        color: #e74c3c;
+    }
+
+    // 🔵 Sem plano (em paralelo, fecha a pizza)
+    PieSlice {
+        start: p_dia + p_debito;
+        progress: p_sem_plano;
+        color: #3498db;
+    }
+}

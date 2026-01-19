@@ -1,6 +1,6 @@
 slint::include_modules!();
 
 fn main() {
-    let app = AppWindow::new().unwrap();
+    let app = App::new().unwrap();
     app.run().unwrap();
 }

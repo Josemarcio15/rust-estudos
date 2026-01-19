@@ -1,10 +1,32 @@
-export component AppWindow inherits Window {
+import { PizzaChart } from "components/pizza_chart.slint";
+
+export component App {
     width: 360px;
     height: 640px;
 
-    Text {
-        text: "Dashboard online";
-        horizontal-alignment: center;
-        vertical-alignment: center;
+    property <int> total_clientes: 100;
+    property <int> clientes_em_dia: 70;
+    property <int> clientes_em_debito: 30;
+    property <int> clientes_sem_plano: 10;
+
+    Rectangle {
+        width: parent.width;
+        height: parent.height;
+        padding: 16px;
+
+        Text {
+            y: 0px;
+            text: "Dashboard de Clientes";
+            font-size: 20px;
+            horizontal-alignment: center;
+            width: parent.width;
+        }
+
+        PizzaChart {
+            total: total_clientes;
+            em_dia: clientes_em_dia;
+            em_debito: clientes_em_debito;
+            sem_plano: clientes_sem_plano;
+        }
     }
 }
