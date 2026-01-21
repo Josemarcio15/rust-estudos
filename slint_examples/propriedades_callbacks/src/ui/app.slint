@@ -1,0 +1,17 @@
+import { Button } from "std-widgets.slint";
+import { Contador } from "contador.slint";
+export component AppMain inherits Window {
+    in-out property <int> contador: 0;
+    callback chamando();
+    width: 300px;
+    height: 300px;
+
+    VerticalLayout {
+        Contador {
+            contador1: root.contador;
+            chamando1 => {
+                root.chamando();
+            }
+        }
+    }
+}
