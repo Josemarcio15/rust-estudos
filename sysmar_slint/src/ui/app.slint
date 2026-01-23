@@ -1,505 +1,117 @@
+import { Button } from "std-widgets.slint";
+import { CadastroPage } from "pages/cadastro.slint";
+import { DashboardPage } from "pages/dashboard.slint";
 
-component TabBtn {
-    in property <int> idx;
-    in property <string> label;
-    in property <color> active_color;
-    in property <int> current_tab;
-    in property <color> white_color;
-    in property <color> gray_color;
-
-    callback tab_clicked(int);
-
-    TouchArea {
-        clicked => {
-            root.tab_clicked(root.idx);
-        }
-
-        Rectangle {
-            height: 100%;
-            min-width: 150px;
-            border-radius: 8px;
-            background: root.current_tab == root.idx ? root.active_color : transparent;
-
-            VerticalLayout {
-                padding: 10px;
-                Text {
-                    text: root.label;
-                    color: root.current_tab == root.idx ? root.white_color : root.gray_color;
-                    font-size: 16px;
-                    font-weight: 600;
-                    horizontal-alignment: center;
-                }
-            }
-        }
-    }
+export enum Page {
+    Dashboard,
+    Cadastro,
+    Financeiro,
+    Config
 }
 
-// -------------------------------------------------
-//  Janela principal
-// -------------------------------------------------
 export component AppWindow inherits Window {
-    property <color> ORANGE: #FF8C00;
-    property <color> WHITE: #FFFFFF;
-    property <color> LIGHT_GRAY: #F5F5F5;
-    property <color> GRAY: #808080;
-    width: 1000px;
-    height: 700px;
-    title: "Sistema de Gerenciamento de Mensalidades";
-    background: WHITE;
+    width: 1600px;
+    height: 900px;
 
-    // Propriedades que serão usadas no código Rust
-    in-property <[Student]> students;
-    in-property<float> total_arrecadado;
-    in-property<string> display_diaria;
-    in-property<string> input_diaria;
-    in-property<string> display_mensal;
-    in-property<string> input_mensal;
-    in-property<string> display_semestral;
-    in-property<string> input_semestral;
-    in-property<string> display_anual;
-    in-property<string> input_anual;
-    in-property<bool> show_edit_dialog;
-    in-property<bool> edit_mode;
-    in-property<int> edit_index;
-    in-property<shared-string> edit_name;
-    in-property<shared-string> edit_email;
-    in-property<shared-string> edit_phone;
-    in-property<shared-string> edit_plan;
-    in-property<shared-string> edit_fee_str;
-    in-property<bool> edit_paid;
-    //Callbacks (nomes devem bater exatamente com os declarados em .rs)
-    callback open_add();
-    callback open_edit(int);
-    callback add_student(shared-string, shared-string, shared-string, shared-string, shared-string, bool);
-    callback edit_student(int, shared-string, shared-string, shared-string, shared-string, shared-string, bool);
-    callback delete_student(int);
-    callback pay_student(int);
-    callback update_diaria(shared-string);
-    callback update_mensal(shared-string);
-    callback update_semestral(shared-string);
-    callback update_anual(shared-string);
+    in property <length> largura_button: 140px;
+    in property <length> tamanho_borda: 50px;
 
-    // Controle da aba ativa (0 = Alunos, 1 = Mensalidades, 2 = Taxas)
-    in-property<int> current_tab: 0;
+    in-out property <Page> pagina_atual: Page.Dashboard;
 
-    // Layout principal
     VerticalLayout {
-        // ---------- Cabecalho de abas ----------
+        // ==============================================================================//
+        //                                       Sidebar                                 //
+        // ==============================================================================//
         Rectangle {
-            height: 50px;
-            background: LIGHT_GRAY;
+            //width: 100px;
+            height: 100px;
+            background: #1f2937;
+
             HorizontalLayout {
-                padding-left: 20px;
-                padding-right: 20px;
-                spacing: 10px;
+                padding: 8px;
+                spacing: 6px;
+                Rectangle { }
 
-                TabBtn {
-                    idx: 0;
-                    label: "Alunos";
-                    active_color: ORANGE;
-                    current_tab: root.current_tab;
-                    white_color: WHITE;
-                    gray_color: GRAY;
+                Rectangle {
+                    border-radius: tamanho_borda;
+                    background: pagina_atual == Page.Dashboard ? #2563eb : #a200ff;
+                    width: largura_button;
 
-                    tab_clicked(i) => {
-                        root.current_tab = i;
-                    }
-                }
-
-                TabBtn {
-                    idx: 0;
-                    label: "Mensalidades";
-                    active_color: ORANGE;
-                    current_tab: root.current_tab;
-                    white_color: WHITE;
-                    gray_color: GRAY;
-
-                    tab_clicked(i) => {
-                        root.current_tab = i;
-                    }
-                }
-
-                TabBtn {
-                    idx: 0;
-                    label: "Taxas";
-                    active_color: ORANGE;
-                    current_tab: root.current_tab;
-                    white_color: WHITE;
-                    gray_color: GRAY;
-
-                    tab_clicked(i) => {
-                        root.current_tab = i;
-                    }
-                }
-            }
-        }
-    }
-
-    // ---------- Área de conteúdo das abas ----------
-        Rectangle {
-        flex: 1;
-        clip: true;
-        VerticalLayout {
-            padding: 0px;
-            spacing: 0px;
-        }
-
-        // Cada aba tem seu próprio sub‑layout
-            if current_tab == 0{ AlunosTab { }
-    }
-
-    if current_tab == 1{ MensalidadesTab { }
-}
-
-if current_tab == 2 { TaxasTab { } }
-        }
-    }
-
-    // -------------------------------------------------
-    //  COMPONENTES DE ABAS
-    // -------------------------------------------------
-
-    // ---------- 1 – Alunos ----------
-    component AlunosTab {
-        Rectangle {
-            VerticalLayout {
-                padding: 30px;
-                spacing: 20px;
-
-                // Botão para abrir o dialog de cadastro/adicionar
-                Button {
-                    text: "Cadastrar Novo Aluno";
-                    background: linear-gradient(0deg, ORANGE, #E67E00);
-                    color: WHITE;
-                    font-size: 16px;
-                    font-weight: bold;
-                    height: 50px;
-                    border-radius: 10px;
-                    horizontal-alignment: center;
-                    clicked => { root.open_add(); }
-                }
-
-                // Lista de alunos
-                ScrollView {
-                    style: solid;
-                    ListView {
-                        model: root.students;
-                        delegate: StudentRow {}
-                    }
-                }
-            }
-        }
-    }
-
-    // ---------- Linha da lista de alunos ----------
-    component StudentRow {
-        height: 80px;
-        Rectangle {
-            background: LIGHT_GRAY;
-            border-radius: 10px;
-            border-width: 1px;
-            border-color: GRAY;
-            padding: 15px;
-            VerticalLayout {
-                spacing: 5px;
-
-                Text {
-                    text: data.name;
-                    font-size: 18px;
-                    font-weight: bold;
-                    color: black;
-                }
-                Row {
-                    Text { text: data.email; color: GRAY; }
-                    Text { text: `Tel: ${data.phone}`; color: GRAY; }
-                }
-                Row {
-                    spacing: 10px;
-                    Text { text: data.plan; font-size: 14px; color: ORANGE; font-weight: bold; }
-                    Text { text: `Valor: R$ ${data.fee}`; color: black; font-weight: bold; }
-                    Text {
-                        text: if data.paid { "✅ Pago" } else { "❌ Pendente" };
-                        font-weight: bold;
-                    }
-                }
-            }
-            HorizontalLayout {
-                alignment: end;
-                spacing: 10px;
-                ButtonEdit { clicked => { root.open_edit(index); } }
-                if !data.paid: ButtonPay { clicked => { root.pay_student(data.id); } }
-                ButtonDelete { clicked => { root.delete_student(data.id); } }
-            }
-        }
-    }
-
-    // ---------- 2 – Mensalidades ----------
-    component MensalidadesTab {
-        Rectangle {
-            VerticalLayout {
-                padding: 30px;
-                spacing: 20px;
-
-                // Total arrecadado
-                Text {
-                    text: `Total Arrecadado: R$ ${root.total_arrecadado}`;
-                    font-size: 24px;
-                    font-weight: bold;
-                    color: ORANGE;
-                }
-
-                Text { text: "Pendentes:"; font-size: 20px; font-weight: bold; color: black; }
-
-                // Lista apenas dos alunos com pagamento pendente
-                ScrollView {
-                    ListView {
-                        model: root.students;
-                        delegate: PendentesRow {}
-                    }
-                }
-            }
-        }
-    }
-
-    // ---------- Linha de aluno pendente ----------
-    component PendentesRow {
-        // Só exibe se a mensalidade ainda não foi paga
-        height: if !data.paid { 80px } else { 0px };
-        Rectangle {
-            background: LIGHT_GRAY;
-            border-radius: 10px;
-            border-width: 1px;
-            border-color: GRAY;
-            padding: 15px;
-            if !data.paid {
-                VerticalLayout {
-                    spacing: 5px;
-                    Text { text: data.name; font-size: 18px; font-weight: bold; color: black; }
-                    Row {
-                        Text { text: data.email; color: GRAY; }
-                        Text { text: `Tel: ${data.phone}`; color: GRAY; }
-                    }
-                    Row {
-                        Text { text: data.plan; font-size: 14px; color: ORANGE; }
-                        Text { text: `Valor: R$ ${data.fee}`; font-weight: bold; color: red; }
-                    }
-                }
-                ButtonPayLarge { clicked => { root.pay_student(data.id); } }
-            }
-        }
-    }
-
-    // ---------- 3 – Taxas ----------
-    component TaxasTab {
-        Rectangle {
-            VerticalLayout {
-                padding: 30px;
-                spacing: 30px;
-
-                // Cada grupo de taxa tem seu próprio bloco
-                taxa-group("Diária",   root.input_diaria,   root.display_diaria,   root.update_diaria);
-                taxa-group("Mensal",   root.input_mensal,   root.display_mensal,   root.update_mensal);
-                taxa-group("Semestral",root.input_semestral, root.display_semestral,root.update_semestral);
-                taxa-group("Anual",    root.input_anual,    root.display_anual,    root.update_anual);
-            }
-        }
-    }
-
-    // ---------- Grupo de taxa ----------
-    component taxa-group(string label,
-                         shared-string input_prop,
-                         shared-string display_prop,
-                         func(string) updater) {
-        Rectangle {
-            border-width: 1px;
-            border-color: LIGHT_GRAY;
-            border-radius: 10px;
-            padding: 20px;
-            VerticalLayout {
-                spacing: 10px;
-
-                Text { text: label; font-size: 18px; font-weight: bold; color: ORANGE; }
-
-                Row {
-                    spacing: 10px;
-                    alignment: center;
-                    Text { text: "Valor: "; font-size: 14px; }
-                    LineEdit {
-                        text <=> input_prop;
-                        width: 120px;
-                        placeholder-text: "0.00";
-                    }
-                    Button {
-                        text: "Atualizar";
-                        background: ORANGE;
-                        color: WHITE;
-                        height: 35px;
-                        border-radius: 6px;
-                        clicked => { updater(input_prop); }
-                    }
-                    Text {
-                        text: display_prop;
-                        font-weight: bold;
-                        font-size: 16px;
-                        color: green;
-                    }
-                }
-            }
-        }
-    }
-
-    // -------------------------------------------------
-    //  Componentes de botão (reutilizados)
-    // -------------------------------------------------
-    component ButtonEdit {
-        Button {
-            text: "Editar";
-            background: linear-gradient(0deg, #3498DB, #2980B9);
-            color: WHITE;
-            height: 35px;
-            min-width: 80px;
-            border-radius: 6px;
-        }
-    }
-    component ButtonPay {
-        Button {
-            text: "Pagar";
-            background: linear-gradient(0deg, green, #27AE60);
-            color: WHITE;
-            height: 35px;
-            min-width: 80px;
-            border-radius: 6px;
-        }
-    }
-    component ButtonPayLarge {
-        Button {
-            text: "PAGAR MENSALIDADE";
-            background: linear-gradient(0deg, green, #27AE60);
-            color: WHITE;
-            font-weight: bold;
-            height: 50px;
-            border-radius: 10px;
-        }
-    }
-    component ButtonDelete {
-        Button {
-            text: "Excluir";
-            background: linear-gradient(0deg, #E74C3C, #C0392B);
-            color: WHITE;
-            height: 35px;
-            min-width: 80px;
-            border-radius: 6px;
-        }
-    }
-
-    // -------------------------------------------------
-    //  Diálogo de edição / cadastro
-    // -------------------------------------------------
-    Rectangle {
-        // Visível apenas quando o dialog está aberto
-        visible <=> root.show_edit_dialog;
-        // Centraliza na tela
-        x: (parent.width - self.width) / 2;
-        y: (parent.height - self.height) / 2;
-        width: 500px;
-        height: 550px;
-        background: WHITE;
-        border-radius: 15px;
-        border-width: 3px;
-        border-color: ORANGE;
-        DropShadow {
-            horizontal-offset: 0px;
-            vertical-offset: 10px;
-            blur: 20px;
-            color: #80000080;
-        }
-
-        VerticalLayout {
-            padding: 40px;
-            spacing: 20px;
-
-            Text {
-                text: if root.edit_mode { "Editar Aluno" } else { "Cadastrar Novo Aluno" };
-                font-size: 28px;
-                font-weight: bold;
-                color: ORANGE;
-                horizontal-alignment: center;
-            }
-
-            // ---- Campos de entrada ----
-            LineEdit {
-                text <=> root.edit_name;
-                placeholder-text: "Nome Completo";
-                font-size: 14px;
-            }
-            LineEdit {
-                text <=> root.edit_email;
-                placeholder-text: "Email";
-                font-size: 14px;
-            }
-            LineEdit {
-                text <=> root.edit_phone;
-                placeholder-text: "Telefone (ex: (11) 99999-9999)";
-                font-size: 14px;
-            }
-            ComboBox {
-                current-value <=> root.edit_plan;
-                model: ["diária", "mensal", "semestral", "anual"];
-                font-size: 14px;
-            }
-            LineEdit {
-                text <=> root.edit_fee_str;
-                placeholder-text: "Valor da Mensalidade (ex: 100.00)";
-                font-size: 14px;
-            }
-            CheckBox {
-                text: "Mensalidade já paga?";
-                checked <=> root.edit_paid;
-                font-size: 14px;
-            }
-
-            // ---- Rodapé com botões de ação ----
-            HorizontalLayout {
-                alignment: end;
-                spacing: 15px;
-                Button {
-                    text: "Salvar";
-                    background: linear-gradient(0deg, ORANGE, #E67E00);
-                    color: WHITE;
-                    font-weight: bold;
-                    height: 45px;
-                    min-width: 100px;
-                    border-radius: 10px;
-                    clicked => {
-                        if root.edit_mode {
-                            root.edit_student(root.edit_index,
-                                              root.edit_name,
-                                              root.edit_email,
-                                              root.edit_phone,
-                                              root.edit_plan,
-                                              root.edit_fee_str,
-                                              root.edit_paid);
-                        } else {
-                            root.add_student(root.edit_name,
-                                             root.edit_email,
-                                             root.edit_phone,
-                                             root.edit_plan,
-                                             root.edit_fee_str,
-                                             root.edit_paid);
+                    TouchArea {
+                        clicked => {
+                            pagina_atual = Page.Dashboard;
                         }
-                        root.show_edit_dialog = false;
+                    }
+
+                    Text {
+                        text: "Dashboard";
+                        color: white;
+                        horizontal-alignment: center;
+                        vertical-alignment: center;
                     }
                 }
-                Button {
-                    text: "Cancelar";
-                    background: linear-gradient(0deg, GRAY, #7F8C8D);
-                    color: WHITE;
-                    height: 45px;
-                    min-width: 100px;
-                    border-radius: 10px;
-                    clicked => { root.show_edit_dialog = false; }
+
+                Rectangle {
+                    width: largura_button;
+                    border-radius: tamanho_borda;
+                    background: pagina_atual == Page.Cadastro ? #2563eb : #a200ff;
+                    TouchArea {
+                        clicked => {
+                            pagina_atual = Page.Cadastro;
+                        }
+                        Text {
+                            text: "Cadastro";
+                            color: white;
+                            horizontal-alignment: center;
+                            vertical-alignment: center;
+                        }
+                    }
                 }
+
+                Rectangle {
+                    border-radius: tamanho_borda;
+                    background: pagina_atual == Page.Financeiro ? #2563eb : #a200ff;
+                    width: largura_button;
+                    TouchArea {
+                        clicked => {
+                            pagina_atual = Page.Financeiro;
+                        }
+                        Text {
+                            text: "Financeiro";
+                            color: white;
+                            horizontal-alignment: center;
+                            vertical-alignment: center;
+                        }
+                    }
+                }
+
+                Rectangle {
+                    width: largura_button;
+                    border-radius: tamanho_borda;
+                    background: pagina_atual == Page.Config ? #2563eb : #a200ff;
+                    TouchArea {
+                        clicked => {
+                            pagina_atual = Page.Config;
+                        }
+                        Text {
+                            text: "Configuração";
+                            color: white;
+                            horizontal-alignment: center;
+                            vertical-alignment: center;
+                        }
+                    }
+                }
+
+                Rectangle { }
             }
+        }
+        // ==============================================================================//
+        //                                  Navegação entre janelas                      //
+        // ==============================================================================//
+        Rectangle {
+            background: #f3f4f6;
+            if(pagina_atual == Page.Dashboard): DashboardPage { }
+            if (pagina_atual == Page.Cadastro): CadastroPage { }
         }
     }
 }

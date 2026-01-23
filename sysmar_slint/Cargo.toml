@@ -4,10 +4,13 @@ name = "estudos_slint"
 version = "0.1.0"
 
 [dependencies]
-slint = {version = "1.14", features = [
+slint = {version = "^1.14", features = [
   "std",
   "backend-winit",
   "renderer-winit-skia", # ou "renderer-winit-femtovg" se preferir CPU
 ]}
 [build-dependencies]
 slint-build = "^1.14"
+
+[package.metadata.slint]
+file = "src/ui/app.slint"
