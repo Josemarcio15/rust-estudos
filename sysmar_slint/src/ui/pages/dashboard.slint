@@ -1,3 +1,194 @@
+
+import { BarShadow } from "style/shadow.slint";
 export component DashboardPage inherits Rectangle {
-    background: orange;
+    property <brush> rainbow-gradient: @linear-gradient(40deg, rgba(255, 0, 0, 1) 0%, rgba(255, 154, 0, 1) 10%, rgba(208, 222, 33, 1) 20%, rgba(79, 220, 74, 1) 30%, rgba(63, 218, 216, 1) 40%, rgba(47, 201, 226, 1) 50%, rgba(28, 127, 238, 1) 60%, rgba(95, 21, 242, 1) 70%, rgba(186, 12, 248, 1) 80%, rgba(251, 7, 217, 1) 90%, rgba(255, 0, 0, 1) 100%);
+
+    background: #c0b6b65f;
+    // width: root.width * 0.8;
+    // height: root.height * 0.8;
+
+    Rectangle {
+        drop-shadow-blur: 10px;
+        drop-shadow-offset-x: 1px;
+        drop-shadow-offset-y: 1px;
+        drop-shadow-color: rgb(129, 146, 247);
+        border-radius: 10px;
+        width: 80%;
+        height: 80%;
+        background: #d1042d;
+        clip: true;
+        Image {
+            source: @image-url("../../assets/image.jpeg");
+            // width: parent.width;
+            // height: parent.height;
+            width: 100%;
+            height: 100%;
+        }
+
+        Rectangle {
+            width: parent.width;
+            height: parent.height;
+            background: rgba(54, 123, 214, 0.85);
+        }
+
+        HorizontalLayout {
+            alignment: start;
+            VerticalLayout {
+                alignment: end;
+                HorizontalLayout {
+
+                    Rectangle {
+                        width: 40px;
+                        height: 40px;
+                        background: red;
+                    }
+
+                    Text {
+                        vertical-alignment: center;
+                        horizontal-alignment: center;
+                        text: "Total Alunos";
+                    }
+                }
+
+                HorizontalLayout {
+
+                    Rectangle {
+                        width: 40px;
+                        height: 40px;
+                        background: blue;
+                    }
+
+                    Text {
+                        vertical-alignment: center;
+                        horizontal-alignment: center;
+                        text: "Total Alunos";
+                    }
+                }
+
+                HorizontalLayout {
+
+                    Rectangle {
+                        width: 40px;
+                        height: 40px;
+                        background: yellow;
+                    }
+
+                    Text {
+                        vertical-alignment: center;
+                        horizontal-alignment: center;
+                        text: "Total Alunos";
+                    }
+                }
+            }
+        }
+
+        HorizontalLayout {
+            spacing: 40px;
+            alignment: center;
+
+            VerticalLayout {
+                alignment: end;
+                // horizontal-stretch: 1;
+                Rectangle {
+                    width: 60px;
+                    height: 280px;
+                    background: #bb0033;
+                    Rectangle {
+                        width: 30px;
+                        height: 280px;
+                        background: #bb10596a;
+                        Rectangle {
+                            width: 15px;
+                            height: 280px;
+                            background: #bb20972f;
+                            Rectangle {
+                                width: 20px;
+                                height: 280px;
+                                background: #bb30336a;
+                            }
+                        }
+                    }
+                }
+            }
+
+            VerticalLayout {
+                alignment: end;
+                // horizontal-stretch: 1;
+                Rectangle {
+                    width: 60px;
+                    height: 280px;
+                    background: #0004ff;
+                    Rectangle {
+                        width: 30px;
+                        height: 280px;
+                        background: #0014ff6a;
+                        Rectangle {
+                            width: 15px;
+                            height: 280px;
+                            background: #0024ff2f;
+                            Rectangle {
+                                width: 20px;
+                                height: 280px;
+                                background: #0028ff6a;
+                            }
+                        }
+                    }
+                }
+            }
+
+            VerticalLayout {
+                alignment: end;
+                // horizontal-stretch: 1;
+                VerticalLayout {
+                    alignment: end;
+                    horizontal-stretch: 1;
+                    Rectangle {
+                        width: 60px;
+                        height: 280px;
+                        background: #60cc62;
+                        Rectangle {
+                            width: 30px;
+                            height: 280px;
+                            background: #65dd626a;
+                            Rectangle {
+                                width: 15px;
+                                height: 280px;
+                                background: #70de622f;
+                                Rectangle {
+                                    width: 20px;
+                                    height: 280px;
+                                    background: #75df626a;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            VerticalLayout {
+                alignment: end;
+                // horizontal-stretch: 1;
+                Rectangle {
+                    width: 60px;
+                    height: 280px;
+                    background: #ffd000;
+                    Rectangle {
+                        width: 30px;
+                        height: 280px;
+                        background: #ffd000c8;
+                        Rectangle {
+                            width: 15px;
+                            height: 280px;
+                            background: #ffd0006f;
+                            Rectangle {
+                                width: 20px;
+                                height: 280px;
+                                background: #ffd0009b;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
