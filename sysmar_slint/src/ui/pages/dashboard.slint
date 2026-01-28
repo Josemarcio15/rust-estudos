@@ -1,7 +1,10 @@
 
 import { BarShadow } from "style/shadow.slint";
 export component DashboardPage inherits Rectangle {
-    property <brush> rainbow-gradient: @linear-gradient(40deg, rgba(255, 0, 0, 1) 0%, rgba(255, 154, 0, 1) 10%, rgba(208, 222, 33, 1) 20%, rgba(79, 220, 74, 1) 30%, rgba(63, 218, 216, 1) 40%, rgba(47, 201, 226, 1) 50%, rgba(28, 127, 238, 1) 60%, rgba(95, 21, 242, 1) 70%, rgba(186, 12, 248, 1) 80%, rgba(251, 7, 217, 1) 90%, rgba(255, 0, 0, 1) 100%);
+    in property <string> total_alunos;
+    in property <string> total_emDias;
+    in property <string> total_debitos;
+    in property <string> total_diarias;
 
     background: #c0b6b65f;
     // width: root.width * 0.8;
@@ -19,8 +22,6 @@ export component DashboardPage inherits Rectangle {
         clip: true;
         Image {
             source: @image-url("../../assets/image.jpeg");
-            // width: parent.width;
-            // height: parent.height;
             width: 100%;
             height: 100%;
         }
@@ -32,27 +33,15 @@ export component DashboardPage inherits Rectangle {
         }
 
         HorizontalLayout {
-            alignment: start;
+            // ==============================================================================//
+            //                                       Legendas grafico                        //
+            // ==============================================================================//
             VerticalLayout {
                 alignment: end;
                 HorizontalLayout {
-
+                    alignment: start;
                     Rectangle {
-                        width: 40px;
-                        height: 40px;
-                        background: red;
-                    }
-
-                    Text {
-                        vertical-alignment: center;
-                        horizontal-alignment: center;
-                        text: "Total Alunos";
-                    }
-                }
-
-                HorizontalLayout {
-
-                    Rectangle {
+                        border-radius: 5px;
                         width: 40px;
                         height: 40px;
                         background: blue;
@@ -61,13 +50,46 @@ export component DashboardPage inherits Rectangle {
                     Text {
                         vertical-alignment: center;
                         horizontal-alignment: center;
-                        text: "Total Alunos";
+                        text: " Total Alunos: " + total_alunos;
                     }
                 }
 
                 HorizontalLayout {
-
+                    alignment: start;
                     Rectangle {
+                        border-radius: 5px;
+                        width: 40px;
+                        height: 40px;
+                        background: #bb0033;
+                    }
+
+                    Text {
+                        vertical-alignment: center;
+                        horizontal-alignment: center;
+                        text: " Alunos em dias: " + total_emDias;
+                    }
+                }
+
+                HorizontalLayout {
+                    alignment: start;
+                    Rectangle {
+                        border-radius: 5px;
+                        width: 40px;
+                        height: 40px;
+                        background: #60cc62;
+                    }
+
+                    Text {
+                        vertical-alignment: center;
+                        horizontal-alignment: center;
+                        text: " Em debitos: " + total_debitos;
+                    }
+                }
+
+                HorizontalLayout {
+                    alignment: start;
+                    Rectangle {
+                        border-radius: 5px;
                         width: 40px;
                         height: 40px;
                         background: yellow;
@@ -76,44 +98,24 @@ export component DashboardPage inherits Rectangle {
                     Text {
                         vertical-alignment: center;
                         horizontal-alignment: center;
-                        text: "Total Alunos";
+                        text: " Diarias: " + total_diarias;
                     }
                 }
             }
         }
-
+            // ==============================================================================//
+            //                                       Grafico                                 //
+            // ==============================================================================//
         HorizontalLayout {
+
+            // =======================//
+            //          Total         //
+            // =======================//
+
             spacing: 40px;
             alignment: center;
-
             VerticalLayout {
                 alignment: end;
-                // horizontal-stretch: 1;
-                Rectangle {
-                    width: 60px;
-                    height: 280px;
-                    background: #bb0033;
-                    Rectangle {
-                        width: 30px;
-                        height: 280px;
-                        background: #bb10596a;
-                        Rectangle {
-                            width: 15px;
-                            height: 280px;
-                            background: #bb20972f;
-                            Rectangle {
-                                width: 20px;
-                                height: 280px;
-                                background: #bb30336a;
-                            }
-                        }
-                    }
-                }
-            }
-
-            VerticalLayout {
-                alignment: end;
-                // horizontal-stretch: 1;
                 Rectangle {
                     width: 60px;
                     height: 280px;
@@ -137,8 +139,36 @@ export component DashboardPage inherits Rectangle {
             }
 
             VerticalLayout {
+            // ========================//
+            //         em dias         //
+            // =======================//
                 alignment: end;
-                // horizontal-stretch: 1;
+                Rectangle {
+                    width: 60px;
+                    height: 280px;
+                    background: #bb0033;
+                    Rectangle {
+                        width: 30px;
+                        height: 280px;
+                        background: #bb10596a;
+                        Rectangle {
+                            width: 15px;
+                            height: 280px;
+                            background: #bb20972f;
+                            Rectangle {
+                                width: 20px;
+                                height: 280px;
+                                background: #bb30336a;
+                            }
+                        }
+                    }
+                }
+            }
+            // ========================//
+            //         em debito       //
+            // =======================//
+            VerticalLayout {
+                alignment: end;
                 VerticalLayout {
                     alignment: end;
                     horizontal-stretch: 1;
@@ -164,10 +194,11 @@ export component DashboardPage inherits Rectangle {
                     }
                 }
             }
-
+            // ========================//
+            //         diarias        //
+            // ======================//
             VerticalLayout {
                 alignment: end;
-                // horizontal-stretch: 1;
                 Rectangle {
                     width: 60px;
                     height: 280px;

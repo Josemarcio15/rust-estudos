@@ -16,6 +16,14 @@ export component AppWindow inherits Window {
     in property <length> largura_button: 140px;
     in property <length> tamanho_borda: 50px;
 
+    // ==============================================================================//
+    //                                       Dados Backend                           //
+    // ==============================================================================//
+    in property <string> total_alunos;
+    in property <string> total_emDias;
+    in property <string> total_debitos;
+    in property <string> total_diarias;
+
     in-out property <Page> pagina_atual: Page.Dashboard;
 
     VerticalLayout {
@@ -110,7 +118,12 @@ export component AppWindow inherits Window {
         // ==============================================================================//
         Rectangle {
             background: #f3f4f6;
-            if(pagina_atual == Page.Dashboard): DashboardPage { }
+            if(pagina_atual == Page.Dashboard): DashboardPage {
+                total_alunos: root.total_alunos;
+                total_emDias: root.total_emDias;
+                total_debitos: root.total_debitos;
+                total_diarias: root.total_diarias;
+            }
             if (pagina_atual == Page.Cadastro): CadastroPage { }
         }
     }

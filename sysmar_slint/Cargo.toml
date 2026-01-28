@@ -4,6 +4,7 @@ name = "estudos_slint"
 version = "0.1.0"
 
 [dependencies]
+mysql = "25.0"
 slint = {version = "^1.14", features = [
   "std",
   "backend-winit",
