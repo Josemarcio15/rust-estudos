@@ -26,6 +26,8 @@ export component AppWindow inherits Window {
 
     in-out property <Page> pagina_atual: Page.Dashboard;
 
+    callback dashboard_load();
+
     VerticalLayout {
         // ==============================================================================//
         //                                       Sidebar                                 //
@@ -123,7 +125,12 @@ export component AppWindow inherits Window {
                 total_emDias: root.total_emDias;
                 total_debitos: root.total_debitos;
                 total_diarias: root.total_diarias;
+
+                loaded => {
+                    root.dashboard_load();
+                }
             }
+
             if (pagina_atual == Page.Cadastro): CadastroPage { }
         }
     }

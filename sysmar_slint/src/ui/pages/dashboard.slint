@@ -6,6 +6,11 @@ export component DashboardPage inherits Rectangle {
     in property <string> total_debitos;
     in property <string> total_diarias;
 
+    callback loaded();
+    init => {
+        loaded();
+    }
+
     background: #c0b6b65f;
     // width: root.width * 0.8;
     // height: root.height * 0.8;
@@ -21,7 +26,7 @@ export component DashboardPage inherits Rectangle {
         background: #d1042d;
         clip: true;
         Image {
-            source: @image-url("../../assets/image.jpeg");
+            source: @image-url("../../assets/image1.jpg");
             width: 100%;
             height: 100%;
         }

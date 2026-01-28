@@ -1,8 +1,11 @@
-use mysql::*;
+use diesel::mysql::MysqlConnection;
+use diesel::prelude::*;
+use std::env;
 
-pub fn get_connection() -> PooledConn{
-    let url = "mysql://root:Amagedom12%40@127.0.0.1:3306/sys_db";
+pub fn get_connection() -> MysqlConnection {
+    let database_url =
+        env::var("DATABASE_URL").expect("DATABASE_URL não definida");
 
-    let pool = Pool::new(url).expect("Erro ao criar pool");
-    pool.get_conn().expect("Erro ao conectar no Mariadb")
+    MysqlConnection::establish(&database_url)
+        .expect("Erro ao conectar no MariaDB/MySQL")
 }
