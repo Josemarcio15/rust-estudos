@@ -1,11 +1,18 @@
 use diesel::mysql::MysqlConnection;
-use diesel::prelude::*;
+use diesel::r2d2::{ConnectionManager, Pool};
+use dotenvy::dotenv;
 use std::env;
 
-pub fn get_connection() -> MysqlConnection {
-    let database_url =
-        env::var("DATABASE_URL").expect("DATABASE_URL não definida");
+pub type PoolBanco = Pool<ConnectionManager<MysqlConnection>>;
 
-    MysqlConnection::establish(&database_url)
-        .expect("Erro ao conectar no MariaDB/MySQL")
+pub fn criar_pool_banco() -> PoolBanco{dotenv().ok();
+    let url_banco = 
+        env::var("DATABASE_URL").expect("DATABASE_URL nao definida no .env");
+
+    let gerenciador = 
+        ConnectionManager::<MysqlConnection>::new(url_banco);
+
+    Pool::builder()
+        .build(gerenciador)
+        .expect("Erro ao criar pool de conexoes")
 }
