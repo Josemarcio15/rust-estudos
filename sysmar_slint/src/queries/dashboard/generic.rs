@@ -1,7 +1,8 @@
 use chrono::Local;
 use diesel::dsl::count_star;
 use diesel::prelude::*;
-
+use diesel::dsl::sql;
+use diesel::sql_types::Bool;
 use crate::db::PoolBanco;
 use crate::schema::clientes::dsl::*;
 
@@ -62,7 +63,8 @@ pub fn clientes_plano_diario(
     let mut conexao = pool.get().expect("Erro ao obter conexão");
 
     clientes
-        .filter(plano.eq("diario"))
+        .filter(plano.is_not_null())
+        .filter(sql::<Bool>("plano = 'diario'"))
         .select(count_star())
         .get_result(&mut conexao)
 }
@@ -73,7 +75,8 @@ pub fn clientes_plano_mensal(
     let mut conexao = pool.get().expect("Erro ao obter conexão");
 
     clientes
-        .filter(plano.eq("mensal"))
+        .filter(plano.is_not_null())
+        .filter(sql::<Bool>("plano = 'mensal'"))
         .select(count_star())
         .get_result(&mut conexao)
 }
@@ -85,7 +88,8 @@ pub fn clientes_plano_trimestral(
     let mut conexao = pool.get().expect("Erro ao obter conexão");
 
     clientes
-        .filter(plano.eq("trimestral"))
+        .filter(plano.is_not_null())
+        .filter(sql::<Bool>("plano = 'trimestral'"))
         .select(count_star())
         .get_result(&mut conexao)
 }
@@ -97,7 +101,8 @@ pub fn clientes_plano_semestral(
     let mut conexao = pool.get().expect("Erro ao obter conexão");
 
     clientes
-        .filter(plano.eq("semestral"))
+        .filter(plano.is_not_null())
+        .filter(sql::<Bool>("plano = 'semestral'"))
         .select(count_star())
         .get_result(&mut conexao)
 }
@@ -108,7 +113,8 @@ pub fn clientes_plano_anual(
     let mut conexao = pool.get().expect("Erro ao obter conexão");
 
     clientes
-        .filter(plano.eq("anual"))
+        .filter(plano.is_not_null())
+        .filter(sql::<Bool>("plano = 'anual'"))
         .select(count_star())
         .get_result(&mut conexao)
 }

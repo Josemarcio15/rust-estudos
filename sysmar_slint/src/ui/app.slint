@@ -19,10 +19,14 @@ export component AppWindow inherits Window {
     // ==============================================================================//
     //                                       Dados Backend                           //
     // ==============================================================================//
-    in property <string> total_alunos;
-    in property <string> total_emDias;
-    in property <string> total_debitos;
-    in property <string> total_diarias;
+    in property <string> total_clientes;
+    in property <string> clientes_em_dia;
+    in property <string> clientes_atrasados;
+    in property <string> plano_diario;
+    in property <string> plano_mensal;
+    in property <string> plano_trimestral;
+    in property <string> plano_semestral;
+    in property <string> plano_anual;
 
     in-out property <Page> pagina_atual: Page.Dashboard;
 
@@ -121,10 +125,14 @@ export component AppWindow inherits Window {
         Rectangle {
             background: #f3f4f6;
             if(pagina_atual == Page.Dashboard): DashboardPage {
-                total_alunos: root.total_alunos;
-                total_emDias: root.total_emDias;
-                total_debitos: root.total_debitos;
-                total_diarias: root.total_diarias;
+                total_clientes: root.total_clientes;
+                clientes_em_dia: root.clientes_em_dia;
+                clientes_atrasados: root.clientes_atrasados;
+                plano_diario: root.plano_diario;
+                // plano_mensal: root.plano_mensal;
+                // plano_trimestral: root.plano_trimestral;
+                // plano_semestral: root.plano_semestral;
+                // plano_anual: root.plano_anual;
 
                 loaded => {
                     root.dashboard_load();

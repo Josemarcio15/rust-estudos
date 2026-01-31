@@ -1,10 +1,15 @@
 
 import { BarShadow } from "style/shadow.slint";
+
 export component DashboardPage inherits Rectangle {
-    in property <string> total_alunos;
-    in property <string> total_emDias;
-    in property <string> total_debitos;
-    in property <string> total_diarias;
+    in property <string> total_clientes;
+    in property <string> clientes_em_dia;
+    in property <string> clientes_atrasados;
+    in property <string> plano_diario;
+    // in property <string> plano_mensal;
+    // in property <string> plano_trimestral;
+    // in property <string> plano_semestral;
+    // in property <string> plano_anual;
 
     callback loaded();
     init => {
@@ -55,7 +60,7 @@ export component DashboardPage inherits Rectangle {
                     Text {
                         vertical-alignment: center;
                         horizontal-alignment: center;
-                        text: " Total Alunos: " + total_alunos;
+                        text: " Total Alunos: " + total_clientes;
                     }
                 }
 
@@ -71,7 +76,7 @@ export component DashboardPage inherits Rectangle {
                     Text {
                         vertical-alignment: center;
                         horizontal-alignment: center;
-                        text: " Alunos em dias: " + total_emDias;
+                        text: " Alunos em dias: " + clientes_em_dia;
                     }
                 }
 
@@ -87,7 +92,7 @@ export component DashboardPage inherits Rectangle {
                     Text {
                         vertical-alignment: center;
                         horizontal-alignment: center;
-                        text: " Em debitos: " + total_debitos;
+                        text: " Em debitos: " + clientes_atrasados;
                     }
                 }
 
@@ -103,7 +108,7 @@ export component DashboardPage inherits Rectangle {
                     Text {
                         vertical-alignment: center;
                         horizontal-alignment: center;
-                        text: " Diarias: " + total_diarias;
+                        text: " Diarias: " + plano_diario;
                     }
                 }
             }
