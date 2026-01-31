@@ -1,0 +1,35 @@
+export component GraficoComponent {
+    in property <int> altura;
+    in property <color> cor_base;
+    in property <color> cor_primaria;
+    in property <color> cor_secundaria;
+    in property <color> cor_terciaria;
+
+    VerticalLayout {
+        alignment: end;
+
+        Rectangle {
+            width: 60px;
+            height: altura * 1px;
+            background: cor_base;
+
+            Rectangle {
+                width: 30px;
+                height: altura * 1px;
+                background: cor_primaria;
+
+                Rectangle {
+                    width: 15px;
+                    height: altura * 1px;
+                    background: cor_secundaria;
+
+                    Rectangle {
+                        width: 20px;
+                        height: altura * 1px;
+                        background: cor_terciaria;
+                    }
+                }
+            }
+        }
+    }
+}

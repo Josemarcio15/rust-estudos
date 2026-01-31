@@ -1,6 +1,6 @@
 
-import { BarShadow } from "style/shadow.slint";
-
+// import { BarShadow } from "style/shadow.slint";
+import { GraficoComponent } from "components/grafico.slint";
 export component DashboardPage inherits Rectangle {
     in property <string> total_clientes;
     in property <string> clientes_em_dia;
@@ -115,121 +115,124 @@ export component DashboardPage inherits Rectangle {
         }
             // ==============================================================================//
             //                                       Grafico                                 //
-            // ==============================================================================//
-        HorizontalLayout {
-
-            // =======================//
-            //          Total         //
-            // =======================//
-
+            // ==============================================================================//+
+         HorizontalLayout {
             spacing: 40px;
             alignment: center;
-            VerticalLayout {
-                alignment: end;
-                Rectangle {
-                    width: 60px;
-                    height: 280px;
-                    background: #0004ff;
-                    Rectangle {
-                        width: 30px;
-                        height: 280px;
-                        background: #0014ff6a;
-                        Rectangle {
-                            width: 15px;
-                            height: 280px;
-                            background: #0024ff2f;
-                            Rectangle {
-                                width: 20px;
-                                height: 280px;
-                                background: #0028ff6a;
-                            }
-                        }
-                    }
-                }
+            GraficoComponent {
+                cor_base: #bb0033;
+                cor_primaria: #bb10596a;
+                cor_secundaria: #bb20972f;
+                cor_terciaria: #bb30336a;
+                altura: 280;
             }
 
-            VerticalLayout {
-            // ========================//
-            //         em dias         //
-            // =======================//
-                alignment: end;
-                Rectangle {
-                    width: 60px;
-                    height: 280px;
-                    background: #bb0033;
-                    Rectangle {
-                        width: 30px;
-                        height: 280px;
-                        background: #bb10596a;
-                        Rectangle {
-                            width: 15px;
-                            height: 280px;
-                            background: #bb20972f;
-                            Rectangle {
-                                width: 20px;
-                                height: 280px;
-                                background: #bb30336a;
-                            }
-                        }
-                    }
-                }
+            GraficoComponent {
+                cor_base: #0004ff;
+                altura: 280;
             }
-            // ========================//
-            //         em debito       //
-            // =======================//
-            VerticalLayout {
-                alignment: end;
-                VerticalLayout {
-                    alignment: end;
-                    horizontal-stretch: 1;
-                    Rectangle {
-                        width: 60px;
-                        height: 280px;
-                        background: #60cc62;
-                        Rectangle {
-                            width: 30px;
-                            height: 280px;
-                            background: #65dd626a;
-                            Rectangle {
-                                width: 15px;
-                                height: 280px;
-                                background: #70de622f;
-                                Rectangle {
-                                    width: 20px;
-                                    height: 280px;
-                                    background: #75df626a;
-                                }
-                            }
-                        }
-                    }
-                }
+
+            GraficoComponent {
+                cor_base: #2bff00;
+                altura: 280;
             }
-            // ========================//
-            //         diarias        //
-            // ======================//
-            VerticalLayout {
-                alignment: end;
-                Rectangle {
-                    width: 60px;
-                    height: 280px;
-                    background: #ffd000;
-                    Rectangle {
-                        width: 30px;
-                        height: 280px;
-                        background: #ffd000c8;
-                        Rectangle {
-                            width: 15px;
-                            height: 280px;
-                            background: #ffd0006f;
-                            Rectangle {
-                                width: 20px;
-                                height: 280px;
-                                background: #ffd0009b;
-                            }
-                        }
-                    }
-                }
+
+            GraficoComponent {
+                cor_base: #ff00dd;
+                altura: 280;
             }
         }
+
+        // HorizontalLayout {
+
+        //     // // =======================//
+        //     // //          Total         //
+        //     // // =======================//
+
+    
+
+        //     VerticalLayout {
+        //     // ========================//
+        //     //         em dias         //
+        //     // =======================//
+        //         alignment: end;
+        //         Rectangle {
+        //             width: 60px;
+        //             height: 280px;
+        //             background: #bb0033;
+        //             Rectangle {
+        //                 width: 30px;
+        //                 height: 280px;
+        //                 background: #bb10596a;
+        //                 Rectangle {
+        //                     width: 15px;
+        //                     height: 280px;
+        //                     background: #bb20972f;
+        //                     Rectangle {
+        //                         width: 20px;
+        //                         height: 280px;
+        //                         background: #bb30336a;
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     // ========================//
+        //     //         em debito       //
+        //     // =======================//
+        //     VerticalLayout {
+        //         alignment: end;
+        //         VerticalLayout {
+        //             alignment: end;
+        //             horizontal-stretch: 1;
+        //             Rectangle {
+        //                 width: 60px;
+        //                 height: 280px;
+        //                 background: #60cc62;
+        //                 Rectangle {
+        //                     width: 30px;
+        //                     height: 280px;
+        //                     background: #65dd626a;
+        //                     Rectangle {
+        //                         width: 15px;
+        //                         height: 280px;
+        //                         background: #70de622f;
+        //                         Rectangle {
+        //                             width: 20px;
+        //                             height: 280px;
+        //                             background: #75df626a;
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     // ========================//
+        //     //         diarias        //
+        //     // ======================//
+        //     VerticalLayout {
+        //         alignment: end;
+        //         Rectangle {
+        //             width: 60px;
+        //             height: 280px;
+        //             background: #ffd000;
+        //             Rectangle {
+        //                 width: 30px;
+        //                 height: 280px;
+        //                 background: #ffd000c8;
+        //                 Rectangle {
+        //                     width: 15px;
+        //                     height: 280px;
+        //                     background: #ffd0006f;
+        //                     Rectangle {
+        //                         width: 20px;
+        //                         height: 280px;
+        //                         background: #ffd0009b;
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
