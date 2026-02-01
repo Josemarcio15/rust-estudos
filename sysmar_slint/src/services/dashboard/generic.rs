@@ -1,0 +1,105 @@
+use crate::db::PoolBanco;
+use crate::queries::dashboard::generic;
+pub struct DashboardResumo {
+    pub total_clientes: i64,
+    pub clientes_em_dia: i64,
+    pub clientes_atrasados: i64,
+    pub plano_diario: i64,
+    pub plano_mensal: i64,
+    pub plano_trimestral: i64,
+    pub plano_semestral: i64,
+    pub plano_anual: i64,
+}
+pub struct DashboardUI {
+    pub total_clientes: i32,
+    pub clientes_em_dia: i32,
+    pub clientes_atrasados: i32,
+
+    pub percentual_clientes_em_dia: i32,
+    pub percentual_clientes_atrasados: i32,
+    pub percentual_plano_diario: i32,
+    pub percentual_plano_mensal: i32,
+    pub percentual_plano_trimestral: i32,
+    pub percentual_plano_semestral: i32,
+    pub percentual_plano_anual: i32,
+
+    pub plano_diario: i32,
+    pub plano_mensal: i32,
+    pub plano_trimestral: i32,
+    pub plano_semestral: i32,
+    pub plano_anual: i32,
+}
+
+
+
+pub fn carregar_dashboard(
+    pool: &PoolBanco,
+) -> Result<DashboardResumo, diesel::result::Error> {
+    Ok(DashboardResumo {
+        total_clientes: generic::total_clientes(pool)?,
+        clientes_em_dia: generic::clientes_em_dia(pool)?,
+        clientes_atrasados: generic::clientes_atrasados(pool)?,
+        plano_diario: generic::clientes_plano_diario(pool)?,
+        plano_mensal: generic::clientes_plano_mensal(pool)?,
+        plano_trimestral: generic::clientes_plano_trimestral(pool)?,
+        plano_semestral: generic::clientes_plano_semestral(pool)?,
+        plano_anual: generic::clientes_plano_anual(pool)?,
+    })
+}
+
+pub fn carregar_dashboard_ui(
+    pool: &PoolBanco,
+) -> Result<DashboardUI, diesel::result::Error> {
+    let resumo = carregar_dashboard(pool)?;
+    
+    let total_clientes = resumo.total_clientes as i32;
+    let clientes_em_dia= resumo.clientes_em_dia as i32;
+    let clientes_atrasados= resumo.clientes_atrasados as i32;
+    let plano_diario= resumo.plano_diario as i32;
+    let plano_mensal= resumo.plano_mensal as i32;
+    let plano_trimestral= resumo.plano_trimestral as i32;
+    let plano_semestral= resumo.plano_semestral as i32;
+    let plano_anual= resumo.plano_anual as i32;
+
+    let percentual_clientes_em_dia = porcentagem(clientes_em_dia, total_clientes);
+    let percentual_clientes_atrasados = porcentagem(clientes_atrasados, total_clientes);
+    let percentual_plano_diario = porcentagem(plano_diario, total_clientes);
+    let percentual_plano_mensal = porcentagem(plano_mensal, total_clientes);
+    let percentual_plano_trimestral = porcentagem(plano_trimestral, total_clientes);
+    let percentual_plano_semestral = porcentagem(plano_semestral, total_clientes);
+    let percentual_plano_anual = porcentagem(plano_anual, total_clientes);
+
+    Ok(DashboardUI {
+        total_clientes,
+        clientes_em_dia,
+        clientes_atrasados,
+        plano_diario,
+        plano_mensal,
+        plano_trimestral,
+        plano_semestral,
+        plano_anual,
+
+        percentual_clientes_em_dia,
+        percentual_clientes_atrasados,
+        percentual_plano_diario,
+        percentual_plano_mensal,
+        percentual_plano_trimestral,
+        percentual_plano_semestral,
+        percentual_plano_anual,
+
+       
+    })
+}
+
+pub fn porcentagem(parte: i32, total: i32) -> i32 {
+    if total <= 0 {
+        return 0;
+    }
+
+    (parte * 100) / total
+}
+
+
+
+
+

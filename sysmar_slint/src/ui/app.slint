@@ -19,14 +19,22 @@ export component AppWindow inherits Window {
     // ==============================================================================//
     //                                       Dados Backend                           //
     // ==============================================================================//
-    in property <string> total_clientes;
-    in property <string> clientes_em_dia;
-    in property <string> clientes_atrasados;
-    in property <string> plano_diario;
-    in property <string> plano_mensal;
-    in property <string> plano_trimestral;
-    in property <string> plano_semestral;
-    in property <string> plano_anual;
+    in property <int> total_clientes;
+    in property <int> clientes_em_dia;
+    in property <int> clientes_atrasados;
+    in property <int> plano_diario;
+    in property <int> plano_mensal;
+    in property <int> plano_trimestral;
+    in property <int> plano_semestral;
+    in property <int> plano_anual;
+
+    in property <int> percentual_clientes_em_dia;
+    in property <int> percentual_clientes_atrasados;
+    in property <int> percentual_plano_diario;
+    in property <int> percentual_plano_mensal;
+    in property <int> percentual_plano_trimestral;
+    in property <int> percentual_plano_semestral;
+    in property <int> percentual_plano_anual;
 
     in-out property <Page> pagina_atual: Page.Dashboard;
 
