@@ -42,7 +42,7 @@ export component DashboardPage inherits Rectangle {
         Legendas {
             color: #7600bb;
             legenda: "Em dias: ";
-            dados_legenda: total_clientes;
+            dados_legenda: clientes_em_dia;
         }
 
         Legendas {
@@ -103,61 +103,70 @@ export component DashboardPage inherits Rectangle {
          HorizontalLayout {
             spacing: 40px;
             alignment: center;
-
-            GraficoComponent {
-                cor_base: #1300bb;
-                cor_primaria: #1310bb6a;
-                cor_secundaria: #1320bb2f;
-                cor_terciaria: #1330bb6a;
-                altura: 90;
-            }
-
+            
+            // total
+            // GraficoComponent {
+            //     cor_base: #1300bb;
+            //     cor_primaria: #1310bb6a;
+            //     cor_secundaria: #1320bb2f;
+            //     cor_terciaria: #1330bb6a;
+            //     altura: 90;
+            // }
+// clientes em dias
             GraficoComponent {
                 cor_base: #7600bb;
                 cor_primaria: #7610bb6a;
                 cor_secundaria: #7620bb2f;
                 cor_terciaria: #7630bb6a;
-                altura: 90;
+                altura: percentual_clientes_em_dia;
             }
-
+// debitos
             GraficoComponent {
                 cor_base: #00bbbb;
                 cor_primaria: #00bcbb6a;
                 cor_secundaria: #00bdbb2f;
                 cor_terciaria: #00bebb6a;
-                altura: 90;
+                altura: percentual_clientes_atrasados;
             }
-
+// diarias
             GraficoComponent {
                 cor_base: #bb0033;
                 cor_primaria: #bb10596a;
                 cor_secundaria: #bb20972f;
                 cor_terciaria: #bb30336a;
-                altura: 90;
+                altura: percentual_plano_diario;
             }
-
+// mensal
             GraficoComponent {
                 cor_base: #60cc62;
                 cor_primaria: #65dd626a;
                 cor_secundaria: #70de622f;
                 cor_terciaria: #75df626a;
-                altura: 10;
+                altura: percentual_plano_mensal;
             }
-
+// trimestral
             GraficoComponent {
                 cor_base: #ffd000;
                 cor_primaria: #ffe000c8;
                 cor_secundaria: #fff0006f;
                 cor_terciaria: #fff0009b;
-                altura: 10;
+                altura: percentual_plano_trimestral;
             }
-
+//semestral
             GraficoComponent {
                 cor_base: #4c00da;
                 cor_primaria: #4c11da6a;
                 cor_secundaria: #4c22da2f;
                 cor_terciaria: #4c33da6a;
-                altura: 10;
+                altura: percentual_plano_semestral;
+            }
+// anual
+            GraficoComponent {
+                cor_base: #fd7a00;
+                cor_primaria: #fd8a006a;
+                cor_secundaria: #fd9a002f;
+                cor_terciaria: #fd9b006a;
+                altura: percentual_plano_anual;
             }
         }
     }

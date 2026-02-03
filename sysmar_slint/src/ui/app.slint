@@ -137,10 +137,18 @@ export component AppWindow inherits Window {
                 clientes_em_dia: root.clientes_em_dia;
                 clientes_atrasados: root.clientes_atrasados;
                 plano_diario: root.plano_diario;
-                // plano_mensal: root.plano_mensal;
-                // plano_trimestral: root.plano_trimestral;
-                // plano_semestral: root.plano_semestral;
-                // plano_anual: root.plano_anual;
+                plano_mensal: root.plano_mensal;
+                plano_trimestral: root.plano_trimestral;
+                plano_semestral: root.plano_semestral;
+                plano_anual: root.plano_anual;
+
+                percentual_clientes_em_dia: root.percentual_clientes_em_dia;
+                percentual_clientes_atrasados: root.percentual_clientes_atrasados;
+                percentual_plano_diario: root.percentual_plano_diario;
+                percentual_plano_mensal: root.percentual_plano_mensal;
+                percentual_plano_trimestral: root.percentual_plano_trimestral;
+                percentual_plano_semestral: root.percentual_plano_semestral;
+                percentual_plano_anual: root.percentual_plano_anual;
 
                 loaded => {
                     root.dashboard_load();
