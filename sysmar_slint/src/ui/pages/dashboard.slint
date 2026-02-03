@@ -1,6 +1,7 @@
 import { GraficoComponent } from "components/grafico.slint";
 import { Legendas } from "components/legenda.slint";
 export component DashboardPage inherits Rectangle {
+    background: #ffffff;
     in property <int> total_clientes;
     in property <int> clientes_em_dia;
     in property <int> clientes_atrasados;
@@ -23,157 +24,169 @@ export component DashboardPage inherits Rectangle {
         loaded();
     }
 
-    background: #c0b6b65f;
-    // width: root.width * 0.8;
-    // height: root.height * 0.8;
-
     // ==============================================================================//
     //                                       Legendas grafico                        //
     // ==============================================================================//
-    VerticalLayout {
-        alignment: start;
-
-        Legendas {
-            color: #1300bb;
-            legenda: "Total Alunos: ";
-            dados_legenda: total_clientes;
-        }
-
-        Legendas {
-            color: #7600bb;
-            legenda: "Em dias: ";
-            dados_legenda: clientes_em_dia;
-        }
-
-        Legendas {
-            color: #00bbbb;
-            legenda: "Debitos: ";
-            dados_legenda: clientes_atrasados;
-        }
-
-        Legendas {
-            color: #bb0033;
-            legenda: "Diarias: ";
-            dados_legenda: plano_diario;
-        }
-
-        Legendas {
-            color: #60cc62;
-            legenda: "Plano mensal: ";
-            dados_legenda: plano_mensal;
-        }
-
-        Legendas {
-            color: #ffd000;
-            legenda: "Plano trimestral: ";
-            dados_legenda: plano_trimestral;
-        }
-
-        Legendas {
-            color: #4c00da;
-            legenda: "Plano semestral: ";
-            dados_legenda: plano_semestral;
-        }
-
-        Legendas {
-            color: #fd7a00;
-            legenda: "Plano anual: ";
-            dados_legenda: plano_anual;
-        }
-    }
-
-    Rectangle {
-        drop-shadow-blur: 10px;
-        drop-shadow-offset-x: 1px;
-        drop-shadow-offset-y: 1px;
-        drop-shadow-color: rgb(129, 146, 247);
-        border-radius: 10px;
-        width: 50%;
-        height: 50%;
-        background: #d1042d;
-        clip: true;
-        Image {
-            source: @image-url("../../assets/image1.jpg");
-            width: 100%;
-            height: 100%;
-        }
-
+  HorizontalLayout {
         Rectangle {
-            width: parent.width;
-            height: parent.height;
-            background: rgba(54, 123, 214, 0.85);
+            background: blue;
+            width: root.width * 0.09;
+            height: root.height;
         }
+
+        VerticalLayout {
+            Rectangle {
+                drop-shadow-blur: 10px;
+                drop-shadow-offset-x: 1px;
+                drop-shadow-offset-y: 1px;
+                drop-shadow-color: rgb(129, 146, 247);
+                border-radius: 10px;
+                width: root.width * 0.5;
+                height: root.height * 0.5;
+                background: #d1042d;
+                clip: true;
+                Image {
+                    source: @image-url("../../assets/image1.jpg");
+                    width: 100%;
+                    height: 100%;
+                }
+
+                Rectangle {
+                    width: parent.width;
+                    height: parent.height;
+                    background: rgba(54, 123, 214, 0.85);
+                }
             // ==============================================================================//
             //                                       Grafico                                 //
-            // ==============================================================================//+
-         HorizontalLayout {
-            spacing: 40px;
-            alignment: center;
-            
-            // total
-            // GraficoComponent {
-            //     cor_base: #1300bb;
-            //     cor_primaria: #1310bb6a;
-            //     cor_secundaria: #1320bb2f;
-            //     cor_terciaria: #1330bb6a;
-            //     altura: 90;
-            // }
-// clientes em dias
-            GraficoComponent {
-                cor_base: #7600bb;
-                cor_primaria: #7610bb6a;
-                cor_secundaria: #7620bb2f;
-                cor_terciaria: #7630bb6a;
-                altura: percentual_clientes_em_dia;
+            // ==============================================================================//
+            HorizontalLayout {
+                    spacing: 40px;
+                    alignment: center;
+                    // em dias
+                    GraficoComponent {
+                        cor_base: #7600bb;
+                        cor_primaria: #7610bb6a;
+                        cor_secundaria: #7620bb2f;
+                        cor_terciaria: #7630bb6a;
+                        altura: percentual_clientes_em_dia;
+                    }
+                    // debitos
+                    GraficoComponent {
+                        cor_base: #00bbbb;
+                        cor_primaria: #00bcbb6a;
+                        cor_secundaria: #00bdbb2f;
+                        cor_terciaria: #00bebb6a;
+                        altura: percentual_clientes_atrasados;
+                    }
+                    // diarias
+                    GraficoComponent {
+                        cor_base: #bb0033;
+                        cor_primaria: #bb10596a;
+                        cor_secundaria: #bb20972f;
+                        cor_terciaria: #bb30336a;
+                        altura: percentual_plano_diario;
+                    }
+                    // mensal
+                    GraficoComponent {
+                        cor_base: #60cc62;
+                        cor_primaria: #65dd626a;
+                        cor_secundaria: #70de622f;
+                        cor_terciaria: #75df626a;
+                        altura: percentual_plano_mensal;
+                    }
+                    // trimestral
+                    GraficoComponent {
+                        cor_base: #ffd000;
+                        cor_primaria: #ffe000c8;
+                        cor_secundaria: #fff0006f;
+                        cor_terciaria: #fff0009b;
+                        altura: percentual_plano_trimestral;
+                    }
+                    //semestral
+                    GraficoComponent {
+                        cor_base: #4c00da;
+                        cor_primaria: #4c11da6a;
+                        cor_secundaria: #4c22da2f;
+                        cor_terciaria: #4c33da6a;
+                        altura: percentual_plano_semestral;
+                    }
+                    // anual
+                    GraficoComponent {
+                        cor_base: #fd7a00;
+                        cor_primaria: #fd8a006a;
+                        cor_secundaria: #fd9a002f;
+                        cor_terciaria: #fd9b006a;
+                        altura: percentual_plano_anual;
+                    }
+                }
             }
-// debitos
-            GraficoComponent {
-                cor_base: #00bbbb;
-                cor_primaria: #00bcbb6a;
-                cor_secundaria: #00bdbb2f;
-                cor_terciaria: #00bebb6a;
-                altura: percentual_clientes_atrasados;
-            }
-// diarias
-            GraficoComponent {
-                cor_base: #bb0033;
-                cor_primaria: #bb10596a;
-                cor_secundaria: #bb20972f;
-                cor_terciaria: #bb30336a;
-                altura: percentual_plano_diario;
-            }
-// mensal
-            GraficoComponent {
-                cor_base: #60cc62;
-                cor_primaria: #65dd626a;
-                cor_secundaria: #70de622f;
-                cor_terciaria: #75df626a;
-                altura: percentual_plano_mensal;
-            }
-// trimestral
-            GraficoComponent {
-                cor_base: #ffd000;
-                cor_primaria: #ffe000c8;
-                cor_secundaria: #fff0006f;
-                cor_terciaria: #fff0009b;
-                altura: percentual_plano_trimestral;
-            }
-//semestral
-            GraficoComponent {
-                cor_base: #4c00da;
-                cor_primaria: #4c11da6a;
-                cor_secundaria: #4c22da2f;
-                cor_terciaria: #4c33da6a;
-                altura: percentual_plano_semestral;
-            }
-// anual
-            GraficoComponent {
-                cor_base: #fd7a00;
-                cor_primaria: #fd8a006a;
-                cor_secundaria: #fd9a002f;
-                cor_terciaria: #fd9b006a;
-                altura: percentual_plano_anual;
-            }
+
+            HorizontalLayout {
+                alignment: start;
+                Legendas {
+                    width: 20px;
+                    height: 20px;
+                    background: #1300bb;
+                }
+
+                Text {
+                    vertical-alignment: center;
+                    text: " Total Alunos";
+                }
+                    // }
+
+
+                    // Legendas {
+                    //     width: 20px;
+                    //     height: 20px;
+                    //     background: #bb0019;
+                    // }
+                    // Legendas {
+                    //     color: #1300bb;
+                    // }
+                    
+                        // Legendas {
+                            //     color: #7600bb;
+                    //     legenda: "Em dias: ";
+                    //     dados_legenda: clientes_em_dia;
+                    // }
+
+                    // Legendas {
+                    //     color: #00bbbb;
+                    //     legenda: "Debitos: ";
+                    //     dados_legenda: clientes_atrasados;
+                    // }
+
+                    // Legendas {
+                    //     color: #bb0033;
+                    //     legenda: "Diarias: ";
+                    //     dados_legenda: plano_diario;
+                    // }
+
+                    // Legendas {
+                    //     color: #60cc62;
+                    //     legenda: "Plano mensal: ";
+                    //     dados_legenda: plano_mensal;
+                    // }
+
+                    // Legendas {
+                    //     color: #ffd000;
+                    //     legenda: "Plano trimestral: ";
+                    //     dados_legenda: plano_trimestral;
+                    // }
+
+                    // Legendas {
+                    //     color: #4c00da;
+                    //     legenda: "Plano semestral: ";
+                    //     dados_legenda: plano_semestral;
+                    // }
+
+                    // Legendas {
+                    //     color: #fd7a00;
+                    //     legenda: "Plano anual: ";
+                    //     dados_legenda: plano_anual;
+                    // }
+                }
         }
     }
 }

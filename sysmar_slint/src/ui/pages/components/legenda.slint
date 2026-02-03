@@ -1,21 +1,18 @@
-export component Legendas {
-    in property <color> color;
-    in property <string> legenda;
-    in property <int> dados_legenda;
-
-    HorizontalLayout {
-        alignment: start;
-        Rectangle {
-            border-radius: 5px;
-            width: 40px;
-            height: 40px;
-            background: color;
-        }
-
-        Text {
-            vertical-alignment: center;
-            horizontal-alignment: center;
-            text: legenda + dados_legenda;
-        }
+export component Legendas inherits Rectangle {
+    border-radius: 5px;
+    VerticalLayout {
+        width: 120px;
+        height: 20px;
     }
 }
+// }
+
+// export component TextCustom {
+//     in property <string> legenda;
+//     in property <int> dados_legenda;
+//     Text {
+//         vertical-alignment: center;
+//         horizontal-alignment: center;
+//         text: legenda + dados_legenda;
+//     }
+// }
