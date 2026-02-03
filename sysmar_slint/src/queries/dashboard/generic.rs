@@ -64,7 +64,7 @@ pub fn clientes_plano_diario(
 
     clientes
         .filter(plano.is_not_null())
-        .filter(sql::<Bool>("plano = 'diario'"))
+        .filter(sql::<Bool>("plano = 'diaria'"))
         .select(count_star())
         .get_result(&mut conexao)
 }

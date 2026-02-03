@@ -10,13 +10,13 @@ export component DashboardPage inherits Rectangle {
     in property <int> plano_semestral;
     in property <int> plano_anual;
 
-    in property <int> percentual_clientes_em_dia;
-    in property <int> percentual_clientes_atrasados;
-    in property <int> percentual_plano_diario;
-    in property <int> percentual_plano_mensal;
-    in property <int> percentual_plano_trimestral;
-    in property <int> percentual_plano_semestral;
-    in property <int> percentual_plano_anual;
+    in property <float> percentual_clientes_em_dia;
+    in property <float> percentual_clientes_atrasados;
+    in property <float> percentual_plano_diario;
+    in property <float> percentual_plano_mensal;
+    in property <float> percentual_plano_trimestral;
+    in property <float> percentual_plano_semestral;
+    in property <float> percentual_plano_anual;
 
     callback loaded();
     init => {
@@ -48,31 +48,37 @@ export component DashboardPage inherits Rectangle {
         Legendas {
             color: #00bbbb;
             legenda: "Debitos: ";
-            dados_legenda: total_clientes;
+            dados_legenda: clientes_atrasados;
         }
 
         Legendas {
             color: #bb0033;
             legenda: "Diarias: ";
-            dados_legenda: total_clientes;
+            dados_legenda: plano_diario;
         }
 
         Legendas {
             color: #60cc62;
             legenda: "Plano mensal: ";
-            dados_legenda: total_clientes;
+            dados_legenda: plano_mensal;
         }
 
         Legendas {
             color: #ffd000;
             legenda: "Plano trimestral: ";
-            dados_legenda: total_clientes;
+            dados_legenda: plano_trimestral;
         }
 
         Legendas {
             color: #4c00da;
             legenda: "Plano semestral: ";
-            dados_legenda: total_clientes;
+            dados_legenda: plano_semestral;
+        }
+
+        Legendas {
+            color: #fd7a00;
+            legenda: "Plano anual: ";
+            dados_legenda: plano_anual;
         }
     }
 

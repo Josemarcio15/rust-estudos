@@ -20,13 +20,25 @@ fn main() {
     println!("plano_trimestral: {}", resumo.plano_trimestral);
     println!("plano_semestral: {}", resumo.plano_semestral);
     println!("plano_anual: {}", resumo.plano_anual);
-    println!("percentual_clientes_em_dia: {}", resumo.percentual_clientes_em_dia);
-    println!("percentual_clientes_atrasados: {}", resumo.percentual_clientes_atrasados);
-    println!("percentual_plano_diario: {}", resumo.percentual_plano_diario);
-    println!("percentual_plano_mensal: {}", resumo.percentual_plano_mensal);
-    println!("percentual_plano_trimestral: {}", resumo.percentual_plano_trimestral);
-    println!("percentual_plano_semestral: {}", resumo.percentual_plano_semestral);
-    println!("percentual_plano_anual: {}", resumo.percentual_plano_anual);
+    println!(
+        "percentual_clientes_em_dia: {:.2}",
+        resumo.percentual_clientes_em_dia
+    );
+    println!(
+        "percentual_clientes_atrasados: {:.2}",
+        resumo.percentual_clientes_atrasados
+    );
+    println!("percentual_plano_diario: {:.2}", resumo.percentual_plano_diario);
+    println!("percentual_plano_mensal: {:.2}", resumo.percentual_plano_mensal);
+    println!(
+        "percentual_plano_trimestral: {:.2}",
+        resumo.percentual_plano_trimestral
+    );
+    println!(
+        "percentual_plano_semestral: {:.2}",
+        resumo.percentual_plano_semestral
+    );
+    println!("percentual_plano_anual: {:.2}", resumo.percentual_plano_anual);
     
 
     let app = AppWindow::new().expect("Erro ao criar AppWindow");

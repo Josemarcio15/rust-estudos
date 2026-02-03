@@ -15,13 +15,13 @@ pub struct DashboardUI {
     pub clientes_em_dia: i32,
     pub clientes_atrasados: i32,
 
-    pub percentual_clientes_em_dia: i32,
-    pub percentual_clientes_atrasados: i32,
-    pub percentual_plano_diario: i32,
-    pub percentual_plano_mensal: i32,
-    pub percentual_plano_trimestral: i32,
-    pub percentual_plano_semestral: i32,
-    pub percentual_plano_anual: i32,
+    pub percentual_clientes_em_dia: f32,
+    pub percentual_clientes_atrasados: f32,
+    pub percentual_plano_diario: f32,
+    pub percentual_plano_mensal: f32,
+    pub percentual_plano_trimestral: f32,
+    pub percentual_plano_semestral: f32,
+    pub percentual_plano_anual: f32,
 
     pub plano_diario: i32,
     pub plano_mensal: i32,
@@ -91,14 +91,13 @@ pub fn carregar_dashboard_ui(
     })
 }
 
-pub fn porcentagem(parte: i32, total: i32) -> i32 {
+pub fn porcentagem(parte: i32, total: i32) -> f32 {
     if total <= 0 {
-        return 0;
+        return 0.0;
     }
 
-    (parte * 100) / total
+    (parte as f32 * 100.0) / total as f32
 }
-
 
 
 
