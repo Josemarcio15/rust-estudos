@@ -1,0 +1,29 @@
+export component Sidebar {
+    width: 80px;
+    //background: #2e2b47;
+
+    VerticalLayout {
+        spacing: 8px;
+        padding: 12px;
+
+        Rectangle {
+            height: 48px;
+            background: #6c63ff;
+            border-radius: 8px;
+        }
+
+        for item in ["bike", "admin", "members", "trainer", "trainee", "health", "payments"]: Rectangle {
+            height: 48px;
+            border-radius: 8px;
+            background: transparent;
+
+            Text {
+                text: item;
+                color: white;
+                horizontal-alignment: center;
+                vertical-alignment: center;
+                font-size: 10px;
+            }
+        }
+    }
+}

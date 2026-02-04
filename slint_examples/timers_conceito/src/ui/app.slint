@@ -1,0 +1,21 @@
+import { Sidebar } from "componentes/sidebar.slint";
+
+export component AppWindow inherits Window {
+    width: 900px;
+    height: 600px;
+
+    HorizontalLayout {
+        Sidebar { }
+
+        Rectangle {
+            background: #f4f4f6;
+
+            Text {
+                text: "Conteúdo principal";
+                horizontal-alignment: center;
+                vertical-alignment: center;
+                font-size: 20px;
+            }
+        }
+    }
+}
