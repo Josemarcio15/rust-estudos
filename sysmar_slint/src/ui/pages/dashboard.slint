@@ -30,11 +30,12 @@ export component DashboardPage inherits Rectangle {
   HorizontalLayout {
         Rectangle {
             background: blue;
-            width: root.width * 0.09;
+            width: root.width * 0.15;
             height: root.height;
         }
 
         VerticalLayout {
+            padding: 150px;
             Rectangle {
                 drop-shadow-blur: 10px;
                 drop-shadow-offset-x: 1px;
@@ -65,57 +66,57 @@ export component DashboardPage inherits Rectangle {
                     // em dias
                     GraficoComponent {
                         cor_base: #7600bb;
-                        cor_primaria: #7610bb6a;
-                        cor_secundaria: #7620bb2f;
-                        cor_terciaria: #7630bb6a;
+                        // cor_primaria: #7610bb6a;
+                        // cor_secundaria: #7620bb2f;
+                        // cor_terciaria: #7630bb6a;
                         altura: percentual_clientes_em_dia;
                     }
                     // debitos
                     GraficoComponent {
-                        cor_base: #00bbbb;
-                        cor_primaria: #00bcbb6a;
-                        cor_secundaria: #00bdbb2f;
-                        cor_terciaria: #00bebb6a;
+                        cor_base: #bb0033;
+                        // cor_primaria: #00bcbb6a;
+                        // cor_secundaria: #00bdbb2f;
+                        // cor_terciaria: #00bebb6a;
                         altura: percentual_clientes_atrasados;
                     }
                     // diarias
                     GraficoComponent {
-                        cor_base: #bb0033;
-                        cor_primaria: #bb10596a;
-                        cor_secundaria: #bb20972f;
-                        cor_terciaria: #bb30336a;
+                        cor_base: #00bbbb;
+                        // cor_primaria: #bb10596a;
+                        // cor_secundaria: #bb20972f;
+                        // cor_terciaria: #bb30336a;
                         altura: percentual_plano_diario;
                     }
                     // mensal
                     GraficoComponent {
                         cor_base: #60cc62;
-                        cor_primaria: #65dd626a;
-                        cor_secundaria: #70de622f;
-                        cor_terciaria: #75df626a;
+                        // cor_primaria: #65dd626a;
+                        // cor_secundaria: #70de622f;
+                        // cor_terciaria: #75df626a;
                         altura: percentual_plano_mensal;
                     }
                     // trimestral
                     GraficoComponent {
                         cor_base: #ffd000;
-                        cor_primaria: #ffe000c8;
-                        cor_secundaria: #fff0006f;
-                        cor_terciaria: #fff0009b;
+                        // cor_primaria: #ffe000c8;
+                        // cor_secundaria: #fff0006f;
+                        // cor_terciaria: #fff0009b;
                         altura: percentual_plano_trimestral;
                     }
                     //semestral
                     GraficoComponent {
                         cor_base: #4c00da;
-                        cor_primaria: #4c11da6a;
-                        cor_secundaria: #4c22da2f;
-                        cor_terciaria: #4c33da6a;
+                        // cor_primaria: #4c11da6a;
+                        // cor_secundaria: #4c22da2f;
+                        // cor_terciaria: #4c33da6a;
                         altura: percentual_plano_semestral;
                     }
                     // anual
                     GraficoComponent {
                         cor_base: #fd7a00;
-                        cor_primaria: #fd8a006a;
-                        cor_secundaria: #fd9a002f;
-                        cor_terciaria: #fd9b006a;
+                        // cor_primaria: #fd8a006a;
+                        // cor_secundaria: #fd9a002f;
+                        // cor_terciaria: #fd9b006a;
                         altura: percentual_plano_anual;
                     }
                 }
@@ -124,69 +125,40 @@ export component DashboardPage inherits Rectangle {
             HorizontalLayout {
                 alignment: start;
                 Legendas {
-                    width: 20px;
-                    height: 20px;
-                    background: #1300bb;
+                    color: #7600bb;
+                    legenda: "Em dias";
                 }
 
-                Text {
-                    vertical-alignment: center;
-                    text: " Total Alunos";
+                Legendas {
+                    color: #bb0033;
+                    legenda: "Em debito";
                 }
-                    // }
 
-
-                    // Legendas {
-                    //     width: 20px;
-                    //     height: 20px;
-                    //     background: #bb0019;
-                    // }
-                    // Legendas {
-                    //     color: #1300bb;
-                    // }
-                    
-                        // Legendas {
-                            //     color: #7600bb;
-                    //     legenda: "Em dias: ";
-                    //     dados_legenda: clientes_em_dia;
-                    // }
-
-                    // Legendas {
-                    //     color: #00bbbb;
-                    //     legenda: "Debitos: ";
-                    //     dados_legenda: clientes_atrasados;
-                    // }
-
-                    // Legendas {
-                    //     color: #bb0033;
-                    //     legenda: "Diarias: ";
-                    //     dados_legenda: plano_diario;
-                    // }
-
-                    // Legendas {
-                    //     color: #60cc62;
-                    //     legenda: "Plano mensal: ";
-                    //     dados_legenda: plano_mensal;
-                    // }
-
-                    // Legendas {
-                    //     color: #ffd000;
-                    //     legenda: "Plano trimestral: ";
-                    //     dados_legenda: plano_trimestral;
-                    // }
-
-                    // Legendas {
-                    //     color: #4c00da;
-                    //     legenda: "Plano semestral: ";
-                    //     dados_legenda: plano_semestral;
-                    // }
-
-                    // Legendas {
-                    //     color: #fd7a00;
-                    //     legenda: "Plano anual: ";
-                    //     dados_legenda: plano_anual;
-                    // }
+                Legendas {
+                    color: #00bbbb;
+                    legenda: "Diarias";
                 }
+
+                Legendas {
+                    color: #60cc62;
+                    legenda: "Mensal";
+                }
+
+                Legendas {
+                    color: #ffd000;
+                    legenda: "Trimestral";
+                }
+
+                Legendas {
+                    color: #4c00da;
+                    legenda: "Semestral";
+                }
+
+                Legendas {
+                    color: #fd7a00;
+                    legenda: "Anual";
+                }
+            }
         }
     }
 }

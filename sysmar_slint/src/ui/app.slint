@@ -10,11 +10,11 @@ export enum Page {
 }
 
 export component AppWindow inherits Window {
-    width: 1600px;
-    height: 900px;
+    min-width: 1600px;
+    min-height: 900px;
 
     in property <length> largura_button: 140px;
-    in property <length> tamanho_borda: 50px;
+    in property <length> tamanho_borda: 30px;
 
     // ==============================================================================//
     //                                       Dados Backend                           //
@@ -46,8 +46,8 @@ export component AppWindow inherits Window {
         // ==============================================================================//
         Rectangle {
             //width: 100px;
-            height: 100px;
-            background: #1f2937;
+            height: 80px;
+            background: #6e6e6e;
 
             HorizontalLayout {
                 padding: 8px;

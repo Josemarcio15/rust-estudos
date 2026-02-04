@@ -1,18 +1,17 @@
-export component Legendas inherits Rectangle {
-    border-radius: 5px;
-    VerticalLayout {
-        width: 120px;
+export component Legendas inherits HorizontalLayout {
+    padding: 25px;
+    alignment: center;
+    in property <color> color;
+    in property <string> legenda;
+    Rectangle {
+        width: 20px;
         height: 20px;
+        border-radius: 5px;
+        background: color;
+    }
+
+    Text {
+        vertical-alignment: center;
+        text: legenda;
     }
 }
-// }
-
-// export component TextCustom {
-//     in property <string> legenda;
-//     in property <int> dados_legenda;
-//     Text {
-//         vertical-alignment: center;
-//         horizontal-alignment: center;
-//         text: legenda + dados_legenda;
-//     }
-// }

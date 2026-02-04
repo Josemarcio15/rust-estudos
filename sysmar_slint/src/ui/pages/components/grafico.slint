@@ -10,27 +10,29 @@ export component GraficoComponent {
         alignment: end;
 
         Rectangle {
-            width: 60px;
+            width: 50px;
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
             height: parent.height * (altura * 0.01);
             background: cor_base;
 
-            Rectangle {
-                width: 30px;
-                height: parent.height * (altura * 0.01);
-                background: cor_primaria;
+            // Rectangle {
+            //     width: 30px;
+            //     height: parent.height * (altura * 0.01);
+            //     background: cor_primaria;
 
-                Rectangle {
-                    width: 15px;
-                    height: parent.height * (altura * 0.01);
-                    background: cor_secundaria;
+            //     Rectangle {
+            //         width: 15px;
+            //         height: parent.height * (altura * 0.01);
+            //         background: cor_secundaria;
 
-                    Rectangle {
-                        width: 20px;
-                        height: parent.height * (altura * 0.01);
-                        background: cor_terciaria;
-                    }
-                }
-            }
+            //         Rectangle {
+            //             width: 20px;
+            //             height: parent.height * (altura * 0.01);
+            //             background: cor_terciaria;
+            //         }
+            //     }
+            // }
         }
     }
 }
