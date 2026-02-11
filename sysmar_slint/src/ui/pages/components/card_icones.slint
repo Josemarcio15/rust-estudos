@@ -1,0 +1,35 @@
+export component CardIcones inherits HorizontalLayout {
+    in property <string> dados_legenda;
+    in property <int> dados;
+    in property <image> icon;
+    in property <length> icon-radius: 12px;
+    padding: 5px;
+    Rectangle {
+        border-radius: 20px;
+        background: #ffffff;
+        HorizontalLayout {
+            VerticalLayout {
+                padding-left: 7px;
+                alignment: center;
+                Rectangle {
+                    border-radius: 12px;
+                    width: root.width * 0.2;
+                    height: root.width * 0.2;
+                    clip: true;
+                    Image {
+                        source: root.icon;
+                        width: parent.width;
+                        height: parent.height;
+                    }
+                }
+            }
+
+            Text {
+                font-italic: true;
+                horizontal-alignment: center;
+                vertical-alignment: center;
+                text: dados_legenda + dados;
+            }
+        }
+    }
+}

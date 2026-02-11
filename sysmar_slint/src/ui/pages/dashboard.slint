@@ -1,5 +1,6 @@
 import { GraficoComponent } from "components/grafico.slint";
 import { Legendas } from "components/legenda.slint";
+import { CardIcones } from "components/card_icones.slint";
 export component DashboardPage inherits Rectangle {
     background: #ffffff;
     in property <int> total_clientes;
@@ -32,8 +33,45 @@ export component DashboardPage inherits Rectangle {
             background: blue;
             width: root.width * 0.15;
             height: root.height;
-        }
+            VerticalLayout {
+                CardIcones {
+                    dados: total_clientes;
+                    dados_legenda: "Total Cadastrados: ";
+                    width: parent.width;
+                    height: parent.height * 0.1;
+                    icon: @image-url("../../assets/alunos.png");
+                }
 
+                CardIcones {
+                    dados: clientes_em_dia;
+                    dados_legenda: "Em dias: ";
+                    width: parent.width;
+                    height: parent.height * 0.1;
+                }
+
+                CardIcones {
+                    dados: plano_diario;
+                    dados_legenda: "Plano Diario: ";
+                    width: parent.width;
+                    height: parent.height * 0.1;
+                }
+
+                CardIcones {
+                    dados: plano_mensal;
+                    dados_legenda: "Plano Mensal: ";
+                    width: parent.width;
+                    height: parent.height * 0.1;
+                }
+
+                CardIcones {
+                    dados: plano_trimestral;
+                    dados_legenda: "Plano Trimestral: ";
+                    width: parent.width;
+                    height: parent.height * 0.1;
+                }
+            }
+        }
+        // imagem background grafico
         VerticalLayout {
             padding: 150px;
             Rectangle {
@@ -55,7 +93,7 @@ export component DashboardPage inherits Rectangle {
                 Rectangle {
                     width: parent.width;
                     height: parent.height;
-                    background: rgba(54, 123, 214, 0.85);
+                    background: #0000;
                 }
             // ==============================================================================//
             //                                       Grafico                                 //
@@ -121,7 +159,7 @@ export component DashboardPage inherits Rectangle {
                     }
                 }
             }
-
+            // Legendas abaixo do grafico
             HorizontalLayout {
                 alignment: start;
                 Legendas {
