@@ -30,16 +30,17 @@ export component DashboardPage inherits Rectangle {
     // ==============================================================================//
   HorizontalLayout {
         Rectangle {
-            background: blue;
+            border-radius: 10px;
+            background: #dfdfdf;
             width: root.width * 0.15;
             height: root.height;
             VerticalLayout {
                 CardIcones {
                     dados: total_clientes;
-                    dados_legenda: "Total Cadastrados: ";
+                    dados_legenda: "Cadastrados: ";
                     width: parent.width;
                     height: parent.height * 0.1;
-                    icon: @image-url("../../assets/alunos.png");
+                    icon: @image-url("../../assets/contact.png");
                 }
 
                 CardIcones {
@@ -47,6 +48,7 @@ export component DashboardPage inherits Rectangle {
                     dados_legenda: "Em dias: ";
                     width: parent.width;
                     height: parent.height * 0.1;
+                    icon: @image-url("../../assets/pagos.png");
                 }
 
                 CardIcones {
@@ -54,6 +56,7 @@ export component DashboardPage inherits Rectangle {
                     dados_legenda: "Plano Diario: ";
                     width: parent.width;
                     height: parent.height * 0.1;
+                    icon: @image-url("../../assets/calendar_red.png");
                 }
 
                 CardIcones {
@@ -61,6 +64,7 @@ export component DashboardPage inherits Rectangle {
                     dados_legenda: "Plano Mensal: ";
                     width: parent.width;
                     height: parent.height * 0.1;
+                    icon: @image-url("../../assets/calendar_green.png");
                 }
 
                 CardIcones {
@@ -68,6 +72,23 @@ export component DashboardPage inherits Rectangle {
                     dados_legenda: "Plano Trimestral: ";
                     width: parent.width;
                     height: parent.height * 0.1;
+                    icon: @image-url    ("../../assets/calendar_purple.png");
+                }
+
+                CardIcones {
+                    dados: plano_semestral;
+                    dados_legenda: "Plano Semestral: ";
+                    width: parent.width;
+                    height: parent.height * 0.1;
+                    icon: @image-url("../../assets/calendar_orange.png");
+                }
+
+                CardIcones {
+                    dados: plano_anual;
+                    dados_legenda: "Plano Anual: ";
+                    width: parent.width;
+                    height: parent.height * 0.1;
+                    icon: @image-url("../../assets/calendar_blue.png");
                 }
             }
         }
@@ -101,100 +122,128 @@ export component DashboardPage inherits Rectangle {
             HorizontalLayout {
                     spacing: 40px;
                     alignment: center;
-                    // em dias
-                    GraficoComponent {
-                        cor_base: #7600bb;
-                        // cor_primaria: #7610bb6a;
-                        // cor_secundaria: #7620bb2f;
-                        // cor_terciaria: #7630bb6a;
-                        altura: percentual_clientes_em_dia;
-                    }
-                    // debitos
-                    GraficoComponent {
-                        cor_base: #bb0033;
-                        // cor_primaria: #00bcbb6a;
-                        // cor_secundaria: #00bdbb2f;
-                        // cor_terciaria: #00bebb6a;
-                        altura: percentual_clientes_atrasados;
-                    }
+                   
                     // diarias
                     GraficoComponent {
-                        cor_base: #00bbbb;
-                        // cor_primaria: #bb10596a;
-                        // cor_secundaria: #bb20972f;
-                        // cor_terciaria: #bb30336a;
+                        cor_base: #df2f10;
                         altura: percentual_plano_diario;
                     }
                     // mensal
                     GraficoComponent {
-                        cor_base: #60cc62;
-                        // cor_primaria: #65dd626a;
-                        // cor_secundaria: #70de622f;
-                        // cor_terciaria: #75df626a;
+                        cor_base: #13c422;
                         altura: percentual_plano_mensal;
                     }
                     // trimestral
                     GraficoComponent {
-                        cor_base: #ffd000;
-                        // cor_primaria: #ffe000c8;
-                        // cor_secundaria: #fff0006f;
-                        // cor_terciaria: #fff0009b;
+                        cor_base: #820ec5;
                         altura: percentual_plano_trimestral;
                     }
                     //semestral
                     GraficoComponent {
-                        cor_base: #4c00da;
-                        // cor_primaria: #4c11da6a;
-                        // cor_secundaria: #4c22da2f;
-                        // cor_terciaria: #4c33da6a;
+                        cor_base: #dd7411;
                         altura: percentual_plano_semestral;
                     }
                     // anual
                     GraficoComponent {
-                        cor_base: #fd7a00;
-                        // cor_primaria: #fd8a006a;
-                        // cor_secundaria: #fd9a002f;
-                        // cor_terciaria: #fd9b006a;
+                        cor_base: #1a79f5;
                         altura: percentual_plano_anual;
                     }
                 }
             }
-            // Legendas abaixo do grafico
+
             HorizontalLayout {
-                alignment: start;
-                Legendas {
-                    color: #7600bb;
-                    legenda: "Em dias";
-                }
+                width: root.width * 0.5;
+                height: root.height * 0.02;
 
                 Legendas {
-                    color: #bb0033;
-                    legenda: "Em debito";
-                }
-
-                Legendas {
-                    color: #00bbbb;
+                    color: #df2f10;
                     legenda: "Diarias";
+                    width: root.width * 0.071;
+                    height: root.height * 0.08;
                 }
 
                 Legendas {
-                    color: #60cc62;
+                    color: #13c422;
                     legenda: "Mensal";
+                    width: root.width * 0.071;
+                    height: root.height * 0.08;
                 }
 
                 Legendas {
-                    color: #ffd000;
+                    color: #820ec5;
                     legenda: "Trimestral";
+                    width: root.width * 0.071;
+                    height: root.height * 0.08;
                 }
 
                 Legendas {
-                    color: #4c00da;
+                    color: #dd7411;
                     legenda: "Semestral";
+                    width: root.width * 0.071;
+                    height: root.height * 0.08;
                 }
 
                 Legendas {
-                    color: #fd7a00;
+                    color: #1a79f5;
                     legenda: "Anual";
+                    width: root.width * 0.071;
+                    height: root.height * 0.08;
+                }
+            }
+        }
+
+        Rectangle {
+            border-radius: 10px;
+            background: #dfdfdf;
+            width: root.width * 0.15;
+            height: root.height;
+            VerticalLayout {
+                CardIcones {
+                    dados: total_clientes;
+                    dados_legenda: "Diarias R$: ";
+                    width: parent.width;
+                    height: parent.height * 0.1;
+                    icon: @image-url("../../assets/calendar_red.png");
+                }
+
+                CardIcones {
+                    dados: clientes_em_dia;
+                    dados_legenda: "Mensal R$: ";
+                    width: parent.width;
+                    height: parent.height * 0.1;
+                    icon: @image-url("../../assets/calendar_green.png");
+                }
+
+                CardIcones {
+                    dados: plano_diario;
+                    dados_legenda: "Trimestral R$: ";
+                    width: parent.width;
+                    height: parent.height * 0.1;
+                    icon: @image-url("../../assets/calendar_purple.png");
+                }
+
+                CardIcones {
+                    dados: plano_mensal;
+                    dados_legenda: "Semestral: ";
+                    width: parent.width;
+                    height: parent.height * 0.1;
+                    icon: @image-url("../../assets/calendar_orange.png");
+                }
+
+                CardIcones {
+                    dados: plano_trimestral;
+                    dados_legenda: "Anual R$: ";
+                    width: parent.width;
+                    height: parent.height * 0.1;
+                    icon: @image-url    ("../../assets/calendar_blue.png");
+                }
+
+                CardIcones {
+                    dados: plano_trimestral;
+                    dados_legenda: "Total R$: ";
+                    width: parent.width;
+                    height: parent.height * 0.1;
+                    icon: @image-url    ("../../assets/total.png");
                 }
             }
         }

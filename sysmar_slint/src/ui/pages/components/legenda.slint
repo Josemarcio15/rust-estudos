@@ -1,17 +1,20 @@
-export component Legendas inherits HorizontalLayout {
-    padding: 25px;
-    alignment: center;
+export component Legendas inherits VerticalLayout {
     in property <color> color;
     in property <string> legenda;
-    Rectangle {
-        width: 20px;
-        height: 20px;
-        border-radius: 5px;
-        background: color;
-    }
+    HorizontalLayout {
+        spacing: 3px;
+        padding: 10px;
+        Rectangle {
+            width: root.width * 0.2;
+            height: root.height * 0.4;
+            border-radius: 5px;
+            background: color;
+        }
 
-    Text {
-        vertical-alignment: center;
-        text: legenda;
+        Text {
+            font-size: root.width * 0.15;
+            vertical-alignment: center;
+            text: legenda;
+        }
     }
 }
