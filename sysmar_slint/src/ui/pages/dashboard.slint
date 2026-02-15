@@ -1,6 +1,7 @@
 import { GraficoComponent } from "components/grafico.slint";
 import { Legendas } from "components/legenda.slint";
 import { CardIcones } from "components/card_icones.slint";
+import { TextEdit, LineEdit, Button } from "std-widgets.slint";
 export component DashboardPage inherits Rectangle {
     background: #ffffff;
     in property <int> total_clientes;
@@ -25,8 +26,8 @@ export component DashboardPage inherits Rectangle {
         loaded();
     }
 
-    // ==============================================================================//
-    //                                       Legendas grafico                        //
+      // ==============================================================================//
+     //                                      Card Esquerda                            //
     // ==============================================================================//
   HorizontalLayout {
         Rectangle {
@@ -92,9 +93,154 @@ export component DashboardPage inherits Rectangle {
                 }
             }
         }
-        // imagem background grafico
+        
+        //
+        // pilar central LAYOUT VERTICAL
+        //
         VerticalLayout {
-            padding: 150px;
+            padding-bottom: 150px;
+            padding-left: 150px;
+            padding-right: 150px;
+
+            // Seletor de Data
+            HorizontalLayout {
+                alignment: start;
+                width: root.width * 0.5;
+                height: root.height * 0.1;
+                VerticalLayout {
+                    padding-top: 10px;
+                    alignment: start;
+                    Text {
+                        font-size: root.width * 0.01;
+                        text: "Dia:";
+                    }
+
+                    LineEdit {
+                        // background: red;
+                        horizontal-alignment: center;
+                        font-size: root.width * 0.01;
+                        width: root.width * 0.035;
+                        height: root.height * 0.035;
+                    }
+                }
+
+                VerticalLayout {
+                    padding-top: 10px;
+                    alignment: start;
+                    Text {
+                        font-size: root.width * 0.01;
+                        text: "Mes:";
+                    }
+
+                    LineEdit {
+                        // background: red;
+                        horizontal-alignment: center;
+                        font-size: root.width * 0.01;
+                        width: root.width * 0.035;
+                        height: root.height * 0.035;
+                    }
+                }
+
+                VerticalLayout {
+                    padding-top: 10px;
+                    alignment: start;
+                    Text {
+                        font-size: root.width * 0.01;
+                        text: "Ano:";
+                    }
+
+                    LineEdit {
+                        // background: red;
+                        horizontal-alignment: center;
+                        font-size: root.width * 0.01;
+                        width: root.width * 0.045;
+                        height: root.height * 0.035;
+                    }
+                }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                max-height: 10px;
+                Text {
+                    vertical-alignment: center;
+                    font-size: root.width * 0.013;
+                    text: "Até:";
+                }
+            }
+
+            HorizontalLayout {
+                alignment: start;
+                width: root.width * 0.5;
+                height: root.height * 0.1;
+                VerticalLayout {
+                    padding-top: 10px;
+                    alignment: start;
+                    Text {
+                        font-size: root.width * 0.01;
+                        text: "Dia:";
+                    }
+
+                    LineEdit {
+                        // background: red;
+                        horizontal-alignment: center;
+                        font-size: root.width * 0.01;
+                        width: root.width * 0.035;
+                        height: root.height * 0.035;
+                    }
+                }
+
+                VerticalLayout {
+                    padding-top: 10px;
+                    alignment: start;
+                    Text {
+                        font-size: root.width * 0.01;
+                        text: "Mes:";
+                    }
+
+                    LineEdit {
+                        // background: red;
+                        horizontal-alignment: center;
+                        font-size: root.width * 0.01;
+                        width: root.width * 0.035;
+                        height: root.height * 0.035;
+                    }
+                }
+
+                VerticalLayout {
+                    padding-top: 10px;
+                    alignment: start;
+                    Text {
+                        font-size: root.width * 0.01;
+                        text: "Ano:";
+                    }
+
+                    LineEdit {
+                        // background: red;
+                        horizontal-alignment: center;
+                        font-size: root.width * 0.01;
+                        width: root.width * 0.045;
+                        height: root.height * 0.035;
+                    }
+                }
+
+                VerticalLayout {
+                    padding-top: 10px;
+                    padding-left: 10px;
+                    alignment: start;
+                    Text {
+                        text: "  ";
+                        font-size: root.width * 0.01;
+                    }
+
+                    Button {
+                        width: root.width * 0.045;
+                        height: root.height * 0.035;
+                        text: "Filtrar";
+                    }
+                }
+            }
+            // imagem background grafico
             Rectangle {
                 drop-shadow-blur: 10px;
                 drop-shadow-offset-x: 1px;
@@ -116,9 +262,9 @@ export component DashboardPage inherits Rectangle {
                     height: parent.height;
                     background: #0000;
                 }
-            // ==============================================================================//
-            //                                       Grafico                                 //
-            // ==============================================================================//
+               // ==============================================================================//
+              //                                       Grafico                                 //
+             // ==============================================================================//
             HorizontalLayout {
                     spacing: 40px;
                     alignment: center;
@@ -150,7 +296,9 @@ export component DashboardPage inherits Rectangle {
                     }
                 }
             }
-
+           //==============================================================================//
+          //                                     Legendas                                 //
+         //==============================================================================//
             HorizontalLayout {
                 width: root.width * 0.5;
                 height: root.height * 0.02;
@@ -191,7 +339,9 @@ export component DashboardPage inherits Rectangle {
                 }
             }
         }
-
+        //==============================================================================//
+       //                                 Cards direita                                //
+      //==============================================================================//
         Rectangle {
             border-radius: 10px;
             background: #dfdfdf;
