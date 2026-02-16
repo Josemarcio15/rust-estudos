@@ -21,6 +21,13 @@ export component DashboardPage inherits Rectangle {
     in property <float> percentual_plano_semestral;
     in property <float> percentual_plano_anual;
 
+    in property <string> total_financeiro_diario: "0,00";
+    in property <string> total_financeiro_mensal: "0,00";
+    in property <string> total_financeiro_trimestral: "0,00";
+    in property <string> total_financeiro_semestral: "0,00";
+    in property <string> total_financeiro_anual: "0,00";
+    in property <string> total_financeiro_geral: "0,00";
+
     callback filtro_dashboard(string, string, string, string, string, string);
 
     callback loaded();
@@ -354,7 +361,7 @@ export component DashboardPage inherits Rectangle {
             height: root.height;
             VerticalLayout {
                 CardIcones {
-                    dados: total_clientes;
+                    dados: total_financeiro_diario;
                     dados_legenda: "Diarias R$: ";
                     width: parent.width;
                     height: parent.height * 0.1;
@@ -362,7 +369,7 @@ export component DashboardPage inherits Rectangle {
                 }
 
                 CardIcones {
-                    dados: clientes_em_dia;
+                    dados: total_financeiro_mensal;
                     dados_legenda: "Mensal R$: ";
                     width: parent.width;
                     height: parent.height * 0.1;
@@ -370,7 +377,7 @@ export component DashboardPage inherits Rectangle {
                 }
 
                 CardIcones {
-                    dados: plano_diario;
+                    dados: total_financeiro_trimestral;
                     dados_legenda: "Trimestral R$: ";
                     width: parent.width;
                     height: parent.height * 0.1;
@@ -378,15 +385,15 @@ export component DashboardPage inherits Rectangle {
                 }
 
                 CardIcones {
-                    dados: plano_mensal;
-                    dados_legenda: "Semestral: ";
+                    dados: total_financeiro_semestral;
+                    dados_legenda: "Semestral R$: ";
                     width: parent.width;
                     height: parent.height * 0.1;
                     icon: @image-url("../../assets/calendar_orange.png");
                 }
 
                 CardIcones {
-                    dados: plano_trimestral;
+                    dados: total_financeiro_anual;
                     dados_legenda: "Anual R$: ";
                     width: parent.width;
                     height: parent.height * 0.1;
@@ -394,7 +401,7 @@ export component DashboardPage inherits Rectangle {
                 }
 
                 CardIcones {
-                    dados: plano_trimestral;
+                    dados: total_financeiro_geral;
                     dados_legenda: "Total R$: ";
                     width: parent.width;
                     height: parent.height * 0.1;

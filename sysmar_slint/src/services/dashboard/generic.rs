@@ -1,5 +1,6 @@
 use crate::db::PoolBanco;
 use crate::queries::dashboard::generic;
+use chrono::NaiveDate;
 pub struct DashboardResumo {
     pub total_clientes: i64,
     pub clientes_em_dia: i64,
@@ -34,23 +35,27 @@ pub struct DashboardUI {
 
 pub fn carregar_dashboard(
     pool: &PoolBanco,
+    start_date: NaiveDate,
+    end_date: NaiveDate,
 ) -> Result<DashboardResumo, diesel::result::Error> {
     Ok(DashboardResumo {
         total_clientes: generic::total_clientes(pool)?,
-        clientes_em_dia: generic::clientes_em_dia(pool)?,
-        clientes_atrasados: generic::clientes_atrasados(pool)?,
-        plano_diario: generic::clientes_plano_diario(pool)?,
-        plano_mensal: generic::clientes_plano_mensal(pool)?,
-        plano_trimestral: generic::clientes_plano_trimestral(pool)?,
-        plano_semestral: generic::clientes_plano_semestral(pool)?,
-        plano_anual: generic::clientes_plano_anual(pool)?,
+        clientes_em_dia: generic::clientes_em_dia(pool, start_date, end_date)?,
+        clientes_atrasados: generic::clientes_atrasados(pool, start_date, end_date)?,
+        plano_diario: generic::clientes_plano_diario(pool, start_date, end_date)?,
+        plano_mensal: generic::clientes_plano_mensal(pool, start_date, end_date)?,
+        plano_trimestral: generic::clientes_plano_trimestral(pool, start_date, end_date)?,
+        plano_semestral: generic::clientes_plano_semestral(pool, start_date, end_date)?,
+        plano_anual: generic::clientes_plano_anual(pool, start_date, end_date)?,
     })
 }
 
 pub fn carregar_dashboard_ui(
     pool: &PoolBanco,
+    start_date: NaiveDate,
+    end_date: NaiveDate,
 ) -> Result<DashboardUI, diesel::result::Error> {
-    let resumo = carregar_dashboard(pool)?;
+    let resumo = carregar_dashboard(pool, start_date, end_date)?;
     
     let total_clientes = resumo.total_clientes as i32;
     let clientes_em_dia= resumo.clientes_em_dia as i32;

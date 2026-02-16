@@ -35,6 +35,12 @@ export component AppWindow inherits Window {
     in property <float> percentual_plano_trimestral;
     in property <float> percentual_plano_semestral;
     in property <float> percentual_plano_anual;
+    in property <string> total_financeiro_diario: "0,00";
+    in property <string> total_financeiro_mensal: "0,00";
+    in property <string> total_financeiro_trimestral: "0,00";
+    in property <string> total_financeiro_semestral: "0,00";
+    in property <string> total_financeiro_anual: "0,00";
+    in property <string> total_financeiro_geral: "0,00";
 
     in-out property <Page> pagina_atual: Page.Dashboard;
 
@@ -151,6 +157,14 @@ export component AppWindow inherits Window {
                 percentual_plano_trimestral: root.percentual_plano_trimestral;
                 percentual_plano_semestral: root.percentual_plano_semestral;
                 percentual_plano_anual: root.percentual_plano_anual;
+
+                total_financeiro_diario: root.total_financeiro_diario;
+                total_financeiro_mensal: root.total_financeiro_mensal;
+                total_financeiro_trimestral: root.total_financeiro_trimestral;
+                total_financeiro_semestral: root.total_financeiro_semestral;
+                total_financeiro_anual: root.total_financeiro_anual;
+                total_financeiro_geral: root.total_financeiro_geral;
+
                 filtro_dashboard(i_dia, i_mes, i_ano, f_dia, f_mes, f_ano) => {
                     root.filtro_dashboard( i_dia, i_mes, i_ano, f_dia, f_mes, f_ano)
                 };

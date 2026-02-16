@@ -5,7 +5,8 @@ version = "0.1.0"
 
 [dependencies]
 chrono = {version = "0.4", features = ["serde"]}
-diesel = {version = "2.2.0", features = ["mysql", "r2d2", "chrono"]}
+bigdecimal = "0.4.5"
+diesel = {version = "2.2.0", features = ["mysql", "r2d2", "chrono", "numeric"]}
 dotenvy = "0.15"
 
 slint = {version = "^1.14", features = [

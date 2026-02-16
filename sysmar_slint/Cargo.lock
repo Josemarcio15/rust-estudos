@@ -501,6 +501,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "72b3254f16251a8381aa12e40e3c4d2f0199f8c6508fbecb9d91f575e0fbb8c6"
 
 [[package]]
+name = "bigdecimal"
+version = "0.4.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4d6867f1565b3aad85681f1015055b087fcfd840d6aeee6eee7f2da317603695"
+dependencies = [
+ "autocfg",
+ "libm",
+ "num-bigint",
+ "num-integer",
+ "num-traits",
+]
+
+[[package]]
 name = "bincode"
 version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1142,12 +1155,16 @@ version = "2.3.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d9b6c2fc184a6fb6ebcf5f9a5e3bbfa84d8fd268cdfcce4ed508979a6259494d"
 dependencies = [
+ "bigdecimal",
  "bitflags 2.10.0",
  "byteorder",
  "chrono",
  "diesel_derives",
  "downcast-rs 2.0.2",
  "mysqlclient-sys",
+ "num-bigint",
+ "num-integer",
+ "num-traits",
  "percent-encoding",
  "r2d2",
  "url",
@@ -1368,6 +1385,7 @@ checksum = "dea2df4cf52843e0452895c455a1a2cfbb842a1e7329671acf418fdc53ed4c59"
 name = "estudos_slint"
 version = "0.1.0"
 dependencies = [
+ "bigdecimal",
  "chrono",
  "diesel",
  "dotenvy",
