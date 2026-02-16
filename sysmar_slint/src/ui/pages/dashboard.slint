@@ -21,6 +21,8 @@ export component DashboardPage inherits Rectangle {
     in property <float> percentual_plano_semestral;
     in property <float> percentual_plano_anual;
 
+    callback filtro_dashboard(string, string, string, string, string, string);
+
     callback loaded();
     init => {
         loaded();
@@ -115,7 +117,7 @@ export component DashboardPage inherits Rectangle {
                         text: "Dia:";
                     }
 
-                    LineEdit {
+                    inicio_dia := LineEdit {
                         // background: red;
                         horizontal-alignment: center;
                         font-size: root.width * 0.01;
@@ -132,7 +134,7 @@ export component DashboardPage inherits Rectangle {
                         text: "Mes:";
                     }
 
-                    LineEdit {
+                    inicio_mes := LineEdit {
                         // background: red;
                         horizontal-alignment: center;
                         font-size: root.width * 0.01;
@@ -149,7 +151,7 @@ export component DashboardPage inherits Rectangle {
                         text: "Ano:";
                     }
 
-                    LineEdit {
+                    inicio_ano := LineEdit {
                         // background: red;
                         horizontal-alignment: center;
                         font-size: root.width * 0.01;
@@ -181,7 +183,7 @@ export component DashboardPage inherits Rectangle {
                         text: "Dia:";
                     }
 
-                    LineEdit {
+                    fim_dia := LineEdit {
                         // background: red;
                         horizontal-alignment: center;
                         font-size: root.width * 0.01;
@@ -198,7 +200,7 @@ export component DashboardPage inherits Rectangle {
                         text: "Mes:";
                     }
 
-                    LineEdit {
+                    fim_mes := LineEdit {
                         // background: red;
                         horizontal-alignment: center;
                         font-size: root.width * 0.01;
@@ -215,7 +217,7 @@ export component DashboardPage inherits Rectangle {
                         text: "Ano:";
                     }
 
-                    LineEdit {
+                    fim_ano := LineEdit {
                         // background: red;
                         horizontal-alignment: center;
                         font-size: root.width * 0.01;
@@ -234,6 +236,9 @@ export component DashboardPage inherits Rectangle {
                     }
 
                     Button {
+                        clicked => {
+                            root.filtro_dashboard(inicio_dia.text, inicio_mes.text, inicio_ano.text, fim_dia.text, fim_mes.text, fim_ano.text);
+                        }
                         width: root.width * 0.045;
                         height: root.height * 0.035;
                         text: "Filtrar";

@@ -38,6 +38,7 @@ export component AppWindow inherits Window {
 
     in-out property <Page> pagina_atual: Page.Dashboard;
 
+    callback filtro_dashboard(string, string, string, string, string, string);
     callback dashboard_load();
 
     VerticalLayout {
@@ -150,7 +151,9 @@ export component AppWindow inherits Window {
                 percentual_plano_trimestral: root.percentual_plano_trimestral;
                 percentual_plano_semestral: root.percentual_plano_semestral;
                 percentual_plano_anual: root.percentual_plano_anual;
-
+                filtro_dashboard(i_dia, i_mes, i_ano, f_dia, f_mes, f_ano) => {
+                    root.filtro_dashboard( i_dia, i_mes, i_ano, f_dia, f_mes, f_ano)
+                };
                 loaded => {
                     root.dashboard_load();
                 }
