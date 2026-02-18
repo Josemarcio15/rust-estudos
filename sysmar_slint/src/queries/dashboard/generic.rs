@@ -1,120 +1,99 @@
+use sea_orm::*;
 use chrono::Local;
-use diesel::dsl::count_star;
-use diesel::prelude::*;
-use diesel::dsl::sql;
-use diesel::sql_types::Bool;
-use crate::db::PoolBanco;
-use crate::schema::clientes::dsl::*;
+// Supondo que você gerou as entidades com 'sea-orm-cli generate entity'
+// Ajuste o caminho conforme a estrutura do seu projeto (ex: crate::entities::clientes)
+use crate::entities::clientes; 
+use crate::entities::pagamentos;
+use chrono::NaiveDate;
 
   //========================================================================//
  //                          contagem de clientes                          //
 //========================================================================//
 
-pub fn total_clientes(
-    pool: &PoolBanco,
-) -> Result<i64, diesel::result::Error> {
-    let mut conexao = pool.get().expect("Erro ao obter conexão");
-
-    clientes.count().get_result(&mut conexao)
+pub async fn total_clientes(db: &DatabaseConnection) -> Result<u64, DbErr> {
+    // No SeaORM, não precisamos pegar conexão do pool manualmente,
+    // o DatabaseConnection já gerencia isso internamente.
+    clientes::Entity::find().count(db).await
 }
 
   //========================================================================//
  //                       clientes vigentes (em dia)                       //
 //========================================================================//
 
-pub fn clientes_em_dia(
-    pool: &PoolBanco,
-) -> Result<i64, diesel::result::Error> {
-    let mut conexao = pool.get().expect("Erro ao obter conexão");
-
+pub async fn clientes_em_dia(db: &DatabaseConnection) -> Result<u64, DbErr> {
     let hoje = Local::now().naive_local().date();
 
-    clientes
-        .filter(vencimento.ge(hoje))
-        .select(count_star())
-        .get_result(&mut conexao)
+    // gte = greater than or equal (maior ou igual)
+    clientes::Entity::find()
+        .filter(clientes::Column::Vencimento.gte(hoje))
+        .count(db)
+        .await
 }
+
   //========================================================================//
  //                       clientes em atraso                               //
 //========================================================================//
 
-
-pub fn clientes_atrasados(pool: &PoolBanco,
-) -> Result<i64, diesel::result::Error> {
-    
-    let mut conexao = pool.get().expect("Erro ao obter conexão");
-
+pub async fn clientes_atrasados(db: &DatabaseConnection) -> Result<u64, DbErr> {
     let hoje = Local::now().naive_local().date();
 
-    clientes
-        .filter(vencimento.lt(hoje))
-        .select(count_star())
-        .get_result(&mut conexao)
+    // lt = less than (menor que)
+    clientes::Entity::find()
+        .filter(clientes::Column::Vencimento.lt(hoje))
+        .count(db)
+        .await
 }
 
   //========================================================================//
  //                       clientes por plano                               //
 //========================================================================//
 
+// Dica: No SeaORM, verificar igualdade (.eq) já implica que não é NULL,
+// então não precisamos do filtro explícito "is_not_null" se buscamos um valor específico.
+
 //////////////////////// diario ////////////////////////////////////////////
-pub fn clientes_plano_diario(
-    pool: &PoolBanco,
-) -> Result<i64, diesel::result::Error> {
-    let mut conexao = pool.get().expect("Erro ao obter conexão");
-
-    clientes
-        .filter(plano.is_not_null())
-        .filter(sql::<Bool>("plano = 'diaria'"))
-        .select(count_star())
-        .get_result(&mut conexao)
+pub async fn clientes_plano_diario(db: &DatabaseConnection) -> Result<u64, DbErr> {
+    clientes::Entity::find()
+        .filter(clientes::Column::Plano.eq("diaria"))
+        .count(db)
+        .await
 }
+
 //////////////////////// mensal ////////////////////////////////////////////
-pub fn clientes_plano_mensal(
-    pool: &PoolBanco,
-) -> Result<i64, diesel::result::Error> {
-    let mut conexao = pool.get().expect("Erro ao obter conexão");
-
-    clientes
-        .filter(plano.is_not_null())
-        .filter(sql::<Bool>("plano = 'mensal'"))
-        .select(count_star())
-        .get_result(&mut conexao)
+pub async fn clientes_plano_mensal(db: &DatabaseConnection) -> Result<u64, DbErr> {
+    clientes::Entity::find()
+        .filter(clientes::Column::Plano.eq("mensal"))
+        .count(db)
+        .await
 }
+
 //////////////////////// trimestral ////////////////////////////////////////
-pub fn clientes_plano_trimestral(
-    pool: &PoolBanco,
-) -> Result<i64, diesel::result::Error>{
-
-    let mut conexao = pool.get().expect("Erro ao obter conexão");
-
-    clientes
-        .filter(plano.is_not_null())
-        .filter(sql::<Bool>("plano = 'trimestral'"))
-        .select(count_star())
-        .get_result(&mut conexao)
+pub async fn clientes_plano_trimestral(db: &DatabaseConnection) -> Result<u64, DbErr> {
+    clientes::Entity::find()
+        .filter(clientes::Column::Plano.eq("trimestral"))
+        .count(db)
+        .await
 }
 
 //////////////////////// semestral /////////////////////////////////////////
-pub fn clientes_plano_semestral(
-    pool: &PoolBanco,
-) -> Result<i64, diesel::result::Error> {
-    let mut conexao = pool.get().expect("Erro ao obter conexão");
-
-    clientes
-        .filter(plano.is_not_null())
-        .filter(sql::<Bool>("plano = 'semestral'"))
-        .select(count_star())
-        .get_result(&mut conexao)
+pub async fn clientes_plano_semestral(db: &DatabaseConnection) -> Result<u64, DbErr> {
+    clientes::Entity::find()
+        .filter(clientes::Column::Plano.eq("semestral"))
+        .count(db)
+        .await
 }
-//////////////////////// anual /////////////////////////////////////////////
-pub fn clientes_plano_anual(
-    pool: &PoolBanco,
-) -> Result<i64, diesel::result::Error> {
-    let mut conexao = pool.get().expect("Erro ao obter conexão");
 
-    clientes
-        .filter(plano.is_not_null())
-        .filter(sql::<Bool>("plano = 'anual'"))
-        .select(count_star())
-        .get_result(&mut conexao)
+//////////////////////// anual /////////////////////////////////////////////
+pub async fn clientes_plano_anual(db: &DatabaseConnection) -> Result<u64, DbErr> {
+    clientes::Entity::find()
+        .filter(clientes::Column::Plano.eq("anual"))
+        .count(db)
+        .await
+}
+
+pub async fn filtrar_pagamentos_por_data(db: &DatabaseConnection, inicio_data: NaiveDate, fim_data: NaiveDate) -> Result<u64, DbErr> {
+ pagamentos::Entity::find()
+    .filter(pagamentos::Column::DataPagamento.between(inicio_data, fim_data))
+    .count(db)
+    .await   
 }

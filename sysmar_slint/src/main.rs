@@ -1,19 +1,22 @@
 mod db;
 mod queries;
 mod services;
-mod schema;
+mod entities;
+
 
 // Importa a shared string para lidar com textos do Slint
-use slint::SharedString;
+// use slint::SharedString;
 
 slint::include_modules!();
 
-fn main() -> Result<(), slint::PlatformError> {
+#[tokio::main]
+async fn main() -> Result<(), slint::PlatformError> {
     // 1. Inicializa o banco
-    let pool = db::criar_pool_banco();
+    let pool = db::criar_pool_banco().await;
 
-    // 2. Carrega dados iniciais (Sincrono)
+    // 2. Carrega dados iniciais (Assíncrono)
     let resumo = services::dashboard::carregar_dashboard_ui(&pool)
+        .await
         .expect("Erro ao carregar dashboard");
 
     // Debug no terminal
@@ -58,13 +61,13 @@ fn main() -> Result<(), slint::PlatformError> {
         );
 
         // Conversão: SharedString -> i32
-        let inicio_dia = i_dia.parse::<i32>().unwrap_or(1);
-        let inicio_mes = i_mes.parse::<i32>().unwrap_or(1);
-        let inicio_ano = i_ano.parse::<i32>().unwrap_or(2026);
+        let _inicio_dia = i_dia.parse::<i32>().unwrap_or(1);
+        let _inicio_mes = i_mes.parse::<i32>().unwrap_or(1);
+        let _inicio_ano = i_ano.parse::<i32>().unwrap_or(2026);
 
-        let fim_dia = f_dia.parse::<i32>().unwrap_or(31);
-        let fim_mes = f_mes.parse::<i32>().unwrap_or(12);
-        let fim_ano = f_ano.parse::<i32>().unwrap_or(2026);
+        let _fim_dia = f_dia.parse::<i32>().unwrap_or(31);
+        let _fim_mes = f_mes.parse::<i32>().unwrap_or(12);
+        let _fim_ano = f_ano.parse::<i32>().unwrap_or(2026);
 
         // --- LÓGICA DO FILTRO AQUI ---
         // Aqui você usa 'pool_callback' para chamar sua query

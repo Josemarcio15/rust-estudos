@@ -32,25 +32,25 @@ pub struct DashboardUI {
 
 
 
-pub fn carregar_dashboard(
+pub async fn carregar_dashboard(
     pool: &PoolBanco,
-) -> Result<DashboardResumo, diesel::result::Error> {
+) -> Result<DashboardResumo, sea_orm::DbErr> {
     Ok(DashboardResumo {
-        total_clientes: generic::total_clientes(pool)?,
-        clientes_em_dia: generic::clientes_em_dia(pool)?,
-        clientes_atrasados: generic::clientes_atrasados(pool)?,
-        plano_diario: generic::clientes_plano_diario(pool)?,
-        plano_mensal: generic::clientes_plano_mensal(pool)?,
-        plano_trimestral: generic::clientes_plano_trimestral(pool)?,
-        plano_semestral: generic::clientes_plano_semestral(pool)?,
-        plano_anual: generic::clientes_plano_anual(pool)?,
+        total_clientes: generic::total_clientes(pool).await? as i64,
+        clientes_em_dia: generic::clientes_em_dia(pool).await? as i64,
+        clientes_atrasados: generic::clientes_atrasados(pool).await? as i64,
+        plano_diario: generic::clientes_plano_diario(pool).await? as i64,
+        plano_mensal: generic::clientes_plano_mensal(pool).await? as i64,
+        plano_trimestral: generic::clientes_plano_trimestral(pool).await? as i64,
+        plano_semestral: generic::clientes_plano_semestral(pool).await? as i64,
+        plano_anual: generic::clientes_plano_anual(pool).await? as i64,
     })
 }
 
-pub fn carregar_dashboard_ui(
+pub async fn carregar_dashboard_ui(
     pool: &PoolBanco,
-) -> Result<DashboardUI, diesel::result::Error> {
-    let resumo = carregar_dashboard(pool)?;
+) -> Result<DashboardUI, sea_orm::DbErr> {
+    let resumo = carregar_dashboard(pool).await?;
     
     let total_clientes = resumo.total_clientes as i32;
     let clientes_em_dia= resumo.clientes_em_dia as i32;
@@ -86,8 +86,6 @@ pub fn carregar_dashboard_ui(
         percentual_plano_trimestral,
         percentual_plano_semestral,
         percentual_plano_anual,
-
-       
     })
 }
 
