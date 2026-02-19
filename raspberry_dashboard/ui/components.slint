@@ -1,0 +1,69 @@
+import { VerticalBox, HorizontalBox } from "std-widgets.slint";
+
+export component CircularGauge inherits Rectangle {
+    in property <float> progress: 0.0; // 0.0 to 1.0
+    in property <string> text: "";
+    in property <brush> gauge-color: #3b82f6; // Default blue
+    in property <length> thickness: 8px;
+    
+    width: 100px;
+    height: 100px;
+
+    // Internal properties for arc calculation
+    private property <float> angle: (root.progress * 360) - 90;
+    private property <float> end-x: 50 + 40 * cos(root.angle * 1deg);
+    private property <float> end-y: 50 + 40 * sin(root.angle * 1deg);
+    private property <int> large-arc: root.progress > 0.5 ? 1 : 0;
+
+    // Background circle
+    Path {
+        width: parent.width;
+        height: parent.height;
+        stroke: #e5e7eb;
+        stroke-width: root.thickness;
+        viewbox-width: 100;
+        viewbox-height: 100;
+        commands: "M 50 10 A 40 40 0 1 1 49.99 10"; // Full circle path
+    }
+
+    // Foreground arc
+    Path {
+        width: parent.width;
+        height: parent.height;
+        stroke: root.gauge-color;
+        stroke-width: root.thickness;
+        viewbox-width: 100;
+        viewbox-height: 100;
+        
+        commands: "M 50 10 A 40 40 0 " + root.large-arc + " 1 " + root.end-x + " " + root.end-y;
+    }
+
+    Text {
+        text: root.text;
+        font-size: 14px;
+        horizontal-alignment: center;
+        vertical-alignment: center;
+        color: #1f2937;
+    }
+}
+
+export component ModernBar inherits Rectangle {
+    in property <float> progress: 0.0;
+    in property <brush> bar-color: #3b82f6;
+    
+    height: 20px;
+    border-radius: 10px;
+    background: #e5e7eb;
+    
+    Rectangle {
+        x: 0;
+        y: 0;
+        width: parent.width * root.progress;
+        height: parent.height;
+        border-radius: 10px;
+        background: root.bar-color;
+        
+        // Animate width changes
+        animate width { duration: 250ms; easing: ease-in-out; }
+    }
+}

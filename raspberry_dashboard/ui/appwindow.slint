@@ -1,0 +1,141 @@
+import { VerticalBox, HorizontalBox, GridBox } from "std-widgets.slint";
+import { CircularGauge, ModernBar } from "components.slint";
+
+export struct DiskInfo {
+    name: string,
+    usage-text: string,
+    usage-percent: float,
+}
+
+export struct CpuInfo {
+    name: string,
+    usage-percent: float,
+}
+
+export component MainWindow inherits Window {
+    title: "Raspberry Pi Dashboard";
+    width: 600px;
+
+    in property <[DiskInfo]> disks: [
+        { name: "Scanning...", usage-text: "Scanning...", usage-percent: 0.0 }
+    ];
+
+    in property <[CpuInfo]> cpus: [
+        { name: "CPU Scanning...", usage-percent: 0.0 }
+    ];
+
+    in property <string> memory-text: "Memory: Loading...";
+    in property <float> memory-percent: 0.0;
+    
+    in property <string> temp-text: "Temp: Loading...";
+    in property <float> temp-percent: 0.0; // Normalized 0.0 to 1.0 (e.g. 0-100C)
+
+    VerticalBox {
+        padding: 20px;
+        spacing: 20px;
+
+        Text {
+            text: "System Monitor";
+            font-size: 24px;
+            horizontal-alignment: center;
+        }
+
+        // Top Section: Memory and Temperature Gauges
+        HorizontalBox {
+            alignment: center;
+            spacing: 40px;
+
+            // Memory
+            VerticalBox {
+                alignment: center;
+                spacing: 5px;
+                Text {
+                    text: root.memory-text;
+                    font-size: 14px;
+                    horizontal-alignment: center;
+                }
+                CircularGauge {
+                    progress: root.memory-percent;
+                    text: @tr("{}%", round(root.memory-percent * 100));
+                    gauge-color: @linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
+                    width: 120px;
+                    height: 120px;
+                }
+            }
+
+            // Temperature
+            VerticalBox {
+                alignment: center;
+                spacing: 5px;
+                Text {
+                    text: root.temp-text;
+                    font-size: 14px;
+                    horizontal-alignment: center;
+                }
+                CircularGauge {
+                    progress: root.temp-percent;
+                    text: @tr("{}%", round(root.temp-percent * 100));
+                    gauge-color: root.temp-percent > 0.8 ? #ef4444 : #10b981;
+                    width: 120px;
+                    height: 120px;
+                }
+            }
+        }
+        
+        // Middle Section: CPU Cores
+        VerticalBox {
+            spacing: 10px;
+             Text {
+                text: "CPU Usage";
+                font-size: 18px;
+                font-weight: 700;
+            }
+            
+            VerticalBox {
+                spacing: 8px;
+                for cpu in root.cpus : HorizontalBox {
+                    spacing: 10px;
+                    Text {
+                        text: cpu.name;
+                        font-size: 14px;
+                        width: 60px;
+                        vertical-alignment: center;
+                    }
+                    ModernBar {
+                        progress: cpu.usage-percent;
+                        bar-color: #8b5cf6; // Violet
+                        height: 16px;
+                    }
+                    Text {
+                         text: @tr("{}%", round(cpu.usage-percent * 100));
+                         font-size: 14px;
+                         width: 40px;
+                         vertical-alignment: center;
+                    }
+                }
+            }
+        }
+
+        // Bottom Section: Disks
+        VerticalBox {
+            spacing: 10px;
+            Text {
+                text: "Disks";
+                font-size: 18px;
+                font-weight: 700;
+            }
+            for disk in root.disks : VerticalBox {
+                spacing: 5px;
+                Text {
+                    text: disk.name + ": " + disk.usage-text;
+                    font-size: 14px;
+                }
+                ModernBar {
+                    progress: disk.usage-percent;
+                    height: 20px;
+                    bar-color: disk.usage-percent > 0.9 ? #ef4444 : #f59e0b;
+                }
+            }
+        }
+    }
+}
