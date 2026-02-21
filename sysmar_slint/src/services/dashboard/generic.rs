@@ -1,4 +1,8 @@
+use chrono::NaiveDate;
+use sea_orm::DatabaseConnection;
+
 use crate::db::PoolBanco;
+use crate::entities::pagamentos;
 use crate::queries::dashboard::generic;
 pub struct DashboardResumo {
     pub total_clientes: i64,
@@ -97,6 +101,13 @@ pub fn porcentagem(parte: i32, total: i32) -> f32 {
     (parte as f32 * 100.0) / total as f32
 }
 
+pub async  fn calcular_valores(db: &DatabaseConnection,inicio: &str, fim: &str)->Result<Vec<pagamentos::Model>, sea_orm::DbErr>{
 
+
+    let data_inicio = NaiveDate::parse_from_str(inicio, "%Y-%m-%d").unwrap();
+    let data_fim = NaiveDate::parse_from_str(fim, "%Y-%m-%d").unwrap();
+
+generic::filtrar_pagamentos_por_data(db, data_inicio, data_fim ).await
+}
 
 

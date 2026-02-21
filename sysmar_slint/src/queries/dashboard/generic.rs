@@ -91,9 +91,9 @@ pub async fn clientes_plano_anual(db: &DatabaseConnection) -> Result<u64, DbErr>
         .await
 }
 
-pub async fn filtrar_pagamentos_por_data(db: &DatabaseConnection, inicio_data: NaiveDate, fim_data: NaiveDate) -> Result<u64, DbErr> {
+pub async fn filtrar_pagamentos_por_data(db: &DatabaseConnection, inicio_data: NaiveDate, fim_data: NaiveDate) -> Result<Vec<pagamentos::Model>, DbErr> {
  pagamentos::Entity::find()
     .filter(pagamentos::Column::DataPagamento.between(inicio_data, fim_data))
-    .count(db)
+    .all(db)
     .await   
 }
