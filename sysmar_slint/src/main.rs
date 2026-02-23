@@ -1,27 +1,23 @@
+use crate::queries::dashboard::generic;
+
 mod db;
 mod queries;
 mod services;
 mod entities;
 
-
-// Importa a shared string para lidar com textos do Slint
-// use slint::SharedString;
-
 slint::include_modules!();
 
 #[tokio::main]
 async fn main() -> Result<(), slint::PlatformError> {
-    // 1. Inicializa o banco
+    // 1. Inicializa o banco (Certifique-se que db::criar_pool_banco retorna a conexão direta ou use .expect)
     let pool = db::criar_pool_banco().await;
 
-    // 2. Carrega dados iniciais (Assíncrono)
+    // 2. Carrega dados iniciais
     let resumo = services::dashboard::carregar_dashboard_ui(&pool)
         .await
         .expect("Erro ao carregar dashboard");
 
-    // Debug no terminal
     println!("Resumo dashboard carregado com sucesso.");
-    // ... (Seus prints de debug continuam aqui se quiser) ...
 
     // 3. Cria a Janela
     let app = AppWindow::new()?;
@@ -44,51 +40,51 @@ async fn main() -> Result<(), slint::PlatformError> {
     app.set_percentual_plano_semestral(resumo.percentual_plano_semestral);
     app.set_percentual_plano_anual(resumo.percentual_plano_anual);
 
-    // --- PREPARAÇÃO PARA O CALLBACK (Botão Filtrar) ---
-
-    // A. Clonamos o handle da janela (Weak) para usar DENTRO do callback (se precisar atualizar a tela depois)
+    // --- PREPARAÇÃO PARA O CALLBACK ---
     let app_weak = app.as_weak();
-
-    // B. Clonamos o pool do banco para mover para DENTRO do callback
     let pool_callback = pool.clone();
 
-    // 5. Registramos a ação do botão. ATENÇÃO: Chamamos no 'app', não no 'ui_weak'
+    // 5. Registro da ação do botão
     app.on_filtro_dashboard(move |i_dia, i_mes, i_ano, f_dia, f_mes, f_ano| {
-        
-        // Debug: Ver se chegou tudo certo
+        // Clonamos para dentro do closure do Slint
+        let pool_for_task = pool_callback.clone();
+        let ui_handle = app_weak.clone();
+
+        // Debug: Ver os valores recebidos da UI
         println!("Filtro acionado: De {}/{}/{} até {}/{}/{}", 
             i_dia, i_mes, i_ano, f_dia, f_mes, f_ano
         );
 
-        // Conversão: SharedString -> i32
-        let _inicio_dia = i_dia.parse::<i32>().unwrap_or(1);
-        let _inicio_mes = i_mes.parse::<i32>().unwrap_or(1);
-        let _inicio_ano = i_ano.parse::<i32>().unwrap_or(2026);
+        // Formatamos as datas (garantindo o padrão AAAA-MM-DD com zeros à esquerda)
+        let data_ini = format!("{:0>4}-{:0>2}-{:0>2}", i_ano, i_mes, i_dia);
+        let data_fim = format!("{:0>4}-{:0>2}-{:0>2}", f_ano, f_mes, f_dia);
 
-        let _fim_dia = f_dia.parse::<i32>().unwrap_or(31);
-        let _fim_mes = f_mes.parse::<i32>().unwrap_or(12);
-        let _fim_ano = f_ano.parse::<i32>().unwrap_or(2026);
+        // Criamos a tarefa assíncrona para não travar a interface
+        tokio::spawn(async move {
+            let resultado = services::dashboard::generic::calcular_valores(
+                &pool_for_task, 
+                &data_ini, 
+                &data_fim
+            ).await;
 
-        // --- LÓGICA DO FILTRO AQUI ---
-        // Aqui você usa 'pool_callback' para chamar sua query
-        
-        // Exemplo de como seria a chamada (descomente quando criar a função):
-        /*
-        let resultado_filtro = services::financeiro::filtrar_por_periodo(
-            &pool_callback, 
-            inicio_dia, inicio_mes, inicio_ano, 
-            fim_dia, fim_mes, fim_ano
-        );
-        */
-
-        // --- DEVOLVER PARA A TELA ---
-        // Se você precisar mostrar o valor na tela, use o app_weak assim:
-        /*
-        let ui = app_weak.unwrap(); // Recupera a conexão com a tela
-        ui.set_total_filtrado( resultado_filtro.valor ); 
-        */
+match resultado {
+    Ok(dados) => {
+ui_handle.upgrade_in_event_loop(move |ui| {
+    // Dividimos por 100.0 para transformar centavos em Reais
+    ui.set_valor_diario(dados.total_diario as f32 / 100.0);
+    ui.set_valor_mensal(dados.total_mensal as f32 / 100.0);
+    ui.set_valor_trimestral(dados.total_trimestral as f32 / 100.0);
+    ui.set_valor_semestral(dados.total_semestral as f32 / 100.0);
+    ui.set_valor_anual(dados.total_anual as f32 / 100.0);
+    ui.set_valor_total_geral(dados.total_geral as f32 / 100.0);
+}).expect("Erro ao atualizar UI");
+    }
+    Err(e) => {
+        eprintln!("Erro na query: {:?}", e);
+    }
+}
+        });
     });
 
-    // 6. Roda a aplicação
     app.run()
 }

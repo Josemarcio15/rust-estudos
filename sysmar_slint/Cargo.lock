@@ -1486,6 +1486,7 @@ version = "0.1.0"
 dependencies = [
  "chrono",
  "dotenvy",
+ "num-traits",
  "rust_decimal",
  "sea-orm",
  "serde",

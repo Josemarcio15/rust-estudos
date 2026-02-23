@@ -36,6 +36,13 @@ export component AppWindow inherits Window {
     in property <float> percentual_plano_semestral;
     in property <float> percentual_plano_anual;
 
+    in-out property <float> valor_diario: 0.0;
+    in-out property <float> valor_mensal: 0.0;
+    in-out property <float> valor_trimestral: 0.0;
+    in-out property <float> valor_semestral: 0.0;
+    in-out property <float> valor_anual: 0.0;
+    in-out property <float> valor_total_geral: 0.0;
+
     in-out property <Page> pagina_atual: Page.Dashboard;
 
     callback filtro_dashboard(string, string, string, string, string, string);
@@ -151,6 +158,14 @@ export component AppWindow inherits Window {
                 percentual_plano_trimestral: root.percentual_plano_trimestral;
                 percentual_plano_semestral: root.percentual_plano_semestral;
                 percentual_plano_anual: root.percentual_plano_anual;
+
+                valor_diario: root.valor_diario;
+                valor_mensal: root.valor_mensal;
+                valor_trimestral: root.valor_trimestral;
+                valor_semestral: root.valor_semestral;
+                valor_anual: root.valor_anual;
+                valor_total_geral: root.valor_total_geral;
+
                 filtro_dashboard(i_dia, i_mes, i_ano, f_dia, f_mes, f_ano) => {
                     root.filtro_dashboard( i_dia, i_mes, i_ano, f_dia, f_mes, f_ano)
                 };

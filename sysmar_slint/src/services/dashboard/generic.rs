@@ -1,9 +1,11 @@
 use chrono::NaiveDate;
 use sea_orm::DatabaseConnection;
-
+use num_traits::ToPrimitive;
 use crate::db::PoolBanco;
 use crate::entities::pagamentos;
 use crate::queries::dashboard::generic;
+use crate::entities::Plano;
+
 pub struct DashboardResumo {
     pub total_clientes: i64,
     pub clientes_em_dia: i64,
@@ -34,7 +36,15 @@ pub struct DashboardUI {
     pub plano_anual: i32,
 }
 
-
+#[derive(Default)]
+pub struct ValoresObtidos {
+    pub total_diario: i64,
+    pub total_mensal: i64,
+    pub total_trimestral: i64,
+    pub total_semestral: i64,
+    pub total_anual: i64,
+    pub total_geral: i64,
+}
 
 pub async fn carregar_dashboard(
     pool: &PoolBanco,
@@ -101,13 +111,33 @@ pub fn porcentagem(parte: i32, total: i32) -> f32 {
     (parte as f32 * 100.0) / total as f32
 }
 
-pub async  fn calcular_valores(db: &DatabaseConnection,inicio: &str, fim: &str)->Result<Vec<pagamentos::Model>, sea_orm::DbErr>{
-
-
+pub async fn calcular_valores(db: &DatabaseConnection, inicio: &str, fim: &str) -> Result<ValoresObtidos, sea_orm::DbErr> {
     let data_inicio = NaiveDate::parse_from_str(inicio, "%Y-%m-%d").unwrap();
     let data_fim = NaiveDate::parse_from_str(fim, "%Y-%m-%d").unwrap();
 
-generic::filtrar_pagamentos_por_data(db, data_inicio, data_fim ).await
+    let dados_brutos = generic::filtrar_pagamentos_por_data(db, data_inicio, data_fim).await?;
+    
+    Ok(organizar_pagamentos(&dados_brutos))
 }
 
+pub fn organizar_pagamentos(dados: &Vec<pagamentos::Model>) -> ValoresObtidos {
+    let mut resumo = ValoresObtidos::default();
 
+    for p in dados {
+        let centavos = (p.valor_pago * sea_orm::prelude::Decimal::from(100))
+            .to_i64()
+            .unwrap_or(0);
+
+        match p.plano {
+            Plano::Diaria => resumo.total_diario += centavos,
+            Plano::Mensal => resumo.total_mensal += centavos,
+            Plano::Trimestral => resumo.total_trimestral += centavos,
+            Plano::Semestral => resumo.total_semestral += centavos,
+            Plano::Anual => resumo.total_anual += centavos,
+            Plano::Nenhum => (),
+        }
+
+        resumo.total_geral += centavos;
+    }
+    resumo
+}

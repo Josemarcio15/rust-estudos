@@ -16,6 +16,7 @@ slint = {version = "^1.14", features = [
   "backend-winit",
   "renderer-winit-skia", # ou "renderer-winit-femtovg" se preferir CPU
 ]}
+num-traits = "0.2.19"
 [build-dependencies]
 slint-build = "^1.14"
 
