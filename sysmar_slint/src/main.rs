@@ -1,4 +1,4 @@
-use crate::queries::dashboard::generic;
+//use crate::queries::dashboard::generic;
 
 mod db;
 mod queries;

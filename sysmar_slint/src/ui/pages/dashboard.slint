@@ -28,6 +28,10 @@ export component DashboardPage inherits Rectangle {
     in-out property <float> valor_anual: 0.0;
     in-out property <float> valor_total_geral: 0.0;
 
+    in property <length> largura_lines: root.width * 0.065;
+    in property <length> altura_lines: root.height * 0.04;
+    in property <length> borda: 10px;
+
     callback filtro_dashboard(string, string, string, string, string, string);
 
     callback loaded();
@@ -39,6 +43,7 @@ export component DashboardPage inherits Rectangle {
      //                                      Card Esquerda                            //
     // ==============================================================================//
   HorizontalLayout {
+        alignment: center;
         Rectangle {
             border-radius: 10px;
             background: #dfdfdf;
@@ -107,153 +112,190 @@ export component DashboardPage inherits Rectangle {
         // pilar central LAYOUT VERTICAL
         //
         VerticalLayout {
+            alignment: start;
             padding-bottom: 150px;
             padding-left: 150px;
             padding-right: 150px;
 
             // Seletor de Data
-            HorizontalLayout {
-                alignment: start;
-                width: root.width * 0.5;
-                height: root.height * 0.1;
+            // ==============================================================================//
+           //                              Campo filtro data Inicio                         //
+          // ==============================================================================//
+          Rectangle {
+                border-radius: 10px;
+                width: root.width * 0.3;
+                height: root.height * 0.2;
+                    // height: 200px;
+                    background: #bdbdbd;
                 VerticalLayout {
-                    padding-top: 10px;
-                    alignment: start;
-                    Text {
-                        font-size: root.width * 0.01;
-                        text: "Dia:";
-                    }
 
-                    inicio_dia := LineEdit {
-                        // background: red;
-                        horizontal-alignment: center;
-                        font-size: root.width * 0.01;
-                        width: root.width * 0.035;
-                        height: root.height * 0.035;
-                    }
-                }
+                    HorizontalLayout {
+                        alignment: center;
+                        width: root.width * 0.5;
+                        height: root.height * 0.1;
+                        HorizontalLayout {
+                            alignment: center;
 
-                VerticalLayout {
-                    padding-top: 10px;
-                    alignment: start;
-                    Text {
-                        font-size: root.width * 0.01;
-                        text: "Mes:";
-                    }
+                            VerticalLayout {
+                                alignment: start;
+                                padding-top: 10px;
+                                Text {
+                                    font-size: root.width * 0.01;
+                                    text: "Dia:";
+                                }
 
-                    inicio_mes := LineEdit {
-                        // background: red;
-                        horizontal-alignment: center;
-                        font-size: root.width * 0.01;
-                        width: root.width * 0.035;
-                        height: root.height * 0.035;
-                    }
-                }
+                                Rectangle {
+                                    border-radius: borda;
+                                    background: orange;
+                                    width: largura_lines;
+                                    height: altura_lines;
 
-                VerticalLayout {
-                    padding-top: 10px;
-                    alignment: start;
-                    Text {
-                        font-size: root.width * 0.01;
-                        text: "Ano:";
-                    }
+                                    inicio_dia := LineEdit {
+                                        horizontal-alignment: center;
+                                        font-size: root.width * 0.01;
+                                        width: 95%;
+                                        height: 85%;
+                                    }
+                                }
+                            }
 
-                    inicio_ano := LineEdit {
-                        // background: red;
-                        horizontal-alignment: center;
-                        font-size: root.width * 0.01;
-                        width: root.width * 0.045;
-                        height: root.height * 0.035;
-                    }
-                }
-            }
+                            VerticalLayout {
+                                alignment: start;
+                                padding-top: 10px;
+                                Text {
+                                    font-size: root.width * 0.01;
+                                    text: "Mes:";
+                                }
 
-            HorizontalLayout {
-                alignment: start;
-                max-height: 10px;
-                Text {
-                    vertical-alignment: center;
-                    font-size: root.width * 0.013;
-                    text: "Até:";
-                }
-            }
+                                Rectangle {
+                                    border-radius: borda;
+                                    background: pink;
+                                    width: largura_lines;
+                                    height: altura_lines;
 
-            HorizontalLayout {
-                alignment: start;
-                width: root.width * 0.5;
-                height: root.height * 0.1;
-                VerticalLayout {
-                    padding-top: 10px;
-                    alignment: start;
-                    Text {
-                        font-size: root.width * 0.01;
-                        text: "Dia:";
-                    }
+                                    inicio_mes := LineEdit {
+                                        horizontal-alignment: center;
+                                        font-size: root.width * 0.01;
+                                        width: 80%;
+                                        height: 80%;
+                                    }
+                                }
+                            }
 
-                    fim_dia := LineEdit {
-                        // background: red;
-                        horizontal-alignment: center;
-                        font-size: root.width * 0.01;
-                        width: root.width * 0.035;
-                        height: root.height * 0.035;
-                    }
-                }
+                            VerticalLayout {
+                                alignment: start;
+                                padding-top: 10px;
+                                width: largura_lines;
+                                height: altura_lines;
+                                Text {
+                                    font-size: root.width * 0.01;
+                                    text: "Ano";
+                                }
 
-                VerticalLayout {
-                    padding-top: 10px;
-                    alignment: start;
-                    Text {
-                        font-size: root.width * 0.01;
-                        text: "Mes:";
-                    }
-
-                    fim_mes := LineEdit {
-                        // background: red;
-                        horizontal-alignment: center;
-                        font-size: root.width * 0.01;
-                        width: root.width * 0.035;
-                        height: root.height * 0.035;
-                    }
-                }
-
-                VerticalLayout {
-                    padding-top: 10px;
-                    alignment: start;
-                    Text {
-                        font-size: root.width * 0.01;
-                        text: "Ano:";
-                    }
-
-                    fim_ano := LineEdit {
-                        // background: red;
-                        horizontal-alignment: center;
-                        font-size: root.width * 0.01;
-                        width: root.width * 0.045;
-                        height: root.height * 0.035;
-                    }
-                }
-
-                VerticalLayout {
-                    padding-top: 10px;
-                    padding-left: 10px;
-                    alignment: start;
-                    Text {
-                        text: "  ";
-                        font-size: root.width * 0.01;
-                    }
-
-                    Button {
-                        clicked => {
-                            root.filtro_dashboard(inicio_dia.text, inicio_mes.text, inicio_ano.text, fim_dia.text, fim_mes.text, fim_ano.text);
+                                Rectangle {
+                                    background: pink;
+                                    border-radius: borda;
+                                    inicio_ano := LineEdit {
+                                        font-size: root.width * 0.01;
+                                        horizontal-alignment: center;
+                                        width: 80%;
+                                        height: 80%;
+                                    }
+                                }
+                            }
                         }
-                        width: root.width * 0.045;
-                        height: root.height * 0.035;
-                        text: "Filtrar";
+                    }
+
+                    HorizontalLayout {
+                        alignment: start;
+                        max-height: 10px;
+                        Text {
+                            vertical-alignment: center;
+                            font-size: root.width * 0.013;
+                            text: "Até:";
+                        }
+                    }
+                // ==============================================================================//
+                //                              Campo filtro data FIM                            //
+                // ==============================================================================//
+                HorizontalLayout {
+                        alignment: start;
+                        width: root.width * 0.5;
+                        height: root.height * 0.1;
+                        VerticalLayout {
+                            padding-top: 10px;
+                            alignment: start;
+                            Text {
+                                font-size: root.width * 0.01;
+                                text: "Dia:";
+                            }
+
+                            fim_dia := LineEdit {
+                            // background: red;
+                            horizontal-alignment: center;
+                                font-size: root.width * 0.01;
+                                width: root.width * 0.035;
+                                height: root.height * 0.035;
+                            }
+                        }
+
+                        VerticalLayout {
+                            padding-top: 10px;
+                            alignment: start;
+                            Text {
+                                font-size: root.width * 0.01;
+                                text: "Mes:";
+                            }
+
+                            fim_mes := LineEdit {
+                            // background: red;
+                            horizontal-alignment: center;
+                                font-size: root.width * 0.01;
+                                width: root.width * 0.035;
+                                height: root.height * 0.035;
+                            }
+                        }
+
+                        VerticalLayout {
+                            padding-top: 10px;
+                            alignment: start;
+                            Text {
+                                font-size: root.width * 0.01;
+                                text: "Ano:";
+                            }
+
+                            fim_ano := LineEdit {
+                            // background: red;
+                            horizontal-alignment: center;
+                                font-size: root.width * 0.01;
+                                width: root.width * 0.045;
+                                height: root.height * 0.035;
+                            }
+                        }
+
+                        VerticalLayout {
+                            padding-top: 10px;
+                            padding-left: 10px;
+                            alignment: start;
+                            Text {
+                                text: "  ";
+                                font-size: root.width * 0.01;
+                            }
+
+                            Button {
+                                clicked => {
+                                    root.filtro_dashboard(inicio_dia.text, inicio_mes.text, inicio_ano.text, fim_dia.text, fim_mes.text, fim_ano.text);
+                                }
+                                width: root.width * 0.045;
+                                height: root.height * 0.035;
+                                text: "Filtrar";
+                            }
+                        }
                     }
                 }
             }
-            // imagem background grafico
-            Rectangle {
+                // imagem background grafico
+                Rectangle {
                 drop-shadow-blur: 10px;
                 drop-shadow-offset-x: 1px;
                 drop-shadow-offset-y: 1px;
