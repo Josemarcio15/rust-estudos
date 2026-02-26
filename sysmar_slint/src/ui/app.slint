@@ -1,4 +1,4 @@
-import { Button } from "std-widgets.slint";
+import { Button, LineEdit, Palette } from "std-widgets.slint";
 import { CadastroPage } from "pages/cadastro.slint";
 import { DashboardPage } from "pages/dashboard.slint";
 
@@ -12,7 +12,9 @@ export enum Page {
 export component AppWindow inherits Window {
     min-width: 1600px;
     min-height: 900px;
-
+    init => {
+        Palette.color-scheme = ColorScheme.light;
+    }
     in property <length> largura_button: 140px;
     in property <length> tamanho_borda: 30px;
 
@@ -140,8 +142,28 @@ export component AppWindow inherits Window {
         //                                  Navegação entre janelas                      //
         // ==============================================================================//
         Rectangle {
-            background: #f3f4f6;
-            if(pagina_atual == Page.Dashboard): DashboardPage {
+            background: #8e8e8e;
+            Rectangle {
+                border-radius: 10px;
+                width: 600px;
+                height: 600px;
+                background: #ffffffa6;
+                HorizontalLayout {
+                    alignment: center;
+                    VerticalLayout {
+                        Text {
+                            text: "Senha:";
+                            color: black;
+                        }
+
+                        alignment: center;
+                    }
+                }
+
+                senha := LineEdit { }
+            }
+
+            if(senha.text == "1405" && pagina_atual == Page.Dashboard): DashboardPage {
                 total_clientes: root.total_clientes;
                 clientes_em_dia: root.clientes_em_dia;
                 clientes_atrasados: root.clientes_atrasados;
@@ -174,7 +196,7 @@ export component AppWindow inherits Window {
                 }
             }
 
-            if (pagina_atual == Page.Cadastro): CadastroPage { }
+            // if (pagina_atual == Page.Cadastro): CadastroPage { }
         }
     }
 }
