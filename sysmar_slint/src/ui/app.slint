@@ -82,56 +82,56 @@ export component AppWindow inherits Window {
                     }
                 }
 
-                Rectangle {
-                    width: largura_button;
-                    border-radius: tamanho_borda;
-                    background: pagina_atual == Page.Cadastro ? #2563eb : #a200ff;
-                    TouchArea {
-                        clicked => {
-                            pagina_atual = Page.Cadastro;
-                        }
-                        Text {
-                            text: "Cadastro";
-                            color: white;
-                            horizontal-alignment: center;
-                            vertical-alignment: center;
-                        }
-                    }
-                }
+                // Rectangle {
+                //     width: largura_button;
+                //     border-radius: tamanho_borda;
+                //     background: pagina_atual == Page.Cadastro ? #2563eb : #a200ff;
+                //     TouchArea {
+                //         clicked => {
+                //             pagina_atual = Page.Cadastro;
+                //         }
+                //         Text {
+                //             text: "Cadastro";
+                //             color: white;
+                //             horizontal-alignment: center;
+                //             vertical-alignment: center;
+                //         }
+                //     }
+                // }
 
-                Rectangle {
-                    border-radius: tamanho_borda;
-                    background: pagina_atual == Page.Financeiro ? #2563eb : #a200ff;
-                    width: largura_button;
-                    TouchArea {
-                        clicked => {
-                            pagina_atual = Page.Financeiro;
-                        }
-                        Text {
-                            text: "Financeiro";
-                            color: white;
-                            horizontal-alignment: center;
-                            vertical-alignment: center;
-                        }
-                    }
-                }
+                // Rectangle {
+                //     border-radius: tamanho_borda;
+                //     background: pagina_atual == Page.Financeiro ? #2563eb : #a200ff;
+                //     width: largura_button;
+                //     TouchArea {
+                //         clicked => {
+                //             pagina_atual = Page.Financeiro;
+                //         }
+                //         Text {
+                //             text: "Financeiro";
+                //             color: white;
+                //             horizontal-alignment: center;
+                //             vertical-alignment: center;
+                //         }
+                //     }
+                // }
 
-                Rectangle {
-                    width: largura_button;
-                    border-radius: tamanho_borda;
-                    background: pagina_atual == Page.Config ? #2563eb : #a200ff;
-                    TouchArea {
-                        clicked => {
-                            pagina_atual = Page.Config;
-                        }
-                        Text {
-                            text: "Configuração";
-                            color: white;
-                            horizontal-alignment: center;
-                            vertical-alignment: center;
-                        }
-                    }
-                }
+                // Rectangle {
+                //     width: largura_button;
+                //     border-radius: tamanho_borda;
+                //     background: pagina_atual == Page.Config ? #2563eb : #a200ff;
+                //     TouchArea {
+                //         clicked => {
+                //             pagina_atual = Page.Config;
+                //         }
+                //         Text {
+                //             text: "Configuração";
+                //             color: white;
+                //             horizontal-alignment: center;
+                //             vertical-alignment: center;
+                //         }
+                //     }
+                // }
 
                 Rectangle { }
             }
