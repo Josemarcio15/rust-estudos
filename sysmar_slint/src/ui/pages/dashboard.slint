@@ -111,285 +111,305 @@ export component DashboardPage inherits Rectangle {
         //
         // pilar central LAYOUT VERTICAL
         //
-        VerticalLayout {
-            alignment: start;
-            padding-bottom: 150px;
-            padding-left: 150px;
-            padding-right: 150px;
+        HorizontalLayout {
+            alignment: center;
+            VerticalLayout {
+                alignment: start;
+                padding-bottom: 50px;
+                padding-left: 50px;
+                padding-right: 50px;
 
-            // Seletor de Data
+                // Seletor de Data
             // ==============================================================================//
            //                              Campo filtro data Inicio                         //
           // ==============================================================================//
-          Rectangle {
-                border-radius: 10px;
-                width: root.width * 0.3;
-                height: root.height * 0.2;
-                    // height: 200px;
-                    background: #bdbdbd;
-                VerticalLayout {
-
-                    HorizontalLayout {
-                        alignment: center;
-                        width: root.width * 0.5;
-                        height: root.height * 0.1;
-                        HorizontalLayout {
-                            alignment: center;
-
-                            VerticalLayout {
+          HorizontalLayout {
+                    alignment: start;
+                    padding: 60px;
+                    Rectangle {
+                        border-radius: 10px;
+                        width: root.width * 0.3;
+                        height: root.height * 0.22;
+                        background: #bdbdbd;
+                        VerticalLayout {
+                            alignment: start;
+                            HorizontalLayout {
                                 alignment: start;
-                                padding-top: 10px;
-                                Text {
-                                    font-size: root.width * 0.01;
-                                    text: "Dia:";
+                                VerticalLayout {
+                                    alignment: start;
+                                    padding-top: 10px;
+                                    Text {
+                                        font-size: root.width * 0.01;
+                                        text: "Dia:";
+                                    }
+
+                                    Rectangle {
+                                        border-radius: borda;
+                                        background: orange;
+                                        width: largura_lines;
+                                        height: altura_lines;
+
+                                        inicio_dia := LineEdit {
+                                            horizontal-alignment: center;
+                                            font-size: root.width * 0.01;
+                                            width: 95%;
+                                            height: 85%;
+                                        }
+                                    }
                                 }
 
-                                Rectangle {
-                                    border-radius: borda;
-                                    background: orange;
-                                    width: largura_lines;
-                                    height: altura_lines;
-
-                                    inicio_dia := LineEdit {
-                                        horizontal-alignment: center;
+                                VerticalLayout {
+                                    alignment: start;
+                                    padding-top: 10px;
+                                    Text {
                                         font-size: root.width * 0.01;
-                                        width: 95%;
-                                        height: 85%;
+                                        text: "Mes:";
+                                    }
+
+                                    Rectangle {
+                                        border-radius: borda;
+                                        background: orange;
+                                        width: largura_lines;
+                                        height: altura_lines;
+
+                                        inicio_mes := LineEdit {
+                                            horizontal-alignment: center;
+                                            font-size: root.width * 0.01;
+                                            width: 95%;
+                                            height: 85%;
+                                        }
+                                    }
+                                }
+
+                                VerticalLayout {
+                                    alignment: start;
+                                    padding-top: 10px;
+
+                                    Text {
+                                        font-size: root.width * 0.01;
+                                        text: "Ano";
+                                    }
+
+                                    Rectangle {
+                                        width: largura_lines;
+                                        height: altura_lines;
+                                        background: orange;
+                                        border-radius: borda;
+                                        inicio_ano := LineEdit {
+                                            horizontal-alignment: center;
+                                            font-size: root.width * 0.01;
+                                            width: 95%;
+                                            height: 85%;
+                                        }
                                     }
                                 }
                             }
 
-                            VerticalLayout {
+                            HorizontalLayout {
                                 alignment: start;
-                                padding-top: 10px;
+                                max-height: 10px;
                                 Text {
-                                    font-size: root.width * 0.01;
-                                    text: "Mes:";
+                                    vertical-alignment: center;
+                                    font-size: root.width * 0.013;
+                                    text: "Até:";
                                 }
-
-                                Rectangle {
-                                    border-radius: borda;
-                                    background: pink;
-                                    width: largura_lines;
-                                    height: altura_lines;
-
-                                    inicio_mes := LineEdit {
-                                        horizontal-alignment: center;
+                            }
+                                            // ==============================================================================//
+                                            //                              Campo filtro data FIM                            //
+                                            // ==============================================================================//
+                            HorizontalLayout {
+                                alignment: start;
+                                width: root.width * 0.5;
+                                height: root.height * 0.3;
+                                VerticalLayout {
+                                    padding-top: 10px;
+                                    alignment: start;
+                                    Text {
                                         font-size: root.width * 0.01;
-                                        width: 80%;
-                                        height: 80%;
+                                        text: "Dia:";
+                                    }
+
+                                    Rectangle {
+                                        border-radius: borda;
+                                        background: orange;
+                                        width: largura_lines;
+                                        height: altura_lines;
+
+                                        fim_dia := LineEdit {
+                                            horizontal-alignment: center;
+                                            font-size: root.width * 0.01;
+                                            width: 95%;
+                                            height: 85%;
+                                        }
                                     }
                                 }
-                            }
 
-                            VerticalLayout {
-                                alignment: start;
-                                padding-top: 10px;
-                                width: largura_lines;
-                                height: altura_lines;
-                                Text {
-                                    font-size: root.width * 0.01;
-                                    text: "Ano";
-                                }
-
-                                Rectangle {
-                                    background: pink;
-                                    border-radius: borda;
-                                    inicio_ano := LineEdit {
+                                VerticalLayout {
+                                    padding-top: 10px;
+                                    alignment: start;
+                                    Text {
                                         font-size: root.width * 0.01;
-                                        horizontal-alignment: center;
-                                        width: 80%;
-                                        height: 80%;
+                                        text: "Mes:";
+                                    }
+
+                                    Rectangle {
+                                        border-radius: borda;
+                                        background: orange;
+                                        width: largura_lines;
+                                        height: altura_lines;
+
+                                        fim_mes := LineEdit {
+                                            horizontal-alignment: center;
+                                            font-size: root.width * 0.01;
+                                            width: 95%;
+                                            height: 85%;
+                                        }
                                     }
                                 }
-                            }
-                        }
-                    }
 
-                    HorizontalLayout {
-                        alignment: start;
-                        max-height: 10px;
-                        Text {
-                            vertical-alignment: center;
-                            font-size: root.width * 0.013;
-                            text: "Até:";
-                        }
-                    }
-                // ==============================================================================//
-                //                              Campo filtro data FIM                            //
-                // ==============================================================================//
-                HorizontalLayout {
-                        alignment: start;
-                        width: root.width * 0.5;
-                        height: root.height * 0.1;
-                        VerticalLayout {
-                            padding-top: 10px;
-                            alignment: start;
-                            Text {
-                                font-size: root.width * 0.01;
-                                text: "Dia:";
-                            }
+                                VerticalLayout {
+                                    padding-top: 10px;
+                                    alignment: start;
+                                    Text {
+                                        font-size: root.width * 0.01;
+                                        text: "Ano:";
+                                    }
 
-                            fim_dia := LineEdit {
-                            // background: red;
-                            horizontal-alignment: center;
-                                font-size: root.width * 0.01;
-                                width: root.width * 0.035;
-                                height: root.height * 0.035;
-                            }
-                        }
-
-                        VerticalLayout {
-                            padding-top: 10px;
-                            alignment: start;
-                            Text {
-                                font-size: root.width * 0.01;
-                                text: "Mes:";
-                            }
-
-                            fim_mes := LineEdit {
-                            // background: red;
-                            horizontal-alignment: center;
-                                font-size: root.width * 0.01;
-                                width: root.width * 0.035;
-                                height: root.height * 0.035;
-                            }
-                        }
-
-                        VerticalLayout {
-                            padding-top: 10px;
-                            alignment: start;
-                            Text {
-                                font-size: root.width * 0.01;
-                                text: "Ano:";
-                            }
-
-                            fim_ano := LineEdit {
-                            // background: red;
-                            horizontal-alignment: center;
-                                font-size: root.width * 0.01;
-                                width: root.width * 0.045;
-                                height: root.height * 0.035;
-                            }
-                        }
-
-                        VerticalLayout {
-                            padding-top: 10px;
-                            padding-left: 10px;
-                            alignment: start;
-                            Text {
-                                text: "  ";
-                                font-size: root.width * 0.01;
-                            }
-
-                            Button {
-                                clicked => {
-                                    root.filtro_dashboard(inicio_dia.text, inicio_mes.text, inicio_ano.text, fim_dia.text, fim_mes.text, fim_ano.text);
+                                    Rectangle {
+                                        border-radius: borda;
+                                        background: orange;
+                                        width: largura_lines;
+                                        height: altura_lines;
+                                        fim_ano := LineEdit {
+                                            horizontal-alignment: center;
+                                            font-size: root.width * 0.01;
+                                            width: 95%;
+                                            height: 85%;
+                                        }
+                                    }
                                 }
-                                width: root.width * 0.045;
-                                height: root.height * 0.035;
-                                text: "Filtrar";
+
+                                VerticalLayout {
+                                    padding-top: 10px;
+                                    padding-left: 10px;
+                                    alignment: start;
+                                    Text {
+                                        text: "  ";
+                                        font-size: root.width * 0.01;
+                                    }
+
+                                    Button {
+                                        clicked => {
+                                            root.filtro_dashboard(inicio_dia.text, inicio_mes.text, inicio_ano.text, fim_dia.text, fim_mes.text, fim_ano.text);
+                                        }
+                                        width: largura_lines;
+                                        height: altura_lines;
+                                        text: "Filtrar";
+                                    }
+                                }
                             }
                         }
                     }
                 }
-            }
+                
+                
                 // imagem background grafico
                 Rectangle {
-                drop-shadow-blur: 10px;
-                drop-shadow-offset-x: 1px;
-                drop-shadow-offset-y: 1px;
-                drop-shadow-color: rgb(129, 146, 247);
-                border-radius: 10px;
-                width: root.width * 0.5;
-                height: root.height * 0.5;
-                background: #d1042d;
-                clip: true;
-                Image {
-                    source: @image-url("../../assets/image1.jpg");
-                    width: 100%;
-                    height: 100%;
-                }
+                    drop-shadow-blur: 10px;
+                    drop-shadow-offset-x: 1px;
+                    drop-shadow-offset-y: 1px;
+                    drop-shadow-color: rgb(129, 146, 247);
+                    border-radius: 10px;
+                    width: root.width * 0.5;
+                    height: root.height * 0.5;
+                    background: #d1042d;
+                    clip: true;
+                    Image {
+                        source: @image-url("../../assets/image1.jpg");
+                        width: 100%;
+                        height: 100%;
+                    }
 
-                Rectangle {
-                    width: parent.width;
-                    height: parent.height;
-                    background: #0000;
-                }
+                    Rectangle {
+                        width: parent.width;
+                        height: parent.height;
+                        background: #0000;
+                    }
                // ==============================================================================//
               //                                       Grafico                                 //
              // ==============================================================================//
-            HorizontalLayout {
-                    spacing: 40px;
-                    alignment: center;
+                HorizontalLayout {
+                        spacing: 40px;
+                        alignment: center;
                    
                     // diarias
                     GraficoComponent {
-                        cor_base: #df2f10;
-                        altura: percentual_plano_diario;
-                    }
+                            cor_base: #df2f10;
+                            altura: percentual_plano_diario;
+                        }
                     // mensal
                     GraficoComponent {
-                        cor_base: #13c422;
-                        altura: percentual_plano_mensal;
-                    }
+                            cor_base: #13c422;
+                            altura: percentual_plano_mensal;
+                        }
                     // trimestral
                     GraficoComponent {
-                        cor_base: #820ec5;
-                        altura: percentual_plano_trimestral;
-                    }
+                            cor_base: #820ec5;
+                            altura: percentual_plano_trimestral;
+                        }
                     //semestral
                     GraficoComponent {
-                        cor_base: #dd7411;
-                        altura: percentual_plano_semestral;
-                    }
+                            cor_base: #dd7411;
+                            altura: percentual_plano_semestral;
+                        }
                     // anual
                     GraficoComponent {
-                        cor_base: #1a79f5;
-                        altura: percentual_plano_anual;
+                            cor_base: #1a79f5;
+                            altura: percentual_plano_anual;
+                        }
                     }
                 }
-            }
-           //==============================================================================//
-          //                                     Legendas                                 //
-         //==============================================================================//
-            HorizontalLayout {
-                width: root.width * 0.5;
-                height: root.height * 0.02;
+                    //==============================================================================//
+                    //                                     Legendas                                 //
+                    //==============================================================================//
+                HorizontalLayout {
+                    width: root.width * 0.5;
+                    height: root.height * 0.02;
 
-                Legendas {
-                    color: #df2f10;
-                    legenda: "Diarias";
-                    width: root.width * 0.071;
-                    height: root.height * 0.08;
-                }
+                    Legendas {
+                        color: #df2f10;
+                        legenda: "Diarias";
+                        width: root.width * 0.071;
+                        height: root.height * 0.08;
+                    }
 
-                Legendas {
-                    color: #13c422;
-                    legenda: "Mensal";
-                    width: root.width * 0.071;
-                    height: root.height * 0.08;
-                }
+                    Legendas {
+                        color: #13c422;
+                        legenda: "Mensal";
+                        width: root.width * 0.071;
+                        height: root.height * 0.08;
+                    }
 
-                Legendas {
-                    color: #820ec5;
-                    legenda: "Trimestral";
-                    width: root.width * 0.071;
-                    height: root.height * 0.08;
-                }
+                    Legendas {
+                        color: #820ec5;
+                        legenda: "Trimestral";
+                        width: root.width * 0.071;
+                        height: root.height * 0.08;
+                    }
 
-                Legendas {
-                    color: #dd7411;
-                    legenda: "Semestral";
-                    width: root.width * 0.071;
-                    height: root.height * 0.08;
-                }
+                    Legendas {
+                        color: #dd7411;
+                        legenda: "Semestral";
+                        width: root.width * 0.071;
+                        height: root.height * 0.08;
+                    }
 
-                Legendas {
-                    color: #1a79f5;
-                    legenda: "Anual";
-                    width: root.width * 0.071;
-                    height: root.height * 0.08;
+                    Legendas {
+                        color: #1a79f5;
+                        legenda: "Anual";
+                        width: root.width * 0.071;
+                        height: root.height * 0.08;
+                    }
                 }
             }
         }
