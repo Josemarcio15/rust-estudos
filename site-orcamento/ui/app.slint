@@ -1,0 +1,139 @@
+import { DashboardPage } from "./pages/dashboard/mod.slint";
+import { ClientesPage } from "./pages/clientes/mod.slint";
+import { ProdutosPage } from "./pages/produtos/mod.slint";
+import {
+    OrcamentosPage,
+    ProductItem,
+    ClientItem,
+    ProductSearchItem,
+} from "./pages/orcamentos/mod.slint";
+
+export { ProductItem, ClientItem, ProductSearchItem }
+
+import { Palette } from "std-widgets.slint";
+
+export component AppWindow inherits Window {
+    title: "OrçaMaster";
+    preferred-width: 1100px;
+    preferred-height: 800px;
+    background: #5e50f8;
+    default-font-family: "Inter";
+
+    // Navigation and state
+    in-out property <string> active-page: "dashboard";
+
+    init => {
+        Palette.color-scheme = ColorScheme.light;
+    }
+    
+    // Dashboard data (exposed for Rust)
+    in property <string> total-value: "R$ 0,00";
+    in property <string> quotation-count: "0";
+
+    // Quotation data (exposed for Rust)
+    in-out property <[ProductItem]> current-items: [];
+    in-out property <float> total-quotation: 0.0;
+    in property <[ClientItem]> client-list: [];
+    in property <[ProductSearchItem]> product-list: [];
+
+    // Callbacks to Rust
+    callback navigate(string);
+    callback refresh-data();
+    callback add-item(int, string, float);
+    callback remove-item(int);
+    callback save-quotation(int, [ProductItem]);
+    callback create-client(string, string, string, string);
+    callback create-product(string, string, string, string, string);
+    callback refresh-lists();
+    callback search-clients(string);
+    callback search-products(string);
+
+    HorizontalLayout {
+        padding: 0;
+        
+        // Sidebar
+        Rectangle {
+            width: 260px;
+            background: #0f172a;
+            VerticalLayout {
+                padding: 20px;
+                spacing: 10px;
+                Text {
+                    text: "ORÇAMASTER";
+                    color: white;
+                    font-size: 20px;
+                    font-weight: 800;
+                    horizontal-alignment: center;
+                }
+
+                Rectangle {
+                    height: 10px;
+                } // Manual spacer
+
+                // Nav Buttons
+                for page in ["dashboard", "clientes", "produtos", "orcamentos"]: Rectangle {
+                    height: 45px;
+                    background: root.active-page == page ? #1e40af : transparent;
+                    border-radius: 6px;
+                    TouchArea {
+                        clicked => {
+                            root.active-page = page;
+                            root.navigate(page);
+                        }
+                    }
+
+                    Text {
+                        text: page == "dashboard" ? "Painel" : page == "clientes" ? "Clientes" : page == "produtos" ? "Produtos" : "Orçamentos";
+                        color: white;
+                        x: 20px;
+                        vertical-alignment: center;
+                        font-weight: root.active-page == page ? 600 : 400;
+                    }
+                }
+                Rectangle { } // Spacer
+            }
+        }
+
+        // Main Content Area
+        VerticalLayout {
+            if (root.active-page == "dashboard"): DashboardPage {
+                total-value: root.total-value;
+                quotation-count: root.quotation-count;
+            }
+            if (root.active-page == "clientes"): ClientesPage {
+                create-client(name, email, phone, address) => {
+                    root.create-client(name, email, phone, address);
+                }
+            }
+            if (root.active-page == "produtos"): ProdutosPage {
+                create-product(code, name, price, stock, category) => {
+                    root.create-product(code, name, price, stock, category);
+                }
+            }
+            if (root.active-page == "orcamentos"): OrcamentosPage {
+                add-item(id, name, price) => {
+                    root.add-item(id, name, price);
+                }
+                remove-item(index) => {
+                    root.remove-item(index);
+                }
+                save-quotation(client-id, items) => {
+                    root.save-quotation(client-id, items);
+                }
+                refresh-lists => {
+                    root.refresh-lists();
+                }
+                search-clients(text) => {
+                    root.search-clients(text);
+                }
+                search-products(text) => {
+                    root.search-products(text);
+                }
+                current-items: root.current-items;
+                total-quotation: root.total-quotation;
+                clients: root.client-list;
+                products: root.product-list;
+            }
+        }
+    }
+}

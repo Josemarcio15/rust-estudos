@@ -1,0 +1,152 @@
+import {
+    Button,
+    VerticalBox,
+    HorizontalBox,
+    ScrollView,
+    ScrollView,
+} from "std-widgets.slint";
+import { StyledLineEdit } from "../../components/styled_line_edit.slint";
+
+export component ClientesPage inherits VerticalLayout {
+    // Form fields
+    property <string> name: "";
+    property <string> email: "";
+    property <string> phone: "";
+    property <string> address: "";
+
+    callback create-client(string, string, string, string);
+
+    padding: 30px;
+    spacing: 20px;
+
+    Text {
+        text: "Gerenciar Clientes";
+        font-size: 28px;
+        font-weight: 700;
+        color: #1e293b;
+    }
+
+    HorizontalLayout {
+        spacing: 20px;
+        
+        // Form Column
+        Rectangle {
+            width: 400px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-width: 1px;
+            border-color: #cbd5e1;
+            drop-shadow-color: #cbd5e1;
+            drop-shadow-blur: 8px;
+            drop-shadow-offset-y: 4px;
+            VerticalLayout {
+                padding: 20px;
+                spacing: 15px;
+                alignment: start;
+
+                Text {
+                    text: "Cadastrar Novo Cliente";
+                    font-weight: 600;
+                    font-size: 18px;
+                }
+
+                VerticalLayout {
+                    spacing: 5px;
+                    Text {
+                        text: "Nome";
+                        font-size: 14px;
+                        color: #64748b;
+                    }
+
+                    StyledLineEdit {
+                        text <=> root.name;
+                        placeholder-text: "Ex: João Silva";
+                    }
+                }
+
+                VerticalLayout {
+                    spacing: 5px;
+                    Text {
+                        text: "E-mail";
+                        font-size: 14px;
+                        color: #64748b;
+                    }
+
+                    StyledLineEdit {
+                        text <=> root.email;
+                        placeholder-text: "joao@email.com";
+                    }
+                }
+
+                VerticalLayout {
+                    spacing: 5px;
+                    Text {
+                        text: "Telefone";
+                        font-size: 14px;
+                        color: #64748b;
+                    }
+
+                    StyledLineEdit {
+                        text <=> root.phone;
+                        placeholder-text: "(11) 99999-9999";
+                    }
+                }
+
+                VerticalLayout {
+                    spacing: 5px;
+                    Text {
+                        text: "Endereço";
+                        font-size: 14px;
+                        color: #64748b;
+                    }
+
+                    StyledLineEdit {
+                        text <=> root.address;
+                        placeholder-text: "Rua Exemplo, 123";
+                    }
+                }
+
+                Button {
+                    text: "ADICIONAR CLIENTE";
+                    primary: true;
+                    clicked => {
+                        root.create-client(root.name, root.email, root.phone, root.address);
+                        root.name = "";
+                        root.email = "";
+                        root.phone = "";
+                        root.address = "";
+                    }
+                }
+            }
+        }
+
+        // List Column (Placeholder)
+        Rectangle {
+            background: #f8fafc;
+            border-radius: 8px;
+            border-width: 1px;
+            border-color: #cbd5e1;
+            drop-shadow-color: #cbd5e1;
+            drop-shadow-blur: 8px;
+            drop-shadow-offset-y: 4px;
+            VerticalLayout {
+                padding: 20px;
+                Text {
+                    text: "Lista de Clientes Cadastrados";
+                    font-weight: 600;
+                }
+
+                Rectangle {
+                    height: 10px;
+                }
+
+                Text {
+                    text: "Integração com API em breve...";
+                    color: #94a3b8;
+                }
+            }
+        }
+    }
+
+    Rectangle { }
+}

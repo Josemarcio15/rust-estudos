@@ -1,0 +1,317 @@
+import {
+    Button,
+    VerticalBox,
+    HorizontalBox,
+    ScrollView,
+    ScrollView,
+    StandardTableView,
+} from "std-widgets.slint";
+import { StyledLineEdit } from "../../components/styled_line_edit.slint";
+
+export struct ProductItem {
+    id: int,
+    name: string,
+    quantity: int,
+    price: float,
+}
+
+export struct ClientItem {
+    id: int,
+    nome: string,
+    email: string,
+}
+
+export struct ProductSearchItem {
+    id: int,
+    codigo: string,
+    nome: string,
+    valor: float,
+}
+
+export component OrcamentosPage inherits VerticalLayout {
+    // Form state
+    property <string> search-client: "";
+    property <string> search-product: "";
+    
+    // Selection state
+    property <int> selected-client-id: 0;
+    property <string> selected-client-name: "Nenhum selecionado";
+    
+    // Lists from Rust
+    in property <[ClientItem]> clients: [];
+    in property <[ProductSearchItem]> products: [];
+
+    // Items in the current quotation
+    in-out property <[ProductItem]> current-items: [];
+    in-out property <float> total-quotation: 0.0;
+
+    callback add-item(int, string, float);
+    callback remove-item(int);
+    callback save-quotation(int, [ProductItem]);
+    callback refresh-lists();
+    callback search-clients(string);
+    callback search-products(string);
+
+    padding: 30px;
+    spacing: 20px;
+
+    Text {
+        text: "Gerar Novo Orçamento";
+        font-size: 28px;
+        font-weight: 700;
+        color: #1e293b;
+    }
+
+    HorizontalLayout {
+        spacing: 20px;
+        
+        // Left Column: Client and Product Selection
+        VerticalLayout {
+            width: 450px;
+            spacing: 15px;
+
+            // Client Selection
+            Rectangle {
+                background: #a7a7a7;
+                border-radius: 8px;
+                border-width: 1px;
+                border-color: #cbd5e1;
+                drop-shadow-color: #cbd5e1;
+                drop-shadow-blur: 8px;
+                drop-shadow-offset-y: 4px;
+                VerticalLayout {
+                    padding: 15px;
+                    spacing: 10px;
+                    Text {
+                        text: "1. Selecionar Cliente";
+                        font-weight: 600;
+                    }
+
+                    StyledLineEdit {
+                        placeholder-text: "Pesquisar cliente...";
+                        text <=> root.search-client;
+                        edited(t) => {
+                            root.search-clients(t);
+                        }
+                    }
+
+                    Rectangle {
+                        height: 150px;
+                        background: #a7a7a7; // Slate 200 (Griseous tone for contrast)
+                        border-radius: 4px;
+                        ScrollView {
+                            VerticalLayout {
+                                padding: 8px;
+                                padding-right: 15px; // Avoid scrollbar overlap
+                                spacing: 4px;
+                                for client in root.clients: Rectangle {
+                                    height: 40px;
+                                    background: root.selected-client-id == client.id ? #3b82f6 : white;
+                                    border-radius: 6px;
+                                    border-width: 1px;
+                                    border-color: root.selected-client-id == client.id ? #2563eb : transparent;
+                                    TouchArea {
+                                        clicked => {
+                                            root.selected-client-id = client.id;
+                                            root.selected-client-name = client.nome;
+                                        }
+                                    }
+
+                                    HorizontalLayout {
+                                        padding-left: 10px;
+                                        padding-right: 10px;
+                                        Text {
+                                            text: client.nome;
+                                            color: root.selected-client-id == client.id ? white : #1e293b;
+                                            vertical-alignment: center;
+                                            horizontal-stretch: 1;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    Text {
+                        text: "Selecionado: " + root.selected-client-name;
+                        color: #3b82f6;
+                        font-size: 14px;
+                    }
+                }
+            }
+
+            // Product Selection
+            Rectangle {
+                background: #a7a7a7;
+                border-radius: 8px;
+                border-width: 1px;
+                border-color: #565655;
+                drop-shadow-color: #303030;
+                drop-shadow-blur: 8px;
+                drop-shadow-offset-y: 4px;
+                VerticalLayout {
+                    padding: 15px;
+                    spacing: 10px;
+                    Text {
+                        text: "2. Adicionar Produtos";
+                        font-weight: 600;
+                    }
+
+                    StyledLineEdit {
+                        placeholder-text: "Código ou nome...";
+                        text <=> root.search-product;
+                        edited(t) => {
+                            root.search-products(t);
+                        }
+                    }
+
+                    Rectangle {
+                        height: 200px;
+                        background: #a7a7a7; // Slate 200
+                        border-radius: 4px;
+                        ScrollView {
+                            VerticalLayout {
+                                padding: 8px;
+                                padding-right: 15px; // Avoid scrollbar overlap
+                                spacing: 4px;
+                                for prod in root.products: Rectangle {
+                                    height: 45px;
+                                    background: white; // Clean white
+                                    border-radius: 6px;
+                                    border-width: 1px;
+                                    border-color: transparent; // No harsh border inside the colored scrollview
+                                    TouchArea {
+                                        clicked => {
+                                            root.add-item(prod.id, prod.nome, prod.valor);
+                                        }
+                                    }
+
+                                    HorizontalLayout {
+                                        padding-left: 10px;
+                                        padding-right: 10px;
+                                        spacing: 5px;
+                                        Text {
+                                            text: prod.nome;
+                                            vertical-alignment: center;
+                                            horizontal-stretch: 1;
+                                        }
+
+                                        Text {
+                                            text: "R$ " + prod.valor;
+                                            font-weight: 600;
+                                            vertical-alignment: center;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Right Column: Summary and Items
+        Rectangle {
+            background: #f8fafc;
+            border-radius: 8px;
+            border-width: 1px;
+            border-color: #cbd5e1;
+            drop-shadow-color: #cbd5e1;
+            drop-shadow-blur: 8px;
+            drop-shadow-offset-y: 4px;
+            VerticalLayout {
+                padding: 20px;
+                spacing: 15px;
+                Text {
+                    text: "Itens do Orçamento";
+                    font-weight: 600;
+                }
+                
+                // List of items
+                ScrollView {
+                    height: 350px;
+                    VerticalLayout {
+                        alignment: start;
+                        padding-right: 15px; // Avoid scrollbar overlap
+                        spacing: 8px; // More room between items
+                        for item[i] in root.current-items: HorizontalLayout {
+                            padding-top: 5px;
+                            padding-bottom: 5px;
+                            Rectangle {
+                                background: white;
+                                border-radius: 6px;
+                                border-width: 1px;
+                                border-color: #cbd5e1;
+                                drop-shadow-color: #cbd5e1;
+                                drop-shadow-blur: 4px;
+                                drop-shadow-offset-y: 2px;
+                                HorizontalLayout {
+                                    padding-left: 10px;
+                                    padding-right: 10px;
+                                    Text {
+                                        text: item.name;
+                                        vertical-alignment: center;
+                                        horizontal-stretch: 1;
+                                    }
+
+                                    Text {
+                                        text: "x" + item.quantity;
+                                        vertical-alignment: center;
+                                        width: 40px;
+                                    }
+
+                                    Text {
+                                        text: "R$ " + (item.price * item.quantity);
+                                        vertical-alignment: center;
+                                        width: 80px;
+                                        font-weight: 600;
+                                    }
+
+                                    Button {
+                                        text: "X";
+                                        width: 30px;
+                                        clicked => {
+                                            root.remove-item(i);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Rectangle {
+                    height: 1px;
+                    background: #e2e8f0;
+                }
+
+                HorizontalLayout {
+                    alignment: space-between;
+                    Text {
+                        text: "TOTAL:";
+                        font-size: 20px;
+                        font-weight: 700;
+                    }
+
+                    Text {
+                        text: "R$ " + root.total-quotation;
+                        font-size: 24px;
+                        font-weight: 800;
+                        color: #10b981;
+                    }
+                }
+
+                Button {
+                    text: "GERAR ORÇAMENTO";
+                    primary: true;
+                    enabled: root.selected-client-id != 0 && root.current-items.length > 0;
+                    clicked => {
+                        root.save-quotation(root.selected-client-id, root.current-items);
+                    }
+                }
+            }
+        }
+    }
+
+    Rectangle { } // Spacer
+}

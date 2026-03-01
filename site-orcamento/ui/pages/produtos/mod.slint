@@ -1,0 +1,171 @@
+import {
+    Button,
+    VerticalBox,
+    HorizontalBox,
+    ScrollView,
+    ScrollView,
+} from "std-widgets.slint";
+import { StyledLineEdit } from "../../components/styled_line_edit.slint";
+
+export component ProdutosPage inherits VerticalLayout {
+    // Form fields
+    property <string> code: "";
+    property <string> name: "";
+    property <string> val-str: "";
+    property <string> stock-str: "";
+    property <string> category: "";
+
+    callback create-product(string, string, string, string, string);
+
+    padding: 30px;
+    spacing: 20px;
+
+    Text {
+        text: "Gerenciar Produtos";
+        font-size: 28px;
+        font-weight: 700;
+        color: #1e293b;
+    }
+
+    HorizontalLayout {
+        spacing: 20px;
+        
+        // Form Column
+        Rectangle {
+            width: 400px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-width: 1px;
+            border-color: #cbd5e1;
+            drop-shadow-color: #cbd5e1;
+            drop-shadow-blur: 8px;
+            drop-shadow-offset-y: 4px;
+            VerticalLayout {
+                padding: 20px;
+                spacing: 15px;
+                alignment: start;
+
+                Text {
+                    text: "Cadastrar Novo Produto";
+                    font-weight: 600;
+                    font-size: 18px;
+                }
+
+                VerticalLayout {
+                    spacing: 5px;
+                    Text {
+                        text: "Código";
+                        font-size: 14px;
+                        color: #64748b;
+                    }
+
+                    StyledLineEdit {
+                        text <=> root.code;
+                        placeholder-text: "PROD-001";
+                    }
+                }
+
+                VerticalLayout {
+                    spacing: 5px;
+                    Text {
+                        text: "Nome do Produto";
+                        font-size: 14px;
+                        color: #64748b;
+                    }
+
+                    StyledLineEdit {
+                        text <=> root.name;
+                        placeholder-text: "Parafuso Sextavado";
+                    }
+                }
+
+                HorizontalLayout {
+                    spacing: 10px;
+                    VerticalLayout {
+                        spacing: 5px;
+                        Text {
+                            text: "Valor (R$)";
+                            font-size: 14px;
+                            color: #64748b;
+                        }
+
+                        StyledLineEdit {
+                            text <=> root.val-str;
+                            placeholder-text: "0.00";
+                        }
+                    }
+
+                    VerticalLayout {
+                        spacing: 5px;
+                        Text {
+                            text: "Estoque";
+                            font-size: 14px;
+                            color: #64748b;
+                        }
+
+                        StyledLineEdit {
+                            text <=> root.stock-str;
+                            placeholder-text: "0";
+                        }
+                    }
+                }
+
+                VerticalLayout {
+                    spacing: 5px;
+                    Text {
+                        text: "Categoria";
+                        font-size: 14px;
+                        color: #64748b;
+                    }
+
+                    StyledLineEdit {
+                        text <=> root.category;
+                        placeholder-text: "Ferragens";
+                    }
+                }
+
+                Button {
+                    text: "ADICIONAR PRODUTO";
+                    primary: true;
+                    clicked => {
+                        root.create-product(root.code, root.name, root.val-str, root.stock-str, root.category);
+                        root.code = "";
+                        root.name = "";
+                        root.val-str = "";
+                        root.stock-str = "";
+                        root.category = "";
+                    }
+                }
+            }
+        }
+
+        // List Column (Placeholder)
+        Rectangle {
+            background: #f8fafc;
+            border-radius: 8px;
+            border-width: 1px;
+            border-color: #cbd5e1;
+            drop-shadow-color: #cbd5e1;
+            drop-shadow-blur: 8px;
+            drop-shadow-offset-y: 4px;
+            VerticalLayout {
+                padding: 20px;
+                Text {
+                    text: "Estoque de Produtos";
+                    font-weight: 600;
+                }
+
+                Rectangle {
+                    height: 10px;
+                }
+
+                Text {
+                    text: "Integração com API em breve...";
+                    color: #94a3b8;
+                }
+            }
+        }
+    }
+
+    Rectangle { }
+}

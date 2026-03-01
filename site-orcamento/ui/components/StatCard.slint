@@ -1,0 +1,30 @@
+export component StatCard inherits Rectangle {
+    in property <string> title;
+    in property <string> value;
+    in property <string> icon;
+    
+    background: white;
+    border-radius: 8px;
+    border-width: 1px;
+    border-color: #e2e8f0;
+    height: 120px;
+
+    callback clicked();
+
+    TouchArea {
+        clicked => { root.clicked() }
+    }
+
+    VerticalLayout {
+        padding: 15px;
+        alignment: center;
+        spacing: 5px;
+        
+        HorizontalLayout {
+            alignment: space-between;
+            Text { text: root.title; font-size: 14px; color: #64748b; }
+            Text { text: root.icon; font-size: 18px; }
+        }
+        Text { text: root.value; font-size: 24px; font-weight: 700; color: #0f172a; }
+    }
+}

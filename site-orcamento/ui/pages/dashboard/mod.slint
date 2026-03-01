@@ -1,0 +1,38 @@
+import { StatCard } from "../../components/StatCard.slint";
+
+export component DashboardPage inherits VerticalLayout {
+    in property <string> total-value: "R$ 0,00";
+    in property <string> quotation-count: "0";
+    
+    padding: 30px;
+    spacing: 20px;
+
+    Text { text: "Dashboard"; font-size: 28px; font-weight: 700; color: #1e293b; }
+    
+    HorizontalLayout {
+        spacing: 20px;
+        height: 150px;
+        
+        StatCard { 
+            title: "Valor Total"; 
+            value: root.total-value; 
+            icon: "💰"; 
+        }
+        StatCard { 
+            title: "Orçamentos"; 
+            value: root.quotation-count; 
+            icon: "📄"; 
+        }
+    }
+
+    Rectangle {
+        background: white;
+        border-radius: 8px;
+        border-width: 1px;
+        border-color: #e2e8f0;
+        min-height: 200px;
+        Text { text: "Gráfico de Vendas (Em breve)"; color: #94a3b8; }
+    }
+
+    Rectangle { } // Spacer
+}
