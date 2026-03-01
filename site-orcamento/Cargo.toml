@@ -3,22 +3,31 @@ name = "site-orcamento"
 version = "0.1.0"
 edition = "2021"
 
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+# Dependências compartilhadas (funcionam tanto no desktop quanto no WASM)
 [dependencies]
 slint = { version = "1.9" }
-axum = { version = "0.7", features = ["macros"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
+console_error_panic_hook = "0.1"
+reqwest = { version = "0.12", features = ["json"] }
+getrandom = { version = "0.2", features = ["js"] }
+tracing = "0.1"
+
+# Dependências APENAS para o servidor/desktop (não compiladas para WASM)
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+axum = { version = "0.7", features = ["macros"] }
 sea-orm = { version = "1.1", features = ["sqlx-mysql", "runtime-tokio-rustls", "macros"] }
 sqlx = { version = "0.8", features = ["mysql", "runtime-tokio-rustls", "macros", "chrono"] }
 tokio = { version = "1", features = ["full"] }
 chrono = { version = "0.4", features = ["serde"] }
 dotenvy = "0.15"
-tracing = "0.1"
 tracing-subscriber = "0.3"
-wasm-bindgen = "0.2"
-wasm-bindgen-futures = "0.4"
-reqwest = { version = "0.12", features = ["json"] }
-getrandom = { version = "0.2", features = ["js"] }
+tower-http = { version = "0.5", features = ["cors"] }
 
 [build-dependencies]
 slint-build = "1.9"

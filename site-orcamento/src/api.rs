@@ -3,6 +3,7 @@ use axum::{
     routing::{get, post},
     Json, Router,
 };
+use tower_http::cors::{Any, CorsLayer};
 use sea_orm::{ActiveModelTrait, EntityTrait, PaginatorTrait, QueryOrder, Set, TransactionTrait, QuerySelect, ColumnTrait, DeriveColumn, EnumIter};
 use serde::{Deserialize, Serialize};
 use crate::db::get_db;
@@ -39,11 +40,17 @@ pub struct CreateQuotation {
 }
 
 pub fn app() -> Router {
+    let cors = CorsLayer::new()
+        .allow_origin(Any)
+        .allow_methods(Any)
+        .allow_headers(Any);
+
     Router::new()
         .route("/api/dashboard", get(get_dashboard_data))
         .route("/api/clients", get(list_clients).post(create_client))
         .route("/api/products", get(list_products).post(create_product))
         .route("/api/quotations", get(list_quotations).post(create_quotation))
+        .layer(cors)
 }
 
 async fn get_dashboard_data() -> Json<(f64, i32)> {

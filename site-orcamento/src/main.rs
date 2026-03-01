@@ -2,6 +2,7 @@ mod db;
 pub mod entities;
 mod api;
 mod frontend;
+mod api_config;
 
 #[tokio::main]
 async fn main() {

@@ -1,6 +1,7 @@
 slint::include_modules!();
 use slint::Model;
 use serde::{Serialize, Deserialize};
+use crate::api_config;
 
 #[derive(Serialize, Deserialize)]
 struct CreateClient {
@@ -183,7 +184,7 @@ pub async fn run_app() {
             let ui_handle = ui_handle.clone();
             spawn_local(async move {
                 let http_client = reqwest::Client::new();
-                match http_client.post("http://localhost:3000/api/quotations")
+                match http_client.post(api_config::get_url(api_config::ENDPOINT_QUOTATIONS))
                     .json(&quotation)
                     .send()
                     .await {
@@ -230,7 +231,7 @@ pub async fn run_app() {
             
             spawn_local(async move {
                 let http_client = reqwest::Client::new();
-                match http_client.post("http://localhost:3000/api/clients")
+                match http_client.post(api_config::get_url(api_config::ENDPOINT_CLIENTS))
                     .json(&client)
                     .send()
                     .await {
@@ -262,7 +263,7 @@ pub async fn run_app() {
             
             spawn_local(async move {
                 let http_client = reqwest::Client::new();
-                match http_client.post("http://localhost:3000/api/products")
+                match http_client.post(api_config::get_url(api_config::ENDPOINT_PRODUCTS))
                     .json(&product)
                     .send()
                     .await {
@@ -273,13 +274,20 @@ pub async fn run_app() {
         }
     });
 
+    #[cfg(not(target_arch = "wasm32"))]
     ui.run().unwrap();
+
+    #[cfg(target_arch = "wasm32")]
+    {
+        ui.show().unwrap();
+        slint::run_event_loop().unwrap();
+    }
 }
 
 async fn fetch_dashboard_data(ui_handle: slint::Weak<AppWindow>) {
     // In a real WASM app, we'd use gloo-net or reqwest
     // For this demonstration, we'll simulate the fetch or use a simple reqwest call if mocked
-    let (val, count) = if let Ok(resp) = reqwest::get("http://localhost:3000/api/dashboard").await {
+    let (val, count) = if let Ok(resp) = reqwest::get(api_config::get_url(api_config::ENDPOINT_DASHBOARD)).await {
         if let Ok(data) = resp.json::<(f64, i32)>().await {
             data
         } else {
@@ -329,8 +337,8 @@ async fn fetch_quotation_lists(
 ) {
     let http_client = reqwest::Client::new();
     
-    let clients_res = http_client.get("http://localhost:3000/api/clients").send().await;
-    let products_res = http_client.get("http://localhost:3000/api/products").send().await;
+    let clients_res = http_client.get(api_config::get_url(api_config::ENDPOINT_CLIENTS)).send().await;
+    let products_res = http_client.get(api_config::get_url(api_config::ENDPOINT_PRODUCTS)).send().await;
 
     let clients_data: Vec<FetchClient> = if let Ok(resp) = clients_res {
         resp.json().await.unwrap_or_default()
